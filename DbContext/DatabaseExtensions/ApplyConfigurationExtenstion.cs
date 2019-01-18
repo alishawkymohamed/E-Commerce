@@ -12,6 +12,11 @@ namespace DbContexts.DatabaseExtensions
             modelBuilder.ApplyConfiguration<Localization>(new LocalizationConfiguration());
             modelBuilder.ApplyConfiguration<Role>(new RoleConfiguration());
             modelBuilder.ApplyConfiguration<UserRole>(new UserRoleConfiguration());
+            modelBuilder.ApplyConfiguration<Gender>(new GenderConfiguration());
+            modelBuilder.ApplyConfiguration<Address>(new AddressConfiguration());
+            modelBuilder.ApplyConfiguration<Product>(new ProductSpecification());
+            modelBuilder.ApplyConfiguration<Specification>(new SpecificationConfiguration());
+            modelBuilder.ApplyConfiguration<Photo>(new PhotoConfiguration());
         }
     }
 }

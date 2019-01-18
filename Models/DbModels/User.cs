@@ -54,14 +54,6 @@ namespace Models.DbModels
 
         public DateTimeOffset? EnabledUntil { get; set; }
 
-        public int? GenderId { get; set; }
-
-        public int? NationalityId { get; set; }
-
-        public int? JobTitleId { get; set; }
-
-        public string Address { get; set; }
-
         [MaxLength(50), Phone]
         public string PhoneNumber { get; set; }
 
@@ -72,14 +64,21 @@ namespace Models.DbModels
         [MaxLength(5)]
         public string DefaultCulture { get; set; }
 
-        [MaxLength(10)]
-        public string DefaultCalendar { get; set; }
-
         [InverseProperty("User")]
         public virtual ICollection<UserRole> UserRoles { get; set; }
         [InverseProperty("User")]
         public virtual ICollection<UserToken> UserTokens { get; set; }
         [InverseProperty("User")]
+
+        [ForeignKey("Gender")]
+        public int? GenderId { get; set; }
+        public virtual Gender Gender { get; set; }
+
+        [ForeignKey("Address")]
+        public int? AddressId { get; set; }
+        public virtual Address Address { get; set; }
+
+        public virtual ICollection<Product> Products { get; set; }
 
         #region IAuditableInsert
 

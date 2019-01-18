@@ -32,7 +32,6 @@ namespace BusinessServices
         public IEnumerable<Lookup> Get(string Type, string SearchText, DataSourceRequest dataSourceRequest, Dictionary<string, object> args, object[] ids = null)
         {
             args = args ?? new Dictionary<string, object>();
-            int? OrganizationId = null;
             IEnumerable<Lookup> result = null;
             //switch (Type.ToLower())
             //{
