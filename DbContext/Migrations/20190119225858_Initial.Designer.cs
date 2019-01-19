@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DbContexts.Migrations
 {
     [DbContext(typeof(MainDbContext))]
-    [Migration("20190118195627_Initial")]
+    [Migration("20190119225858_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,6 +42,39 @@ namespace DbContexts.Migrations
                     b.HasKey("AddressId");
 
                     b.ToTable("Addresses");
+                });
+
+            modelBuilder.Entity("Models.DbModels.Category", b =>
+                {
+                    b.Property<int>("CategoryId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CategoryNameAr");
+
+                    b.Property<string>("CategoryNameEn");
+
+                    b.Property<int?>("CreatedBy");
+
+                    b.Property<DateTimeOffset?>("CreatedOn");
+
+                    b.Property<int?>("DeletedBy");
+
+                    b.Property<DateTimeOffset?>("DeletedOn");
+
+                    b.Property<int?>("UpdatedBy");
+
+                    b.Property<DateTimeOffset?>("UpdatedOn");
+
+                    b.HasKey("CategoryId");
+
+                    b.HasIndex("CreatedBy");
+
+                    b.HasIndex("DeletedBy");
+
+                    b.HasIndex("UpdatedBy");
+
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("Models.DbModels.Gender", b =>
@@ -195,6 +228,8 @@ namespace DbContexts.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("CategoryId");
+
                     b.Property<int?>("CreatedBy");
 
                     b.Property<DateTimeOffset?>("CreatedOn");
@@ -214,6 +249,8 @@ namespace DbContexts.Migrations
                     b.Property<int?>("UserId");
 
                     b.HasKey("ProductId");
+
+                    b.HasIndex("CategoryId");
 
                     b.HasIndex("CreatedBy");
 
@@ -266,21 +303,21 @@ namespace DbContexts.Migrations
                         new
                         {
                             RoleId = 1,
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 1, 18, 21, 56, 27, 86, DateTimeKind.Unspecified).AddTicks(9048), new TimeSpan(0, 2, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 1, 20, 0, 58, 57, 934, DateTimeKind.Unspecified).AddTicks(2973), new TimeSpan(0, 2, 0, 0, 0)),
                             RoleNameAr = "مدير النظام",
                             RoleNameEn = "Admin"
                         },
                         new
                         {
                             RoleId = 2,
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 1, 18, 21, 56, 27, 89, DateTimeKind.Unspecified).AddTicks(4533), new TimeSpan(0, 2, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 1, 20, 0, 58, 57, 936, DateTimeKind.Unspecified).AddTicks(600), new TimeSpan(0, 2, 0, 0, 0)),
                             RoleNameAr = "بائع",
                             RoleNameEn = "Seller"
                         },
                         new
                         {
                             RoleId = 3,
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 1, 18, 21, 56, 27, 89, DateTimeKind.Unspecified).AddTicks(4546), new TimeSpan(0, 2, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 1, 20, 0, 58, 57, 936, DateTimeKind.Unspecified).AddTicks(612), new TimeSpan(0, 2, 0, 0, 0)),
                             RoleNameAr = "مستخدم",
                             RoleNameEn = "User"
                         });
@@ -475,6 +512,24 @@ namespace DbContexts.Migrations
                     b.ToTable("UserToken");
                 });
 
+            modelBuilder.Entity("Models.DbModels.Category", b =>
+                {
+                    b.HasOne("Models.DbModels.User", "CreatedByUser")
+                        .WithMany()
+                        .HasForeignKey("CreatedBy")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Models.DbModels.User", "DeletedByUser")
+                        .WithMany()
+                        .HasForeignKey("DeletedBy")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Models.DbModels.User", "UpdatedByUser")
+                        .WithMany()
+                        .HasForeignKey("UpdatedBy")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
             modelBuilder.Entity("Models.DbModels.Localization", b =>
                 {
                     b.HasOne("Models.DbModels.User", "CreatedByUser")
@@ -503,6 +558,11 @@ namespace DbContexts.Migrations
 
             modelBuilder.Entity("Models.DbModels.Product", b =>
                 {
+                    b.HasOne("Models.DbModels.Category", "Category")
+                        .WithMany("Products")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("Models.DbModels.User", "CreatedByUser")
                         .WithMany("ProductCreatedUser")
                         .HasForeignKey("CreatedBy")

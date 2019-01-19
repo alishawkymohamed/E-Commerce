@@ -106,6 +106,44 @@ namespace DbContexts.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Categories",
+                columns: table => new
+                {
+                    CategoryId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    CategoryNameAr = table.Column<string>(nullable: true),
+                    CategoryNameEn = table.Column<string>(nullable: true),
+                    CreatedBy = table.Column<int>(nullable: true),
+                    CreatedOn = table.Column<DateTimeOffset>(nullable: true),
+                    DeletedBy = table.Column<int>(nullable: true),
+                    DeletedOn = table.Column<DateTimeOffset>(nullable: true),
+                    UpdatedBy = table.Column<int>(nullable: true),
+                    UpdatedOn = table.Column<DateTimeOffset>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Categories", x => x.CategoryId);
+                    table.ForeignKey(
+                        name: "FK_Categories_Users_CreatedBy",
+                        column: x => x.CreatedBy,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Categories_Users_DeletedBy",
+                        column: x => x.DeletedBy,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Categories_Users_UpdatedBy",
+                        column: x => x.UpdatedBy,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Localizations",
                 columns: table => new
                 {
@@ -130,51 +168,6 @@ namespace DbContexts.Migrations
                     table.ForeignKey(
                         name: "FK_Localizations_Users_UpdatedBy",
                         column: x => x.UpdatedBy,
-                        principalTable: "Users",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Products",
-                columns: table => new
-                {
-                    ProductId = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ProductNameAr = table.Column<string>(nullable: true),
-                    ProductNameEn = table.Column<string>(nullable: true),
-                    UserId = table.Column<int>(nullable: true),
-                    CreatedBy = table.Column<int>(nullable: true),
-                    CreatedOn = table.Column<DateTimeOffset>(nullable: true),
-                    DeletedBy = table.Column<int>(nullable: true),
-                    DeletedOn = table.Column<DateTimeOffset>(nullable: true),
-                    UpdatedBy = table.Column<int>(nullable: true),
-                    UpdatedOn = table.Column<DateTimeOffset>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Products", x => x.ProductId);
-                    table.ForeignKey(
-                        name: "FK_Products_Users_CreatedBy",
-                        column: x => x.CreatedBy,
-                        principalTable: "Users",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Products_Users_DeletedBy",
-                        column: x => x.DeletedBy,
-                        principalTable: "Users",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Products_Users_UpdatedBy",
-                        column: x => x.UpdatedBy,
-                        principalTable: "Users",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Products_Users_UserId",
-                        column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "UserId",
                         onDelete: ReferentialAction.Restrict);
@@ -228,6 +221,102 @@ namespace DbContexts.Migrations
                     table.PrimaryKey("PK_UserToken", x => x.Id);
                     table.ForeignKey(
                         name: "FK_UserToken_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Products",
+                columns: table => new
+                {
+                    ProductId = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ProductNameAr = table.Column<string>(nullable: true),
+                    ProductNameEn = table.Column<string>(nullable: true),
+                    UserId = table.Column<int>(nullable: true),
+                    CategoryId = table.Column<int>(nullable: true),
+                    CreatedBy = table.Column<int>(nullable: true),
+                    CreatedOn = table.Column<DateTimeOffset>(nullable: true),
+                    DeletedBy = table.Column<int>(nullable: true),
+                    DeletedOn = table.Column<DateTimeOffset>(nullable: true),
+                    UpdatedBy = table.Column<int>(nullable: true),
+                    UpdatedOn = table.Column<DateTimeOffset>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Products", x => x.ProductId);
+                    table.ForeignKey(
+                        name: "FK_Products_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
+                        principalColumn: "CategoryId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Products_Users_CreatedBy",
+                        column: x => x.CreatedBy,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Products_Users_DeletedBy",
+                        column: x => x.DeletedBy,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Products_Users_UpdatedBy",
+                        column: x => x.UpdatedBy,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Products_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserRoles",
+                columns: table => new
+                {
+                    UserId = table.Column<int>(nullable: false),
+                    RoleId = table.Column<int>(nullable: false),
+                    EnabledSince = table.Column<DateTimeOffset>(nullable: true),
+                    EnabledUntil = table.Column<DateTimeOffset>(nullable: true),
+                    Notes = table.Column<string>(nullable: true),
+                    LastSelected = table.Column<bool>(nullable: true),
+                    CreatedBy = table.Column<int>(nullable: true),
+                    CreatedOn = table.Column<DateTimeOffset>(nullable: true),
+                    UpdatedBy = table.Column<int>(nullable: true),
+                    UpdatedOn = table.Column<DateTimeOffset>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserRoles", x => new { x.RoleId, x.UserId });
+                    table.ForeignKey(
+                        name: "FK_UserRoles_Users_CreatedBy",
+                        column: x => x.CreatedBy,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_UserRoles_Roles_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "Roles",
+                        principalColumn: "RoleId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_UserRoles_Users_UpdatedBy",
+                        column: x => x.UpdatedBy,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_UserRoles_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "UserId",
@@ -313,50 +402,6 @@ namespace DbContexts.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "UserRoles",
-                columns: table => new
-                {
-                    UserId = table.Column<int>(nullable: false),
-                    RoleId = table.Column<int>(nullable: false),
-                    EnabledSince = table.Column<DateTimeOffset>(nullable: true),
-                    EnabledUntil = table.Column<DateTimeOffset>(nullable: true),
-                    Notes = table.Column<string>(nullable: true),
-                    LastSelected = table.Column<bool>(nullable: true),
-                    CreatedBy = table.Column<int>(nullable: true),
-                    CreatedOn = table.Column<DateTimeOffset>(nullable: true),
-                    UpdatedBy = table.Column<int>(nullable: true),
-                    UpdatedOn = table.Column<DateTimeOffset>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserRoles", x => new { x.RoleId, x.UserId });
-                    table.ForeignKey(
-                        name: "FK_UserRoles_Users_CreatedBy",
-                        column: x => x.CreatedBy,
-                        principalTable: "Users",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_UserRoles_Roles_RoleId",
-                        column: x => x.RoleId,
-                        principalTable: "Roles",
-                        principalColumn: "RoleId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_UserRoles_Users_UpdatedBy",
-                        column: x => x.UpdatedBy,
-                        principalTable: "Users",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_UserRoles_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
             migrationBuilder.InsertData(
                 table: "Localizations",
                 columns: new[] { "LocalizationId", "CreatedBy", "CreatedOn", "Key", "UpdatedBy", "UpdatedOn", "ValueAr", "ValueEn" },
@@ -376,10 +421,25 @@ namespace DbContexts.Migrations
                 columns: new[] { "RoleId", "CreatedBy", "CreatedOn", "RoleNameAr", "RoleNameEn", "UpdatedBy", "UpdatedOn" },
                 values: new object[,]
                 {
-                    { 1, null, new DateTimeOffset(new DateTime(2019, 1, 18, 21, 56, 27, 86, DateTimeKind.Unspecified).AddTicks(9048), new TimeSpan(0, 2, 0, 0, 0)), "مدير النظام", "Admin", null, null },
-                    { 2, null, new DateTimeOffset(new DateTime(2019, 1, 18, 21, 56, 27, 89, DateTimeKind.Unspecified).AddTicks(4533), new TimeSpan(0, 2, 0, 0, 0)), "بائع", "Seller", null, null },
-                    { 3, null, new DateTimeOffset(new DateTime(2019, 1, 18, 21, 56, 27, 89, DateTimeKind.Unspecified).AddTicks(4546), new TimeSpan(0, 2, 0, 0, 0)), "مستخدم", "User", null, null }
+                    { 1, null, new DateTimeOffset(new DateTime(2019, 1, 20, 0, 58, 57, 934, DateTimeKind.Unspecified).AddTicks(2973), new TimeSpan(0, 2, 0, 0, 0)), "مدير النظام", "Admin", null, null },
+                    { 2, null, new DateTimeOffset(new DateTime(2019, 1, 20, 0, 58, 57, 936, DateTimeKind.Unspecified).AddTicks(600), new TimeSpan(0, 2, 0, 0, 0)), "بائع", "Seller", null, null },
+                    { 3, null, new DateTimeOffset(new DateTime(2019, 1, 20, 0, 58, 57, 936, DateTimeKind.Unspecified).AddTicks(612), new TimeSpan(0, 2, 0, 0, 0)), "مستخدم", "User", null, null }
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Categories_CreatedBy",
+                table: "Categories",
+                column: "CreatedBy");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Categories_DeletedBy",
+                table: "Categories",
+                column: "DeletedBy");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Categories_UpdatedBy",
+                table: "Categories",
+                column: "UpdatedBy");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Genders_GenderNameAr",
@@ -432,6 +492,11 @@ namespace DbContexts.Migrations
                 name: "IX_Photos_ProductId",
                 table: "Photos",
                 column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_CategoryId",
+                table: "Products",
+                column: "CategoryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_CreatedBy",
@@ -584,6 +649,9 @@ namespace DbContexts.Migrations
 
             migrationBuilder.DropTable(
                 name: "Roles");
+
+            migrationBuilder.DropTable(
+                name: "Categories");
 
             migrationBuilder.DropTable(
                 name: "Users");

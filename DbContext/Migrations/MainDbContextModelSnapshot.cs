@@ -72,7 +72,7 @@ namespace DbContexts.Migrations
 
                     b.HasIndex("UpdatedBy");
 
-                    b.ToTable("Category");
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("Models.DbModels.Gender", b =>
@@ -301,21 +301,21 @@ namespace DbContexts.Migrations
                         new
                         {
                             RoleId = 1,
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 1, 20, 0, 37, 30, 20, DateTimeKind.Unspecified).AddTicks(9157), new TimeSpan(0, 2, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 1, 20, 0, 58, 57, 934, DateTimeKind.Unspecified).AddTicks(2973), new TimeSpan(0, 2, 0, 0, 0)),
                             RoleNameAr = "مدير النظام",
                             RoleNameEn = "Admin"
                         },
                         new
                         {
                             RoleId = 2,
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 1, 20, 0, 37, 30, 23, DateTimeKind.Unspecified).AddTicks(6476), new TimeSpan(0, 2, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 1, 20, 0, 58, 57, 936, DateTimeKind.Unspecified).AddTicks(600), new TimeSpan(0, 2, 0, 0, 0)),
                             RoleNameAr = "بائع",
                             RoleNameEn = "Seller"
                         },
                         new
                         {
                             RoleId = 3,
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 1, 20, 0, 37, 30, 23, DateTimeKind.Unspecified).AddTicks(6488), new TimeSpan(0, 2, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 1, 20, 0, 58, 57, 936, DateTimeKind.Unspecified).AddTicks(612), new TimeSpan(0, 2, 0, 0, 0)),
                             RoleNameAr = "مستخدم",
                             RoleNameEn = "User"
                         });
