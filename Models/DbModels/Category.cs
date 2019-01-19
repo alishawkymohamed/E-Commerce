@@ -6,37 +6,26 @@ using System.Globalization;
 
 namespace Models.DbModels
 {
-    public class Product : _BaseEntity, IAuditableInsert, IAuditableDelete, IAuditableUpdate
+    public class Category : _BaseEntity, IAuditableInsert, IAuditableDelete, IAuditableUpdate
     {
-        public Product()
+        public Category()
         {
-            Specifications = new HashSet<Specification>();
-            Photos = new HashSet<Photo>();
+            Products = new HashSet<Product>();
         }
-        public long ProductId { get; set; }
-        public string ProductNameAr { get; set; }
-        public string ProductNameEn { get; set; }
+        public int CategoryId { get; set; }
+        public string CategoryNameAr { get; set; }
+        public string CategoryNameEn { get; set; }
 
         [NotMapped]
-        public string ProductName
+        public string CategoryName
         {
             get => CultureInfo.CurrentCulture.TwoLetterISOLanguageName.ToString().StartsWith("ar") ?
-                    (string.IsNullOrEmpty(ProductNameAr) ? ProductNameEn : ProductNameAr) :
-                    (string.IsNullOrEmpty(ProductNameEn) ? ProductNameAr : ProductNameEn);
+              (string.IsNullOrEmpty(CategoryNameAr) ? CategoryNameEn : CategoryNameAr) :
+              (string.IsNullOrEmpty(CategoryNameEn) ? CategoryNameAr : CategoryNameEn);
             private set { }
         }
 
-        [ForeignKey("User")]
-        public int? UserId { get; set; }
-        public virtual User User { get; set; }
-
-
-        [ForeignKey("Category")]
-        public int? CategoryId { get; set; }
-        public virtual Category Category { get; set; }
-
-        public virtual ICollection<Specification> Specifications { get; set; }
-        public virtual ICollection<Photo> Photos { get; set; }
+        public ICollection<Product> Products { get; set; }
 
         #region IAuditableInsert
         public int? CreatedBy { get; set; }

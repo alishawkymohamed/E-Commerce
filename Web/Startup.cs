@@ -71,7 +71,7 @@ namespace EnterpriseApplication
             services.AddSession();
             services.AddAutoMapper();
 
-            services.AddSwaggerGen(action => { action.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "EnterpriseApplication WebApi", Version = "v1" }); });
+            services.AddSwaggerGen(action => { action.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "eCommerce WebApi", Version = "v1" }); });
 
             services.AddEntityFrameworkSqlServer().AddDbContext<MainDbContext>(options =>
             {
@@ -310,8 +310,8 @@ namespace EnterpriseApplication
                 {
                     using (HttpClient httpClient = new HttpClient())
                     {
-                        string SourceDocumentAbsoluteUrl = Configuration["SwaggerToTypeScriptClientGeneratorSettings:SourceDocumentAbsoluteUrl"];
-                        string OutputDocumentRelativePath = Configuration["SwaggerToTypeScriptClientGeneratorSettings:OutputDocumentRelativePath"];
+                        string SourceDocumentAbsoluteUrl = Configuration["SwaggerToTypeScriptSettings:SourceDocumentAbsoluteUrl"];
+                        string OutputDocumentRelativePath = Configuration["SwaggerToTypeScriptSettings:OutputDocumentRelativePath"];
                         using (Stream contentStream = httpClient.GetStreamAsync(SourceDocumentAbsoluteUrl).Result)
                         using (StreamReader streamReader = new StreamReader(contentStream))
                         {
