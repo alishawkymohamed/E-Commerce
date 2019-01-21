@@ -26,6 +26,8 @@ namespace Models.DbModels
             private set { }
         }
 
+        public string Code { get; set; }
+
         [ForeignKey("User")]
         public int? UserId { get; set; }
         public virtual User User { get; set; }

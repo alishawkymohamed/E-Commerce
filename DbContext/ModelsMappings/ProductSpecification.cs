@@ -8,6 +8,8 @@ namespace DbContexts.ModelsMappings
         public void Configure(EntityTypeBuilder<Product> entity)
         {
             entity.HasKey(x => x.ProductId);
+            entity.HasIndex(x => x.Code).IsUnique();
+            entity.Property(x => x.Code).HasMaxLength(50);
         }
     }
 }
