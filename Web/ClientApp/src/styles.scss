@@ -1,1 +1,97 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import url(https://fonts.googleapis.com/earlyaccess/droidarabickufi.css);
+html,
+body {
+    height: 100%;
+}
+
+.wrapper {
+    min-height: 90.75%;
+    margin-bottom: -50px;
+    margin-top: 10px;
+}
+
+.navbar-collapse {
+    flex-grow: 0 !important;
+}
+
+.navbar-brand {
+    margin-right: -40rem !important;
+}
+
+.footer,
+.push {
+    height: 50px;
+}
+
+@media (min-width: 992px) {
+    body {
+        padding-top: 56px;
+        height: 100%;
+    }
+}
+
+.a-action {
+    background: #e8e7e7;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+    color: #76323f;
+    font-weight: bold;
+    margin-bottom: 5px;
+    justify-content: center;
+    font-family: 'Droid Arabic Kufi', serif;
+    font-size: 1em;
+}
+
+.a-action:hover {
+    background-color: lightblue;
+    transition: background-color 1s;
+    cursor: pointer;
+}
+
+.a-card-holder {
+    display: flex;
+    flex-flow: wrap;
+    justify-content: center;
+    margin: 50px 0px;
+    .a-card-counter {
+        font-size: 5rem;
+        text-align: center;
+        font-family: serif;
+        font-weight: bold;
+    }
+    .card-footer {
+        background-color: #e8e7e7;
+        text-align: center;
+        color: #76323f;
+        padding: 1.5rem 1.25rem;
+        font-family: 'Droid Arabic Kufi', serif;
+        font-size: 1.5em;
+        font-weight: bolder;
+    }
+    .card {
+        min-width: 15rem;
+        min-height: 15rem;
+        margin: 20px 30px;
+    }
+}
+
+.card:hover {
+    .card-body {
+        background-color: lightblue;
+        transition: background-color 1s;
+    }
+    .card-footer {
+        background-color: white;
+        transition: background-color 1s;
+    }
+    .a-card-counter {
+        transition: font-size 1s;
+        transition: transform 2s;
+        font-size: 5.5rem;
+        transform: rotateZ(360deg);
+    }
+}

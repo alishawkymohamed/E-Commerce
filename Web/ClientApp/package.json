@@ -1,5 +1,5 @@
 {
-  "name": "testapp",
+  "name": "e-commerce",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -11,7 +11,7 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "~7.2.0",
+    "@angular/animations": "^7.2.1",
     "@angular/common": "~7.2.0",
     "@angular/compiler": "~7.2.0",
     "@angular/core": "~7.2.0",
@@ -19,7 +19,13 @@
     "@angular/platform-browser": "~7.2.0",
     "@angular/platform-browser-dynamic": "~7.2.0",
     "@angular/router": "~7.2.0",
+    "@ng-bootstrap/ng-bootstrap": "^4.0.1",
+    "bootstrap": "^4.2.1",
+    "bootstrap-v4-rtl": "^4.1.1-1",
     "core-js": "^2.5.4",
+    "jquery": "^3.3.1",
+    "primeicons": "^1.0.0",
+    "primeng": "^7.0.4",
     "rxjs": "~6.3.3",
     "tslib": "^1.9.0",
     "zone.js": "~0.8.26"
