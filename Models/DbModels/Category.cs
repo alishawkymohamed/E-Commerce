@@ -25,6 +25,8 @@ namespace Models.DbModels
             private set { }
         }
 
+        public string Code { get; set; }
+
         public ICollection<Product> Products { get; set; }
 
         #region IAuditableInsert

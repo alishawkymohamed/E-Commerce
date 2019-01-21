@@ -8,6 +8,9 @@ namespace DbContexts.ModelsMappings
         public void Configure(EntityTypeBuilder<Category> entity)
         {
             entity.HasKey(x => x.CategoryId);
+            entity.HasIndex(x => x.CategoryNameAr).IsUnique();
+            entity.HasIndex(x => x.CategoryNameEn).IsUnique();
+            entity.HasIndex(x => x.Code).IsUnique();
         }
     }
 }
