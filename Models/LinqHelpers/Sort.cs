@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace HelperServices.LinqHelpers
+﻿namespace HelperServices.LinqHelpers
 {
     public class Sort
     {

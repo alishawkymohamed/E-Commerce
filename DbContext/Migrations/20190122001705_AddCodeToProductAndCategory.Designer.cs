@@ -4,14 +4,16 @@ using DbContexts.DatabaseExtensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DbContexts.Migrations
 {
     [DbContext(typeof(MainDbContext))]
-    partial class MainDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190122001705_AddCodeToProductAndCategory")]
+    partial class AddCodeToProductAndCategory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -240,6 +242,8 @@ namespace DbContexts.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("CategoryId");
+
                     b.Property<string>("Code")
                         .HasMaxLength(50);
 
@@ -255,8 +259,6 @@ namespace DbContexts.Migrations
 
                     b.Property<string>("ProductNameEn");
 
-                    b.Property<int>("SubCategoryId");
-
                     b.Property<int?>("UpdatedBy");
 
                     b.Property<DateTimeOffset?>("UpdatedOn");
@@ -265,6 +267,8 @@ namespace DbContexts.Migrations
 
                     b.HasKey("ProductId");
 
+                    b.HasIndex("CategoryId");
+
                     b.HasIndex("Code")
                         .IsUnique()
                         .HasFilter("[Code] IS NOT NULL");
@@ -272,8 +276,6 @@ namespace DbContexts.Migrations
                     b.HasIndex("CreatedBy");
 
                     b.HasIndex("DeletedBy");
-
-                    b.HasIndex("SubCategoryId");
 
                     b.HasIndex("UpdatedBy");
 
@@ -322,21 +324,21 @@ namespace DbContexts.Migrations
                         new
                         {
                             RoleId = 1,
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 1, 23, 5, 27, 32, 697, DateTimeKind.Unspecified).AddTicks(8457), new TimeSpan(0, 2, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 1, 22, 2, 17, 5, 229, DateTimeKind.Unspecified).AddTicks(9258), new TimeSpan(0, 2, 0, 0, 0)),
                             RoleNameAr = "مدير النظام",
                             RoleNameEn = "Admin"
                         },
                         new
                         {
                             RoleId = 2,
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 1, 23, 5, 27, 32, 699, DateTimeKind.Unspecified).AddTicks(7142), new TimeSpan(0, 2, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 1, 22, 2, 17, 5, 232, DateTimeKind.Unspecified).AddTicks(3162), new TimeSpan(0, 2, 0, 0, 0)),
                             RoleNameAr = "بائع",
                             RoleNameEn = "Seller"
                         },
                         new
                         {
                             RoleId = 3,
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 1, 23, 5, 27, 32, 699, DateTimeKind.Unspecified).AddTicks(7153), new TimeSpan(0, 2, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 1, 22, 2, 17, 5, 232, DateTimeKind.Unspecified).AddTicks(3204), new TimeSpan(0, 2, 0, 0, 0)),
                             RoleNameAr = "مستخدم",
                             RoleNameEn = "User"
                         });
@@ -381,57 +383,6 @@ namespace DbContexts.Migrations
                     b.HasIndex("UpdatedBy");
 
                     b.ToTable("Specifications");
-                });
-
-            modelBuilder.Entity("Models.DbModels.SubCategory", b =>
-                {
-                    b.Property<int>("SubCategoryId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CategoryId");
-
-                    b.Property<string>("Code");
-
-                    b.Property<int?>("CreatedBy");
-
-                    b.Property<DateTimeOffset?>("CreatedOn");
-
-                    b.Property<int?>("DeletedBy");
-
-                    b.Property<DateTimeOffset?>("DeletedOn");
-
-                    b.Property<string>("SubCategoryNameAr");
-
-                    b.Property<string>("SubCategoryNameEn");
-
-                    b.Property<int?>("UpdatedBy");
-
-                    b.Property<DateTimeOffset?>("UpdatedOn");
-
-                    b.HasKey("SubCategoryId");
-
-                    b.HasIndex("CategoryId");
-
-                    b.HasIndex("Code")
-                        .IsUnique()
-                        .HasFilter("[Code] IS NOT NULL");
-
-                    b.HasIndex("CreatedBy");
-
-                    b.HasIndex("DeletedBy");
-
-                    b.HasIndex("SubCategoryNameAr")
-                        .IsUnique()
-                        .HasFilter("[SubCategoryNameAr] IS NOT NULL");
-
-                    b.HasIndex("SubCategoryNameEn")
-                        .IsUnique()
-                        .HasFilter("[SubCategoryNameEn] IS NOT NULL");
-
-                    b.HasIndex("UpdatedBy");
-
-                    b.ToTable("SubCategories");
                 });
 
             modelBuilder.Entity("Models.DbModels.User", b =>
@@ -628,6 +579,11 @@ namespace DbContexts.Migrations
 
             modelBuilder.Entity("Models.DbModels.Product", b =>
                 {
+                    b.HasOne("Models.DbModels.Category", "Category")
+                        .WithMany("Products")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("Models.DbModels.User", "CreatedByUser")
                         .WithMany("ProductCreatedUser")
                         .HasForeignKey("CreatedBy")
@@ -636,11 +592,6 @@ namespace DbContexts.Migrations
                     b.HasOne("Models.DbModels.User", "DeletedByUser")
                         .WithMany("ProductDeletedUser")
                         .HasForeignKey("DeletedBy")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("Models.DbModels.SubCategory", "SubCategory")
-                        .WithMany("Products")
-                        .HasForeignKey("SubCategoryId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Models.DbModels.User", "UpdatedByUser")
@@ -686,29 +637,6 @@ namespace DbContexts.Migrations
 
                     b.HasOne("Models.DbModels.User", "UpdatedByUser")
                         .WithMany("SpecificationUpdatedUser")
-                        .HasForeignKey("UpdatedBy")
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            modelBuilder.Entity("Models.DbModels.SubCategory", b =>
-                {
-                    b.HasOne("Models.DbModels.Category", "Category")
-                        .WithMany("Products")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("Models.DbModels.User", "CreatedByUser")
-                        .WithMany()
-                        .HasForeignKey("CreatedBy")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("Models.DbModels.User", "DeletedByUser")
-                        .WithMany()
-                        .HasForeignKey("DeletedBy")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("Models.DbModels.User", "UpdatedByUser")
-                        .WithMany()
                         .HasForeignKey("UpdatedBy")
                         .OnDelete(DeleteBehavior.Restrict);
                 });

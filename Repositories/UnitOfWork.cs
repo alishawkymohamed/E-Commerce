@@ -108,9 +108,7 @@ namespace Repositories
         public _IGenericRepository<TDbEntity> Repository<TDbEntity>() where TDbEntity : _BaseEntity
         {
             if (repositories == null)
-            {
                 repositories = new Dictionary<string, object>();
-            }
 
             var typeToInstantiate = typeof(_GenericRepository<TDbEntity>).Assembly.GetExportedTypes()
                 .FirstOrDefault(t => t.BaseType == typeof(_GenericRepository<TDbEntity>));

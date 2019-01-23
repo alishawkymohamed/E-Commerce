@@ -53,6 +53,7 @@ namespace DbContexts.DatabaseExtensions
         public DbSet<Gender> Genders { get; set; }
         public DbSet<Photo> Photos { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<SubCategory> SubCategories { get; set; }
         #endregion
     }
 }

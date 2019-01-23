@@ -31,17 +31,31 @@ namespace Repositories.Repositories
         public virtual async Task<IQueryable<TDbEntity>> GetAllAsync(Expression<Func<TDbEntity, bool>> expression, bool WithTracking = true)
         {
             if (WithTracking)
-                return await Task.Run(() => _DbSet.Where(expression).AsQueryable());
+            {
+                if (expression != null)
+                    return await Task.Run(() => _DbSet.Where(expression).AsQueryable());
+                else
+                    return await Task.Run(() => _DbSet.AsQueryable());
+            }
             else
-                return await Task.Run(() => _DbSet.AsNoTracking().Where(expression).AsQueryable());
+            {
+                if (expression != null)
+                    return await Task.Run(() => _DbSet.AsNoTracking().Where(expression).AsQueryable());
+                else
+                    return await Task.Run(() => _DbSet.AsNoTracking().AsQueryable());
+            }
         }
 
         public virtual async Task<TDbEntity> GetById(object Id, bool WithTracking = true)
         {
             if (WithTracking)
+            {
                 return await Task.Run(() => _DbSet.FindQuery(Id).FirstOrDefault());
+            }
             else
+            {
                 return await Task.Run(() => _DbSet.FindQuery(Id).AsNoTracking().FirstOrDefault());
+            }
         }
 
         public virtual async Task<IEnumerable<TDbEntity>> Insert(IEnumerable<TDbEntity> Entities)

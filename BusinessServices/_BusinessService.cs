@@ -62,9 +62,7 @@ namespace BusinessServices
 
             TypeMap Mapping = _Mapper.ConfigurationProvider.FindTypeMapFor(typeof(TDbEntity), typeof(TDetailsDTO));
             if (Mapping == null)
-            {
                 Mapping = _Mapper.ConfigurationProvider.ResolveTypeMap(typeof(TDbEntity), typeof(TDetailsDTO));
-            }
 
             Task<TDbEntity> EntityObject = _UnitOfWork.Repository<TDbEntity>().GetById(Id, WithTracking);
             if (typeof(TDbEntity) == typeof(TDetailsDTO))
@@ -76,8 +74,8 @@ namespace BusinessServices
         public virtual IEnumerable<TDetailsDTO> Insert(IEnumerable<TDetailsDTO> entities)
         {
             List<TDbEntity> TDbEntities = entities.AsQueryable().ProjectTo<TDbEntity>(_Mapper.ConfigurationProvider, _SessionServices).ToList();
-            System.Threading.Tasks.Task<IEnumerable<TDbEntity>> ToBereturned = _UnitOfWork.Repository<TDbEntity>().Insert(TDbEntities);
-            return _Mapper.Map(ToBereturned, typeof(IEnumerable<TDbEntity>), typeof(IEnumerable<TDetailsDTO>)) as IEnumerable<TDetailsDTO>;
+            Task<IEnumerable<TDbEntity>> ToBereturned = _UnitOfWork.Repository<TDbEntity>().Insert(TDbEntities);
+            return _Mapper.Map(ToBereturned.Result, typeof(IEnumerable<TDbEntity>), typeof(IEnumerable<TDetailsDTO>)) as IEnumerable<TDetailsDTO>;
         }
 
         public virtual IEnumerable<object> Delete(IEnumerable<object> Ids)

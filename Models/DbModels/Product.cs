@@ -33,9 +33,9 @@ namespace Models.DbModels
         public virtual User User { get; set; }
 
 
-        [ForeignKey("Category")]
-        public int? CategoryId { get; set; }
-        public virtual Category Category { get; set; }
+        [ForeignKey("SubCategory")]
+        public int SubCategoryId { get; set; }
+        public virtual SubCategory SubCategory { get; set; }
 
         public virtual ICollection<Specification> Specifications { get; set; }
         public virtual ICollection<Photo> Photos { get; set; }

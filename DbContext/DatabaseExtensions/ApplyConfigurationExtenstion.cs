@@ -18,6 +18,7 @@ namespace DbContexts.DatabaseExtensions
             modelBuilder.ApplyConfiguration<Specification>(new SpecificationConfiguration());
             modelBuilder.ApplyConfiguration<Photo>(new PhotoConfiguration());
             modelBuilder.ApplyConfiguration<Category>(new CategoryConfiguration());
+            modelBuilder.ApplyConfiguration<SubCategory>(new SubCategoryConfiguration());
         }
     }
 }
