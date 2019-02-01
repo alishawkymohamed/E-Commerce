@@ -28,6 +28,19 @@ namespace Models.DbModels
 
         public string Code { get; set; }
 
+        public decimal Price { get; set; }
+        public decimal Deduction { get; set; }
+
+        [NotMapped]
+        public decimal PriceAfterDeduction
+        {
+            get
+            {
+                return Deduction <= 0 ? Price : Price - (Price * (Deduction / 100));
+            }
+            private set { }
+        }
+
         [ForeignKey("User")]
         public int? UserId { get; set; }
         public virtual User User { get; set; }
