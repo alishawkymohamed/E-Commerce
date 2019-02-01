@@ -18,9 +18,9 @@ namespace WebApi
         }
 
         [HttpGet]
-        [Route("json/{culture}")]
+        [Route("json")]
         [AllowAnonymous]
-        public string Json(string culture)
+        public string Json([FromRoute]string culture)
         {
             CultureInfo.CurrentCulture = string.IsNullOrEmpty(culture) ? CultureInfo.CurrentCulture : new CultureInfo(culture);
             //var json = _ILocalizationServices.GetJson();

@@ -71,7 +71,15 @@ namespace EnterpriseApplication
             services.AddSession();
             services.AddAutoMapper();
 
-            services.AddSwaggerGen(action => { action.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "eCommerce WebApi", Version = "v1" }); });
+            services.AddSwaggerGen(action =>
+            {
+                //action.CustomOperationIds(e => $"{e.RelativePath.Replace('/', '_')}_{e.HttpMethod}");
+                action.SwaggerGeneratorOptions = new Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorOptions()
+                {
+                    OperationIdSelector = x => x.ActionDescriptor.AttributeRouteInfo.Template.Replace('{', '_').Replace('}', '_')
+                };
+                action.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "eCommerce WebApi", Version = "v1" });
+            });
 
             services.AddEntityFrameworkSqlServer().AddDbContext<MainDbContext>(options =>
             {
@@ -234,7 +242,7 @@ namespace EnterpriseApplication
             app.UseCors(builder => builder.AllowCredentials().AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin().Build());
 
             app.UseSwagger(action => { });
-            app.UseSwaggerUI(action => { action.SwaggerEndpoint("/swagger/v1/swagger.json", "EnterpriseApplication WebApi"); });
+            app.UseSwaggerUI(action => { action.SwaggerEndpoint("/swagger/v1/swagger.json", "eCommerce WebApi"); });
 
             app.UseAuthentication();
 
