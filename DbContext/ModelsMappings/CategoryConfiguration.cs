@@ -10,7 +10,7 @@ namespace DbContexts.ModelsMappings
             entity.HasKey(x => x.CategoryId);
             entity.HasIndex(x => x.CategoryNameAr).IsUnique();
             entity.HasIndex(x => x.CategoryNameEn).IsUnique();
-            entity.HasIndex(x => x.Code).IsUnique();
+            entity.HasIndex(x => x.CategoryCode).IsUnique();
         }
     }
 }

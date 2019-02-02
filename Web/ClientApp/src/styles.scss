@@ -5,7 +5,9 @@ html,
 body {
     height: 100%;
 }
-
+* {
+    font-family: 'Droid Arabic Kufi';
+}
 .wrapper {
     min-height: 90.75%;
     margin-bottom: -50px;
@@ -30,6 +32,10 @@ body {
         padding-top: 56px;
         height: 100%;
     }
+}
+
+.a-action:first-of-type {
+    margin-top: 30px;
 }
 
 .a-action {

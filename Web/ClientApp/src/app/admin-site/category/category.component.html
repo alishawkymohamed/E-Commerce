@@ -1,3 +1,32 @@
-<p>
-  category works!
-</p>
+<div class="a-category-table-container" *ngIf="allCategories && allCategories.length">
+  <h2>{{'Categories' | translate}}</h2>
+  <p-table #dt [value]="allCategories" [paginator]="true" [rows]="10" [globalFilterFields]="['categoryCode','categoryNameAr','categoryNameEn']">
+    <ng-template pTemplate="caption">
+      <div class="input-group" style="text-align: right">
+        <i class="fa fa-search a-global-search-icon"></i>
+        <input type="text" size="50" placeholder="{{'GlobalFilter' | translate}}" (input)="dt.filterGlobal($event.target.value, 'contains')"
+          class="a-global-search">
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th [pSortableColumn]="'categoryCode'">{{'CategoryCode' | translate}}
+          <p-sortIcon [field]="'categoryCode'"></p-sortIcon>
+        </th>
+        <th [pSortableColumn]="'categoryNameAr'">{{'CategoryNameAr' | translate}}
+          <p-sortIcon [field]="'categoryNameAr'"></p-sortIcon>
+        </th>
+        <th [pSortableColumn]="'categoryNameEn'">{{'CategoryNameEn' | translate}}
+          <p-sortIcon [field]="'categoryNameEn'"></p-sortIcon>
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-cat>
+      <tr>
+        <td>{{cat.categoryCode}}</td>
+        <td>{{cat.categoryNameAr}}</td>
+        <td>{{cat.categoryNameEn}}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

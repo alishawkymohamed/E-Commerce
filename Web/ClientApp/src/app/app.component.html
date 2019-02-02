@@ -1,5 +1,5 @@
 <!-- Navigation -->
-<app-header></app-header>
+<app-header (LanguageChanged)="changeLanguage($event)"></app-header>
 <!-- Page Content -->
 <div class="container wrapper">
   <router-outlet></router-outlet>

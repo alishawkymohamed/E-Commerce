@@ -36,12 +36,12 @@ namespace EnterpriseApplication
 {
     public class Startup
     {
+        private IConfiguration Configuration { get; }
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
-
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -73,7 +73,6 @@ namespace EnterpriseApplication
 
             services.AddSwaggerGen(action =>
             {
-                //action.CustomOperationIds(e => $"{e.RelativePath.Replace('/', '_')}_{e.HttpMethod}");
                 action.SwaggerGeneratorOptions = new Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorOptions()
                 {
                     OperationIdSelector = x => x.ActionDescriptor.AttributeRouteInfo.Template.Replace('{', '_').Replace('}', '_')
@@ -152,20 +151,20 @@ namespace EnterpriseApplication
                            logger.LogError("OnChallenge error", context.Error, context.ErrorDescription);
                            return Task.CompletedTask;
                        },
-                       OnMessageReceived = context =>
-                       {
-                           Microsoft.Extensions.Primitives.StringValues accessToken = context.Request.Query["access_token"];
+                       //OnMessageReceived = context =>
+                       //{
+                       //    Microsoft.Extensions.Primitives.StringValues accessToken = context.Request.Query["access_token"];
 
-                           // If the request is for our hub...
-                           PathString path = context.HttpContext.Request.Path;
-                           if (!string.IsNullOrEmpty(accessToken) &&
-                               (path.StartsWithSegments("/SignalR")))
-                           {
-                               // Read the token out of the query string
-                               context.Token = accessToken;
-                           }
-                           return Task.CompletedTask;
-                       }
+                       //    // If the request is for our hub...
+                       //    PathString path = context.HttpContext.Request.Path;
+                       //    if (!string.IsNullOrEmpty(accessToken) &&
+                       //        (path.StartsWithSegments("/SignalR")))
+                       //    {
+                       //        // Read the token out of the query string
+                       //        context.Token = accessToken;
+                       //    }
+                       //    return Task.CompletedTask;
+                       //}
                    };
                });
 
@@ -183,7 +182,7 @@ namespace EnterpriseApplication
                     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
                 });
 
-            services.AddSignalR(options => options.EnableDetailedErrors = true);
+            //services.AddSignalR(options => options.EnableDetailedErrors = true);
             // To use Username instead of ConnectionId in Communication 
             services.AddSingleton<IUserIdProvider, CustomUserIdProvider>();
 
@@ -257,6 +256,7 @@ namespace EnterpriseApplication
             //    }
             //}
 
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -292,10 +292,10 @@ namespace EnterpriseApplication
                 EnableDirectoryBrowsing = false
             });
 
-            app.UseSignalR(options =>
-            {
-                options.MapHub<SignalRHub>("/SignalR");
-            });
+            //app.UseSignalR(options =>
+            //{
+            //    options.MapHub<SignalRHub>("/SignalR");
+            //});
 
             app.UseMvc();
             app.UseSpa(spa =>
@@ -332,7 +332,8 @@ namespace EnterpriseApplication
                                 RxJsVersion = 6.0M,
                                 HttpClass = HttpClass.HttpClient,
                                 InjectionTokenType = InjectionTokenType.InjectionToken,
-                                BaseUrlTokenName = "API_BASE_URL"
+                                BaseUrlTokenName = "API_BASE_URL",
+                                UseSingletonProvider = true
                             };
                             SwaggerToTypeScriptClientGenerator generator = new SwaggerToTypeScriptClientGenerator(document, settings);
                             string code = generator.GenerateFile();
@@ -350,6 +351,8 @@ namespace EnterpriseApplication
                 });
             }
 
+            if (Configuration.GetValue("LocalizationSettings:LoadLocalizationOnStart", false))
+                new LocalizationHelper().GenerateLocalizationFilesForTypescript(Configuration);
         }
     }
 }

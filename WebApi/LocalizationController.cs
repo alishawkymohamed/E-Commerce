@@ -18,7 +18,7 @@ namespace WebApi
         }
 
         [HttpGet]
-        [Route("json")]
+        [Route("Json")]
         [AllowAnonymous]
         public string Json([FromRoute]string culture)
         {

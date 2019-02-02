@@ -13,7 +13,9 @@ import { HttpClient, HttpHeaders, HttpResponse, HttpResponseBase } from '@angula
 
 export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class SwaggerClient {
     private http: HttpClient;
     private baseUrl: string;
@@ -767,8 +769,8 @@ export class SwaggerClient {
     /**
      * @return Success
      */
-    api_Localization_json(culture: string): Observable<string> {
-        let url_ = this.baseUrl + "/api/Localization/json";
+    api_Localization_Json(culture: string): Observable<string> {
+        let url_ = this.baseUrl + "/api/Localization/Json";
         if (culture === undefined || culture === null)
             throw new Error("The parameter 'culture' must be defined.");
         url_ = url_.replace("{culture}", encodeURIComponent("" + culture)); 
@@ -783,11 +785,11 @@ export class SwaggerClient {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processApi_Localization_json(response_);
+            return this.processApi_Localization_Json(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processApi_Localization_json(<any>response_);
+                    return this.processApi_Localization_Json(<any>response_);
                 } catch (e) {
                     return <Observable<string>><any>_observableThrow(e);
                 }
@@ -796,7 +798,7 @@ export class SwaggerClient {
         }));
     }
 
-    protected processApi_Localization_json(response: HttpResponseBase): Observable<string> {
+    protected processApi_Localization_Json(response: HttpResponseBase): Observable<string> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
@@ -3388,7 +3390,8 @@ export class CategoryDTO implements ICategoryDTO {
     categoryId?: number | undefined;
     categoryNameAr?: string | undefined;
     categoryNameEn?: string | undefined;
-    code?: string | undefined;
+    categoryName?: string | undefined;
+    categoryCode?: string | undefined;
 
     constructor(data?: ICategoryDTO) {
         if (data) {
@@ -3404,7 +3407,8 @@ export class CategoryDTO implements ICategoryDTO {
             this.categoryId = data["categoryId"];
             this.categoryNameAr = data["categoryNameAr"];
             this.categoryNameEn = data["categoryNameEn"];
-            this.code = data["code"];
+            this.categoryName = data["categoryName"];
+            this.categoryCode = data["categoryCode"];
         }
     }
 
@@ -3420,7 +3424,8 @@ export class CategoryDTO implements ICategoryDTO {
         data["categoryId"] = this.categoryId;
         data["categoryNameAr"] = this.categoryNameAr;
         data["categoryNameEn"] = this.categoryNameEn;
-        data["code"] = this.code;
+        data["categoryName"] = this.categoryName;
+        data["categoryCode"] = this.categoryCode;
         return data; 
     }
 }
@@ -3429,7 +3434,8 @@ export interface ICategoryDTO {
     categoryId?: number | undefined;
     categoryNameAr?: string | undefined;
     categoryNameEn?: string | undefined;
-    code?: string | undefined;
+    categoryName?: string | undefined;
+    categoryCode?: string | undefined;
 }
 
 export class CheckUniqueDTO implements ICheckUniqueDTO {

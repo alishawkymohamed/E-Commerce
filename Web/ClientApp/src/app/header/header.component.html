@@ -12,10 +12,14 @@
       </ul>
     </div>
   </div>
+
+  <a (click)="UpdateLanguage()" style="cursor: pointer;margin-left: 50px;" pTooltip="{{'ChangeLang' | translate}}"
+    tooltipZIndex="1050" tooltipPosition="bottom">
+    <i style="font-size: 1.5em;color: whitesmoke;" class="pi pi-globe"></i></a>
 </nav>
 <p-sidebar [(visible)]="display" [showCloseIcon]="false" [position]="'right'" [style]="{'margin-top': '56px','width':'270px'}"
   [dismissible]="true"><br>
-  <div class="a-action" href="#"><span>تصنيف المنتجات</span></div>
+  <div class="a-action" routerLink="/admin/category"><span>تصنيف المنتجات</span></div>
   <div class="a-action" href="#"><span>تصنيف المنتجات</span></div>
   <div class="a-action" href="#"><span>تصنيف المنتجات</span></div>
   <div class="a-action" href="#"><span>تصنيف المنتجات</span></div>

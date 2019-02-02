@@ -24,6 +24,12 @@
         public string RelativeDirectory { get; set; }
     }
 
+    public class LocalizationSettings
+    {
+        public bool LoadLocalizationOnStart { get; set; }
+        public string LocalizationRelativePath { get; set; }
+    }
+
     public class SwaggerToTypeScriptSettings
     {
         public string SourceDocumentAbsoluteUrl { get; set; }
@@ -49,6 +55,7 @@
         public ConnectionStrings ConnectionStrings { get; set; }
         public Logging Logging { get; set; }
         public SeedData SeedData { get; set; }
+        public LocalizationSettings LocalizationSettings { get; set; }
         public SwaggerToTypeScriptSettings SwaggerToTypeScriptSettings { get; set; }
         public FileSettings FileSettings { get; set; }
         public DocumentSettings DocumentSettings { get; set; }

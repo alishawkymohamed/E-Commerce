@@ -10,7 +10,7 @@ namespace Models.DbModels
     {
         public Category()
         {
-            Products = new HashSet<SubCategory>();
+            SubCategories = new HashSet<SubCategory>();
         }
         public int CategoryId { get; set; }
         public string CategoryNameAr { get; set; }
@@ -25,9 +25,9 @@ namespace Models.DbModels
             private set { }
         }
 
-        public string Code { get; set; }
+        public string CategoryCode { get; set; }
 
-        public virtual ICollection<SubCategory> Products { get; set; }
+        public virtual ICollection<SubCategory> SubCategories { get; set; }
 
         #region IAuditableInsert
         public int? CreatedBy { get; set; }

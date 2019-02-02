@@ -2,11 +2,14 @@
 using IHelperServices;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace EnterpriseApplication
 {
@@ -65,6 +68,60 @@ namespace EnterpriseApplication
                 value = string.Format(culture, value, arguments);
             }
             return new LocalizedString(name, value, resourceNotFound);
+        }
+
+
+    }
+
+
+    public class LocalizationHelper
+    {
+        private readonly MainDbContext _DbContext;
+        public LocalizationHelper()
+        {
+            _DbContext = new MainDbContext();
+        }
+
+        public void GenerateLocalizationFilesForTypescript(IConfiguration Configuration)
+        {
+            try
+            {
+                var localizations = _DbContext.Localizations.ToList();
+                var jsonAr = localizations.Select(x => new { x.Key, x.ValueAr }).ToList();
+                var jsonEn = localizations.Select(x => new { x.Key, x.ValueEn }).ToList();
+                var stringBuilder = new StringBuilder("{");
+                foreach (var item in jsonAr)
+                {
+                    stringBuilder.Append('"').Append(item.Key).Append('"')
+                        .Append(':').Append('"').Append(item.ValueAr).Append('"').Append(",");
+                }
+                stringBuilder.Remove(stringBuilder.Length - 1, 1).Append("}");
+
+                var localizationPath = Configuration.GetValue("LocalizationSettings:LocalizationRelativePath", "");
+
+                new FileInfo(localizationPath).Directory.Create();
+
+                File.WriteAllText(localizationPath + "\\ar.json", stringBuilder.ToString());
+
+                stringBuilder.Clear().Append("{");
+                foreach (var item in jsonEn)
+                {
+                    stringBuilder.Append('"').Append(item.Key).Append('"')
+                        .Append(':').Append('"').Append(item.ValueEn).Append('"').Append(",");
+                }
+                stringBuilder.Remove(stringBuilder.Length - 1, 1).Append("}");
+
+                File.WriteAllText(localizationPath + "\\en.json", stringBuilder.ToString());
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                _DbContext.Dispose();
+            }
         }
     }
 }

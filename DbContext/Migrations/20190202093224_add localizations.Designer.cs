@@ -4,14 +4,16 @@ using DbContexts.DatabaseExtensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DbContexts.Migrations
 {
     [DbContext(typeof(MainDbContext))]
-    partial class MainDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190202093224_add localizations")]
+    partial class addlocalizations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -154,73 +156,66 @@ namespace DbContexts.Migrations
                     b.HasData(
                         new
                         {
-                            LocalizationId = 11,
+                            LocalizationId = 1,
                             Key = "InvalidCredentials",
                             ValueAr = "خطأ في إسم المستخدم أو كلمة المرور",
                             ValueEn = "Invalid Username Or Password"
                         },
                         new
                         {
-                            LocalizationId = 12,
+                            LocalizationId = 2,
                             Key = "UserName",
                             ValueAr = "إسم المستخدم",
                             ValueEn = "Username"
                         },
                         new
                         {
-                            LocalizationId = 13,
+                            LocalizationId = 3,
                             Key = "Password",
                             ValueAr = "كلمة المرور",
                             ValueEn = "Password"
                         },
                         new
                         {
-                            LocalizationId = 14,
+                            LocalizationId = 4,
                             Key = "Login",
                             ValueAr = "دخول",
                             ValueEn = "Login"
                         },
                         new
                         {
-                            LocalizationId = 15,
+                            LocalizationId = 5,
                             Key = "ChangeLang",
                             ValueAr = "تغيير اللغة",
                             ValueEn = "Change Language"
                         },
                         new
                         {
-                            LocalizationId = 16,
+                            LocalizationId = 6,
                             Key = "AccountIsDisabled",
                             ValueAr = "الحساب متوقف من قبل الإدارة",
                             ValueEn = "Account is disabled by administration"
                         },
                         new
                         {
-                            LocalizationId = 17,
+                            LocalizationId = 7,
                             Key = "CategoryNameAr",
                             ValueAr = "الإسم التصنيف بالعربي",
                             ValueEn = "Category Arabic Name"
                         },
                         new
                         {
-                            LocalizationId = 18,
+                            LocalizationId = 8,
                             Key = "CategoryNameEn",
                             ValueAr = "الإسم التصنيف بالإنجليزي",
                             ValueEn = "Category English Name"
                         },
                         new
                         {
-                            LocalizationId = 19,
+                            LocalizationId = 9,
                             Key = "CategoryCode",
                             ValueAr = "كود التصنيف",
                             ValueEn = "Category Code"
-                        },
-                        new
-                        {
-                            LocalizationId = 20,
-                            Key = "Categories",
-                            ValueAr = "التصنيفات",
-                            ValueEn = "Categories"
                         });
                 });
 
@@ -347,21 +342,21 @@ namespace DbContexts.Migrations
                         new
                         {
                             RoleId = 1,
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 2, 2, 13, 54, 30, 144, DateTimeKind.Unspecified).AddTicks(9468), new TimeSpan(0, 2, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 2, 2, 11, 32, 24, 99, DateTimeKind.Unspecified).AddTicks(4944), new TimeSpan(0, 2, 0, 0, 0)),
                             RoleNameAr = "مدير النظام",
                             RoleNameEn = "Admin"
                         },
                         new
                         {
                             RoleId = 2,
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 2, 2, 13, 54, 30, 146, DateTimeKind.Unspecified).AddTicks(6912), new TimeSpan(0, 2, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 2, 2, 11, 32, 24, 101, DateTimeKind.Unspecified).AddTicks(3914), new TimeSpan(0, 2, 0, 0, 0)),
                             RoleNameAr = "بائع",
                             RoleNameEn = "Seller"
                         },
                         new
                         {
                             RoleId = 3,
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 2, 2, 13, 54, 30, 146, DateTimeKind.Unspecified).AddTicks(6923), new TimeSpan(0, 2, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 2, 2, 11, 32, 24, 101, DateTimeKind.Unspecified).AddTicks(3926), new TimeSpan(0, 2, 0, 0, 0)),
                             RoleNameAr = "مستخدم",
                             RoleNameEn = "User"
                         });
