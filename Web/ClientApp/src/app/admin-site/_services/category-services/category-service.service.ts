@@ -6,12 +6,16 @@ import { SwaggerClient } from 'src/app/_services/swagger/SwaggerClient.service';
 })
 export class CategoryService {
 
-  constructor (private swagger: SwaggerClient) {
+  constructor(private swagger: SwaggerClient) {
 
   }
 
   GetAllCategories() {
     // tslint:disable-next-line:max-line-length
     return this.swagger.api_Category_GetAll(undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined);
+  }
+
+  DeleteCategory(Id: number) {
+    return this.swagger.api_Category_Delete([Id]);
   }
 }

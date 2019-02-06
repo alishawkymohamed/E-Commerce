@@ -5,14 +5,20 @@ import { TooltipModule } from 'primeng/tooltip';
 import { SidebarModule } from 'primeng/sidebar';
 import { TableModule } from 'primeng/table';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { MessagesModule } from 'primeng/messages';
+import { MessageModule } from 'primeng/message';
 @NgModule({
-    exports: [
-        CommonModule,
-        TranslateModule,
-        TooltipModule,
-        SidebarModule,
-        TableModule,
-        AngularFontAwesomeModule
-    ]
+  exports: [
+    CommonModule,
+    TranslateModule,
+    TooltipModule,
+    SidebarModule,
+    TableModule,
+    AngularFontAwesomeModule,
+    ConfirmDialogModule,
+    MessagesModule,
+    MessageModule
+  ]
 })
-export class SharedModule { }
+export class SharedModule {}

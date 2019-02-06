@@ -25,7 +25,7 @@ namespace Models.DbModels
             private set { }
         }
 
-        public string Code { get; set; }
+        public string SubCategoryCode { get; set; }
 
         [ForeignKey("Category")]
         public int CategoryId { get; set; }

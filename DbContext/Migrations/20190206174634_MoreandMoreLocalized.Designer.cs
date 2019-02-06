@@ -4,14 +4,16 @@ using DbContexts.DatabaseExtensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DbContexts.Migrations
 {
     [DbContext(typeof(MainDbContext))]
-    partial class MainDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190206174634_MoreandMoreLocalized")]
+    partial class MoreandMoreLocalized
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -175,20 +177,6 @@ namespace DbContexts.Migrations
                         },
                         new
                         {
-                            LocalizationId = 4,
-                            Key = "Yes",
-                            ValueAr = "نعم",
-                            ValueEn = "Yes"
-                        },
-                        new
-                        {
-                            LocalizationId = 5,
-                            Key = "No",
-                            ValueAr = "لا",
-                            ValueEn = "No"
-                        },
-                        new
-                        {
                             LocalizationId = 11,
                             Key = "InvalidCredentials",
                             ValueAr = "خطأ في إسم المستخدم أو كلمة المرور",
@@ -298,34 +286,6 @@ namespace DbContexts.Migrations
                             Key = "Update",
                             ValueAr = "تعديل",
                             ValueEn = "Update"
-                        },
-                        new
-                        {
-                            LocalizationId = 27,
-                            Key = "DeleteConfirmation",
-                            ValueAr = "تأكيد الحذف",
-                            ValueEn = "Delete Confirmation"
-                        },
-                        new
-                        {
-                            LocalizationId = 28,
-                            Key = "WantDelete",
-                            ValueAr = "هل أنت متأكد من الحذف ؟",
-                            ValueEn = "Do you want to delete this record ?"
-                        },
-                        new
-                        {
-                            LocalizationId = 30,
-                            Key = "DeletedSuccess",
-                            ValueAr = "تم الحذف بنجاح",
-                            ValueEn = "Deleted Successfully"
-                        },
-                        new
-                        {
-                            LocalizationId = 31,
-                            Key = "DeletedFail",
-                            ValueAr = "لم يتم الحذف",
-                            ValueEn = "Deleted Failed"
                         });
                 });
 
@@ -452,21 +412,21 @@ namespace DbContexts.Migrations
                         new
                         {
                             RoleId = 1,
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 2, 6, 21, 1, 51, 545, DateTimeKind.Unspecified).AddTicks(3334), new TimeSpan(0, 2, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 2, 6, 19, 46, 33, 717, DateTimeKind.Unspecified).AddTicks(8947), new TimeSpan(0, 2, 0, 0, 0)),
                             RoleNameAr = "مدير النظام",
                             RoleNameEn = "Admin"
                         },
                         new
                         {
                             RoleId = 2,
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 2, 6, 21, 1, 51, 546, DateTimeKind.Unspecified).AddTicks(6275), new TimeSpan(0, 2, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 2, 6, 19, 46, 33, 719, DateTimeKind.Unspecified).AddTicks(2488), new TimeSpan(0, 2, 0, 0, 0)),
                             RoleNameAr = "بائع",
                             RoleNameEn = "Seller"
                         },
                         new
                         {
                             RoleId = 3,
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 2, 6, 21, 1, 51, 546, DateTimeKind.Unspecified).AddTicks(6290), new TimeSpan(0, 2, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 2, 6, 19, 46, 33, 719, DateTimeKind.Unspecified).AddTicks(2503), new TimeSpan(0, 2, 0, 0, 0)),
                             RoleNameAr = "مستخدم",
                             RoleNameEn = "User"
                         });

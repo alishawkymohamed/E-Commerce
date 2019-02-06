@@ -11,6 +11,8 @@ namespace DbContexts.ModelsMappings
             entity.HasIndex(x => x.CategoryNameAr).IsUnique();
             entity.HasIndex(x => x.CategoryNameEn).IsUnique();
             entity.HasIndex(x => x.CategoryCode).IsUnique();
+            entity.Property(x => x.CategoryCode).IsRequired();
+            entity.Property(x => x.CategoryNameAr).IsRequired();
         }
     }
 }
