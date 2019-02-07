@@ -8,6 +8,8 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
+import { ToastModule } from 'primeng/toast';
+import { DynamicDialogModule } from 'primeng/dynamicdialog';
 @NgModule({
   exports: [
     CommonModule,
@@ -18,7 +20,9 @@ import { MessageModule } from 'primeng/message';
     AngularFontAwesomeModule,
     ConfirmDialogModule,
     MessagesModule,
-    MessageModule
+    MessageModule,
+    ToastModule,
+    DynamicDialogModule
   ]
 })
 export class SharedModule {}

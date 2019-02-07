@@ -12,7 +12,13 @@ import { FooterComponent } from './footer/footer.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SharedModule } from './shared.module';
-import { ConfirmationService } from 'primeng/api';
+import {
+  MessageService,
+  DialogService,
+  ConfirmationService
+} from 'primeng/api';
+
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -21,11 +27,13 @@ export function createTranslateLoader(http: HttpClient) {
 @NgModule({
   declarations: [AppComponent, HeaderComponent, FooterComponent],
   imports: [
+    SharedModule,
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
-    SharedModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -34,7 +42,7 @@ export function createTranslateLoader(http: HttpClient) {
       }
     })
   ],
-  providers: [ConfirmationService],
+  providers: [ConfirmationService, MessageService, DialogService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

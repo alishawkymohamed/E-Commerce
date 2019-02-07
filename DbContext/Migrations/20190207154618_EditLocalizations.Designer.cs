@@ -4,14 +4,16 @@ using DbContexts.DatabaseExtensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DbContexts.Migrations
 {
     [DbContext(typeof(MainDbContext))]
-    partial class MainDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190207154618_EditLocalizations")]
+    partial class EditLocalizations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -189,27 +191,6 @@ namespace DbContexts.Migrations
                         },
                         new
                         {
-                            LocalizationId = 6,
-                            Key = "Save",
-                            ValueAr = "حفظ",
-                            ValueEn = "Save"
-                        },
-                        new
-                        {
-                            LocalizationId = 7,
-                            Key = "SavedSuccess",
-                            ValueAr = "تم الحفظ بنجاح",
-                            ValueEn = "Saved Successfully"
-                        },
-                        new
-                        {
-                            LocalizationId = 8,
-                            Key = "ErrorOccured",
-                            ValueAr = "حدث خطأ ما",
-                            ValueEn = "Error Occured"
-                        },
-                        new
-                        {
                             LocalizationId = 11,
                             Key = "InvalidCredentials",
                             ValueAr = "خطأ في إسم المستخدم أو كلمة المرور",
@@ -347,13 +328,6 @@ namespace DbContexts.Migrations
                             Key = "DeletedFail",
                             ValueAr = "لم يتم الحذف",
                             ValueEn = "Deleted Failed"
-                        },
-                        new
-                        {
-                            LocalizationId = 32,
-                            Key = "Category",
-                            ValueAr = "تصنيف",
-                            ValueEn = "Category"
                         });
                 });
 
@@ -480,21 +454,21 @@ namespace DbContexts.Migrations
                         new
                         {
                             RoleId = 1,
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 2, 7, 20, 37, 4, 201, DateTimeKind.Unspecified).AddTicks(1548), new TimeSpan(0, 2, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 2, 7, 17, 46, 17, 524, DateTimeKind.Unspecified).AddTicks(590), new TimeSpan(0, 2, 0, 0, 0)),
                             RoleNameAr = "مدير النظام",
                             RoleNameEn = "Admin"
                         },
                         new
                         {
                             RoleId = 2,
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 2, 7, 20, 37, 4, 202, DateTimeKind.Unspecified).AddTicks(5271), new TimeSpan(0, 2, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 2, 7, 17, 46, 17, 525, DateTimeKind.Unspecified).AddTicks(5994), new TimeSpan(0, 2, 0, 0, 0)),
                             RoleNameAr = "بائع",
                             RoleNameEn = "Seller"
                         },
                         new
                         {
                             RoleId = 3,
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 2, 7, 20, 37, 4, 202, DateTimeKind.Unspecified).AddTicks(5287), new TimeSpan(0, 2, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 2, 7, 17, 46, 17, 525, DateTimeKind.Unspecified).AddTicks(6005), new TimeSpan(0, 2, 0, 0, 0)),
                             RoleNameAr = "مستخدم",
                             RoleNameEn = "User"
                         });

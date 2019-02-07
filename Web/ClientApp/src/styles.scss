@@ -99,3 +99,70 @@ body {
         transform: rotateZ(360deg);
     }
 }
+
+body .ui-dialog .ui-dialog-titlebar .ui-dialog-title {
+    float: right !important;
+    font-weight: bold;
+}
+
+.ui-confirmdialog.ui-dialog .ui-dialog-content {
+    display: flex !important;
+}
+
+body .ui-dialog .ui-dialog-titlebar .ui-dialog-titlebar-icon {
+    float: left !important;
+}
+
+body .ui-dialog .ui-dialog-footer {
+    display: flex !important;
+    flex-direction: row-reverse !important;
+}
+
+body .ui-dialog .ui-dialog-footer button:first-of-type {
+    order: 1 !important;
+    background-color: #dc3545 !important;
+    border: 1px solid #dc3545 !important;
+}
+
+.ui-toast .ui-toast-message-text-content {
+    display: flex !important;
+}
+
+.ui-toast .ui-toast-close-icon {
+    left: 0.25em !important;
+}
+
+.ui-toast .ui-toast-message-text-content {
+    margin-right: 2.5em !important;
+}
+
+.ui-toast .ui-toast-icon {
+    right: 0.5em !important;
+    left: auto !important;
+}
+
+.ui-toast .ui-toast-message-content {
+    padding: 1em 1em !important;
+}
+
+.form-holder {
+    display: flex;
+    text-align: right;
+    flex-direction: column;
+}
+
+.form-submit-button {
+    max-width: 90px;
+    align-self: flex-end;
+}
+
+.ng-valid[required],
+.ng-valid.required {
+    border-left: 5px solid #42A948;
+    /* green */
+}
+
+.ng-invalid:not(form) {
+    border-left: 5px solid #a94442;
+    /* red */
+}

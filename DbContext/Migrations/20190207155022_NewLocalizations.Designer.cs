@@ -4,14 +4,16 @@ using DbContexts.DatabaseExtensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DbContexts.Migrations
 {
     [DbContext(typeof(MainDbContext))]
-    partial class MainDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190207155022_NewLocalizations")]
+    partial class NewLocalizations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -186,27 +188,6 @@ namespace DbContexts.Migrations
                             Key = "No",
                             ValueAr = "لا",
                             ValueEn = "No"
-                        },
-                        new
-                        {
-                            LocalizationId = 6,
-                            Key = "Save",
-                            ValueAr = "حفظ",
-                            ValueEn = "Save"
-                        },
-                        new
-                        {
-                            LocalizationId = 7,
-                            Key = "SavedSuccess",
-                            ValueAr = "تم الحفظ بنجاح",
-                            ValueEn = "Saved Successfully"
-                        },
-                        new
-                        {
-                            LocalizationId = 8,
-                            Key = "ErrorOccured",
-                            ValueAr = "حدث خطأ ما",
-                            ValueEn = "Error Occured"
                         },
                         new
                         {
@@ -480,21 +461,21 @@ namespace DbContexts.Migrations
                         new
                         {
                             RoleId = 1,
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 2, 7, 20, 37, 4, 201, DateTimeKind.Unspecified).AddTicks(1548), new TimeSpan(0, 2, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 2, 7, 17, 50, 22, 268, DateTimeKind.Unspecified).AddTicks(6911), new TimeSpan(0, 2, 0, 0, 0)),
                             RoleNameAr = "مدير النظام",
                             RoleNameEn = "Admin"
                         },
                         new
                         {
                             RoleId = 2,
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 2, 7, 20, 37, 4, 202, DateTimeKind.Unspecified).AddTicks(5271), new TimeSpan(0, 2, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 2, 7, 17, 50, 22, 269, DateTimeKind.Unspecified).AddTicks(9767), new TimeSpan(0, 2, 0, 0, 0)),
                             RoleNameAr = "بائع",
                             RoleNameEn = "Seller"
                         },
                         new
                         {
                             RoleId = 3,
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 2, 7, 20, 37, 4, 202, DateTimeKind.Unspecified).AddTicks(5287), new TimeSpan(0, 2, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 2, 7, 17, 50, 22, 269, DateTimeKind.Unspecified).AddTicks(9782), new TimeSpan(0, 2, 0, 0, 0)),
                             RoleNameAr = "مستخدم",
                             RoleNameEn = "User"
                         });

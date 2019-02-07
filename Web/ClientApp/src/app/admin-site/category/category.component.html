@@ -1,7 +1,7 @@
 <div class="a-category-table-container" *ngIf="allCategories && allCategories.length">
     <div style="display: flex;justify-content: space-between;margin-bottom: 20px;">
         <h2>{{'Categories' | translate}}</h2>
-        <button class="btn btn-info">{{'Create' | translate}}
+        <button (click)="showAddEditComponent(null)" class="btn btn-info">{{'Create' | translate}}
           <span class="pi pi-plus"></span>
         </button>
     </div>
@@ -14,13 +14,13 @@
         </ng-template>
         <ng-template pTemplate="header">
             <tr>
-                <th [pSortableColumn]="'categoryCode'">{{'CategoryCode' | translate}}
+                <th [pSortableColumn]="'categoryCode'">{{'Code' | translate}}
                     <p-sortIcon [field]="'categoryCode'"></p-sortIcon>
                 </th>
-                <th [pSortableColumn]="'categoryNameAr'">{{'CategoryNameAr' | translate}}
+                <th [pSortableColumn]="'categoryNameAr'">{{'NameAr' | translate}}
                     <p-sortIcon [field]="'categoryNameAr'"></p-sortIcon>
                 </th>
-                <th [pSortableColumn]="'categoryNameEn'">{{'CategoryNameEn' | translate}}
+                <th [pSortableColumn]="'categoryNameEn'">{{'NameEn' | translate}}
                     <p-sortIcon [field]="'categoryNameEn'"></p-sortIcon>
                 </th>
                 <th></th>
@@ -32,11 +32,11 @@
                 <td>{{cat.categoryNameAr}}</td>
                 <td>{{cat.categoryNameEn}}</td>
                 <td style="display: flex;justify-content: space-evenly;">
-                    <button class="btn btn-primary">{{'Update' | translate}}
+                    <button (click)="showAddEditComponent(cat)" class="btn btn-primary">{{'Update' | translate}}
                       <span class="pi pi-clone"></span>
                     </button>
                     <!-- <button class="btn btn-danger" (click)="DeleteCategory(cat.categoryId)">{{'Delete' | translate}} -->
-                    <button class="btn btn-danger" (click)="confirmDelete()">{{'Delete' | translate}}
+                    <button class="btn btn-danger" (click)="confirmDelete(cat.categoryId)">{{'Delete' | translate}}
                       <span class="pi pi-trash"></span>
                     </button>
                 </td>
@@ -45,5 +45,4 @@
     </p-table>
 </div>
 
-<p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>
-<p-messages [value]="msgs"></p-messages>
+<p-confirmDialog header="{{'DeleteConfirmation'|translate}}" message="{{'WantDelete'|translate}}" acceptLabel="{{'Yes'|translate}}" rejectLabel="{{'No'|translate}}" [style]="{width: '50vw'}"></p-confirmDialog>

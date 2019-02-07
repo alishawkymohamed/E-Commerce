@@ -1,0 +1,15 @@
+<form (ngSubmit)="onSubmit()" class="form-holder" #categoryForm="ngForm">
+    <div class="form-group">
+        <label for="Code">{{'Code' | translate}}</label>
+        <input type="text" class="form-control" id="Code" name="categoryCode" required [(ngModel)]="category.categoryCode" #categoryCode="ngModel">
+    </div>
+    <div class="form-group">
+        <label for="NameAr">{{'NameAr' | translate}}</label>
+        <input type="text" class="form-control" id="NameAr" name="categoryNameAr" required [(ngModel)]="category.categoryNameAr" #categoryNameAr="ngModel">
+    </div>
+    <div class="form-group">
+        <label for="NameEn">{{'NameEn' | translate}}</label>
+        <input type="text" class="form-control" id="NameEn" name="categoryNameEn" required [(ngModel)]="category.categoryNameEn" #categoryNameEn="ngModel">
+    </div>
+    <button [disabled]="!categoryForm.form.valid" type="submit" class="btn btn-primary form-submit-button">{{'Save' | translate}}</button>
+</form>

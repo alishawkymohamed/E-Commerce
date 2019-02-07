@@ -14,7 +14,7 @@ namespace IRepositories.IRepositories
         Task<TDbEntity> GetById(object Id, bool WithTracking = true);
         Task<IEnumerable<TDbEntity>> Insert(IEnumerable<TDbEntity> Entities);
         Task<IEnumerable<object>> Delete(IEnumerable<object> Ids);
-        Task<TDbEntity> Update(TDbEntity Entity);
+        TDbEntity Update(TDbEntity Entity);
         object[] GetKey<T>(T entity);
         TDbEntity Find(params object[] Ids);
         Task<TDbEntity> FindAsync(params object[] Ids);

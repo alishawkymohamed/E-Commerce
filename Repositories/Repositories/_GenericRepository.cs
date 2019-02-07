@@ -107,7 +107,7 @@ namespace Repositories.Repositories
             return Ids;
         }
 
-        public virtual async Task<TDbEntity> Update(TDbEntity Entity)
+        public virtual TDbEntity Update(TDbEntity Entity)
         {
             EntityEntry<TDbEntity> DbEntry = _Context.Attach(_DbSet.Find(GetKey(Entity)));
             if (typeof(IAuditableUpdate).IsAssignableFrom(Entity.GetType()))
@@ -116,7 +116,7 @@ namespace Repositories.Repositories
                 (Entity as IAuditableUpdate).UpdatedBy = _SessionServices.UserId;
             }
             DbEntry.CurrentValues.SetValues(Entity);
-            await _Context.SaveChangesAsync();
+            // await _Context.SaveChangesAsync();
             return Entity;
         }
 
