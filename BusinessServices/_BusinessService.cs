@@ -43,7 +43,7 @@ namespace BusinessServices
 
         public virtual DataSourceResult<T> GetAll<T>(DataSourceRequest dataSourceRequest, bool WithTracking = true)
         {
-            IQueryable query = _UnitOfWork.Repository<TDbEntity>().GetAllAsync(null, WithTracking).Result;
+            IQueryable query = _UnitOfWork.Repository<TDbEntity>().GetAll(null, WithTracking);
             // Global Query Filter Added
             //if (typeof(IAuditableDelete).IsAssignableFrom(typeof(TDbEntity)))
             //{
@@ -64,7 +64,7 @@ namespace BusinessServices
             if (Mapping == null)
                 Mapping = _Mapper.ConfigurationProvider.ResolveTypeMap(typeof(TDbEntity), typeof(TDetailsDTO));
 
-            Task<TDbEntity> EntityObject = _UnitOfWork.Repository<TDbEntity>().GetById(Id, WithTracking);
+            TDbEntity EntityObject = _UnitOfWork.Repository<TDbEntity>().GetById(Id, WithTracking);
             if (typeof(TDbEntity) == typeof(TDetailsDTO))
                 return EntityObject as TDetailsDTO;
             else
@@ -74,13 +74,13 @@ namespace BusinessServices
         public virtual IEnumerable<TDetailsDTO> Insert(IEnumerable<TDetailsDTO> entities)
         {
             List<TDbEntity> TDbEntities = entities.AsQueryable().ProjectTo<TDbEntity>(_Mapper.ConfigurationProvider, _SessionServices).ToList();
-            Task<IEnumerable<TDbEntity>> ToBereturned = _UnitOfWork.Repository<TDbEntity>().Insert(TDbEntities);
-            return _Mapper.Map(ToBereturned.Result, typeof(IEnumerable<TDbEntity>), typeof(IEnumerable<TDetailsDTO>)) as IEnumerable<TDetailsDTO>;
+            IEnumerable<TDbEntity> ToBereturned = _UnitOfWork.Repository<TDbEntity>().Insert(TDbEntities);
+            return _Mapper.Map(ToBereturned, typeof(IEnumerable<TDbEntity>), typeof(IEnumerable<TDetailsDTO>)) as IEnumerable<TDetailsDTO>;
         }
 
         public virtual IEnumerable<object> Delete(IEnumerable<object> Ids)
         {
-            return _UnitOfWork.Repository<TDbEntity>().Delete(Ids).Result;
+            return _UnitOfWork.Repository<TDbEntity>().Delete(Ids);
         }
 
         public virtual IEnumerable<TDetailsDTO> Update(IEnumerable<TDetailsDTO> Entities)

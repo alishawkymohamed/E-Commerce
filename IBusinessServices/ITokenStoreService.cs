@@ -7,15 +7,15 @@ namespace IBusinessServices.IAuthenticationServices
 {
     public interface ITokenStoreService : _IBusinessService
     {
-        Task AddUserTokenAsync(UserToken userToken);
-        Task AddUserTokenAsync(User user, string refreshToken, string accessToken, string refreshTokenSource);
+        void AddUserToken(UserToken userToken);
+        void AddUserToken(User user, string refreshToken, string accessToken, string refreshTokenSource);
         Task<bool> IsValidTokenAsync(string accessToken, int userId);
-        Task DeleteExpiredTokensAsync();
+        void DeleteExpiredTokensAsync();
         Task<UserToken> FindTokenAsync(string refreshToken);
         Task DeleteTokenAsync(string refreshToken);
-        Task DeleteTokensWithSameRefreshTokenSourceAsync(string refreshTokenIdHashSource);
-        Task InvalidateUserTokensAsync(int userId);
+        void DeleteTokensWithSameRefreshTokenSource(string refreshTokenIdHashSource);
+        void InvalidateUserTokens(int userId);
         Task<(string accessToken, string refreshToken, IEnumerable<Claim> Claims)> CreateJwtTokens(User user, string refreshTokenSource);
-        Task RevokeUserBearerTokensAsync(string userIdValue, string refreshToken);
+        void RevokeUserBearerTokens(string userIdValue, string refreshToken);
     }
 }

@@ -1,10 +1,5 @@
 import { AddEditCategoryComponent } from './add-edit-category/add-edit-category.component';
-import {
-  Component,
-  OnInit,
-  ViewEncapsulation,
-  ChangeDetectionStrategy
-} from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { CategoryService } from '../_services/category-services/category-service.service';
 import { CategoryDTO } from 'src/app/_services/swagger/SwaggerClient.service';
 import {

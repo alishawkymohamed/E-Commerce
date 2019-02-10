@@ -28,37 +28,37 @@ namespace Repositories.Repositories
             _DbSet = _Context.Set<TDbEntity>();
         }
 
-        public virtual async Task<IQueryable<TDbEntity>> GetAllAsync(Expression<Func<TDbEntity, bool>> expression, bool WithTracking = true)
+        public virtual IQueryable<TDbEntity> GetAll(Expression<Func<TDbEntity, bool>> expression, bool WithTracking = true)
         {
             if (WithTracking)
             {
                 if (expression != null)
-                    return await Task.Run(() => _DbSet.Where(expression).AsQueryable());
+                    return _DbSet.Where(expression).AsQueryable();
                 else
-                    return await Task.Run(() => _DbSet.AsQueryable());
+                    return _DbSet.AsQueryable();
             }
             else
             {
                 if (expression != null)
-                    return await Task.Run(() => _DbSet.AsNoTracking().Where(expression).AsQueryable());
+                    return _DbSet.AsNoTracking().Where(expression).AsQueryable();
                 else
-                    return await Task.Run(() => _DbSet.AsNoTracking().AsQueryable());
+                    return _DbSet.AsNoTracking().AsQueryable();
             }
         }
 
-        public virtual async Task<TDbEntity> GetById(object Id, bool WithTracking = true)
+        public virtual TDbEntity GetById(object Id, bool WithTracking = true)
         {
             if (WithTracking)
             {
-                return await Task.Run(() => _DbSet.FindQuery(Id).FirstOrDefault());
+                return _DbSet.FindQuery(Id).FirstOrDefault();
             }
             else
             {
-                return await Task.Run(() => _DbSet.FindQuery(Id).AsNoTracking().FirstOrDefault());
+                return _DbSet.FindQuery(Id).AsNoTracking().FirstOrDefault();
             }
         }
 
-        public virtual async Task<IEnumerable<TDbEntity>> Insert(IEnumerable<TDbEntity> Entities)
+        public virtual IEnumerable<TDbEntity> Insert(IEnumerable<TDbEntity> Entities)
         {
             int RecordsInserted;
             foreach (TDbEntity Entity in Entities)
@@ -72,7 +72,7 @@ namespace Repositories.Repositories
             }
             try
             {
-                RecordsInserted = await _Context.SaveChangesAsync();
+                RecordsInserted =  _Context.SaveChanges();
             }
             catch (Exception ex)
             {
@@ -81,11 +81,11 @@ namespace Repositories.Repositories
             return RecordsInserted == Entities.Count() ? Entities : null;
         }
 
-        public virtual async Task<IEnumerable<object>> Delete(IEnumerable<object> Ids)
+        public virtual IEnumerable<object> Delete(IEnumerable<object> Ids)
         {
             foreach (object Id in Ids)
             {
-                TDbEntity ToBeRemoved = await GetById(Id);
+                TDbEntity ToBeRemoved = GetById(Id);
                 if (typeof(IAuditableDelete).IsAssignableFrom(ToBeRemoved.GetType()))
                 {
                     (ToBeRemoved as IAuditableDelete).DeletedOn = DateTimeOffset.Now;
@@ -98,7 +98,7 @@ namespace Repositories.Repositories
             }
             try
             {
-                await _Context.SaveChangesAsync();
+                _Context.SaveChanges();
             }
             catch (Exception ex)
             {

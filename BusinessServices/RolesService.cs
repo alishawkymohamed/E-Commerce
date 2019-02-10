@@ -47,7 +47,7 @@ namespace BusinessServices.AuthenticationServices
 
         public Task<List<Role>> FindUserRolesAsync(int userId)
         {
-            IQueryable<Models.DbModels.Role> userRolesQuery = from role in _roles.GetAllAsync().Result
+            IQueryable<Models.DbModels.Role> userRolesQuery = from role in _roles.GetAll()
                                                               from userRoles in role.UserRoles
                                                               where userRoles.UserId == userId
                                                               select role;
@@ -57,7 +57,7 @@ namespace BusinessServices.AuthenticationServices
 
         public async Task<bool> IsUserInRole(int userId, string roleName)
         {
-            IQueryable<Role> userRolesQuery = from role in _roles.GetAllAsync().Result
+            IQueryable<Role> userRolesQuery = from role in _roles.GetAll()
                                               where role.RoleName == roleName
                                               from user in role.UserRoles
                                               where user.UserId == userId
@@ -68,11 +68,11 @@ namespace BusinessServices.AuthenticationServices
 
         public Task<List<User>> FindUsersInRoleAsync(string roleName)
         {
-            IQueryable<int> roleUserIdsQuery = from role in _roles.GetAllAsync().Result
+            IQueryable<int> roleUserIdsQuery = from role in _roles.GetAll()
                                                where role.RoleName == roleName
                                                from user in role.UserRoles
                                                select user.UserId;
-            return _users.GetAllAsync(user => roleUserIdsQuery.Contains(user.UserId)).Result
+            return _users.GetAll(user => roleUserIdsQuery.Contains(user.UserId))
                          .ToListAsync();
         }
     }

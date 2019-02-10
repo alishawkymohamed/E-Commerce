@@ -230,7 +230,7 @@ namespace BusinessServices.AuthenticationServices
 
         public UserDetailsDTO GetByUserName(string Username)
         {
-            int? UserId = _users.GetAllAsync(x => x.Username.ToUpper() == Username.ToUpper(), false).Result?.SingleOrDefault().UserId;
+            int? UserId = _users.GetAll(x => x.Username.ToUpper() == Username.ToUpper(), false)?.SingleOrDefault().UserId;
             if (UserId > 0)
                 return GetDetails(UserId);
             return null;
