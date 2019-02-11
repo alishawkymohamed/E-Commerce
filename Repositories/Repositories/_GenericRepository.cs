@@ -28,22 +28,33 @@ namespace Repositories.Repositories
             _DbSet = _Context.Set<TDbEntity>();
         }
 
-        public virtual IQueryable<TDbEntity> GetAll(Expression<Func<TDbEntity, bool>> expression, bool WithTracking = true)
+        public virtual IQueryable<TDbEntity> GetAll(Expression<Func<TDbEntity, bool>> expression, bool WithTracking = true, params string[] Includes)
         {
+            DbSet<TDbEntity> Query = _DbSet;
             if (WithTracking)
             {
                 if (expression != null)
-                    return _DbSet.Where(expression).AsQueryable();
+                    Query.Where(expression).AsQueryable();
                 else
-                    return _DbSet.AsQueryable();
+                    Query.AsQueryable();
             }
             else
             {
                 if (expression != null)
-                    return _DbSet.AsNoTracking().Where(expression).AsQueryable();
+                    Query.AsNoTracking().Where(expression).AsQueryable();
                 else
-                    return _DbSet.AsNoTracking().AsQueryable();
+                    Query.AsNoTracking().AsQueryable();
             }
+
+            if (Includes != null && Includes.Count() > 0)
+            {
+                foreach (string include in Includes)
+                {
+                    Query.Include(include);
+                }
+            }
+
+            return Query.AsQueryable();
         }
 
         public virtual TDbEntity GetById(object Id, bool WithTracking = true)
@@ -72,7 +83,7 @@ namespace Repositories.Repositories
             }
             try
             {
-                RecordsInserted =  _Context.SaveChanges();
+                RecordsInserted = _Context.SaveChanges();
             }
             catch (Exception ex)
             {

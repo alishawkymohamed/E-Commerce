@@ -8,12 +8,16 @@ import { SharedModule } from '../shared.module';
 import { AddEditCategoryComponent } from './category/add-edit-category/add-edit-category.component';
 import { DialogService } from 'primeng/api';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SubCategoryComponent } from './sub-category/sub-category.component';
+import { AddEditSubCategoryComponent } from './sub-category/add-edit-sub-category/add-edit-sub-category.component';
 
 @NgModule({
   declarations: [
     AdminHomeComponent,
     CategoryComponent,
-    AddEditCategoryComponent
+    AddEditCategoryComponent,
+    SubCategoryComponent,
+    AddEditSubCategoryComponent
   ],
   imports: [
     SharedModule,
@@ -22,7 +26,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     ReactiveFormsModule
   ],
-  entryComponents: [AddEditCategoryComponent],
+  entryComponents: [AddEditCategoryComponent, AddEditSubCategoryComponent],
   providers: [DialogService]
 })
 export class AdminSiteModule {}

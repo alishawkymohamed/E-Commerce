@@ -10,7 +10,7 @@ namespace IRepositories.IRepositories
 {
     public interface _IGenericRepository<TDbEntity> where TDbEntity : _BaseEntity
     {
-        IQueryable<TDbEntity> GetAll(Expression<Func<TDbEntity, bool>> expression = null, bool WithTracking = true);
+        IQueryable<TDbEntity> GetAll(Expression<Func<TDbEntity, bool>> expression = null, bool WithTracking = true, params string[] Includes);
         TDbEntity GetById(object Id, bool WithTracking = true);
         IEnumerable<TDbEntity> Insert(IEnumerable<TDbEntity> Entities);
         IEnumerable<object> Delete(IEnumerable<object> Ids);

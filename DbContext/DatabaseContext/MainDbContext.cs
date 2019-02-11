@@ -11,8 +11,8 @@ namespace DbContexts.DatabaseExtensions
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //optionsBuilder.UseSqlServer("Server=.;Database=eCommerce;Trusted_Connection=True;ConnectRetryCount=0")            
-            optionsBuilder.UseSqlServer("Server=tcp:alishawky.database.windows.net,1433;Initial Catalog=eCommerce;Persist Security Info=False;User ID=alishawky;Password=@L!$h@wky20061992;MultipleActiveResultSets=True;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;")
+            optionsBuilder.UseSqlServer("Server=.;Database=eCommerce;Trusted_Connection=True;ConnectRetryCount=0")
+            //optionsBuilder.UseSqlServer("Server=tcp:alishawky.database.windows.net,1433;Initial Catalog=eCommerce;Persist Security Info=False;User ID=alishawky;Password=@L!$h@wky20061992;MultipleActiveResultSets=True;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;")
                 .ConfigureWarnings(warnings => warnings.Throw(CoreEventId.IncludeIgnoredWarning));
         }
 

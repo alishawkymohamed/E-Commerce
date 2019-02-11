@@ -1,0 +1,35 @@
+.a-category-table-container {
+    margin-top: 100px;
+    h2 {
+        color: #76323f;
+        text-align: right;
+        font-weight: bolder;
+    }
+    th,
+    td {
+        text-align: center;
+    }
+    th {
+        color: #76323f !important;
+    }
+    .ui-table-caption {
+        background-color: lightblue !important;
+    }
+    .a-global-search {
+        max-width: 30% !important;
+        height: 40px;
+        padding-right: 10px;
+        border-radius: 5px;
+        border: 0;
+    }
+    .a-global-search:focus {
+        border-radius: 5px;
+    }
+    .a-global-search-icon {
+        margin: 13px 4px 0 0;
+        position: absolute;
+        z-index: 10;
+        right: 27%;
+        opacity: 0.5;
+    }
+}

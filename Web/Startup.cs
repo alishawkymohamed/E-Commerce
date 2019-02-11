@@ -21,6 +21,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Models.DTOs;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using NSwag.CodeGeneration.TypeScript;
 using Repositories;
 using System;
@@ -178,8 +179,9 @@ namespace EnterpriseApplication
                 .AddDataAnnotationsLocalization()
                 .AddJsonOptions(options =>
                 {
-                    options.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.None;
-                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                    options.SerializerSettings.PreserveReferencesHandling = PreserveReferencesHandling.None;
+                    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                    options.SerializerSettings.ContractResolver = new DefaultContractResolver();
                 });
 
             //services.AddSignalR(options => options.EnableDetailedErrors = true);

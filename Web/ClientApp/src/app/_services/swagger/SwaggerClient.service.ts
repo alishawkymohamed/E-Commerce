@@ -1968,6 +1968,472 @@ export class SwaggerClient {
     }
 
     /**
+     * @param take (optional) 
+     * @param skip (optional) 
+     * @param sort (optional) 
+     * @param filter_Field (optional) 
+     * @param filter_Operator (optional) 
+     * @param filter_Value (optional) 
+     * @param filter_Logic (optional) 
+     * @param filter_Filters (optional) 
+     * @param countless (optional) 
+     * @return Success
+     */
+    api_SubCategory_GetAll(take: number | null | undefined, skip: number | null | undefined, sort: any[] | null | undefined, filter_Field: string | null | undefined, filter_Operator: string | null | undefined, filter_Value: string | null | undefined, filter_Logic: string | null | undefined, filter_Filters: any[] | null | undefined, countless: boolean | null | undefined): Observable<DataSourceResultOfSubCategoryDTO> {
+        let url_ = this.baseUrl + "/api/SubCategory/GetAll?";
+        if (take !== undefined)
+            url_ += "Take=" + encodeURIComponent("" + take) + "&"; 
+        if (skip !== undefined)
+            url_ += "Skip=" + encodeURIComponent("" + skip) + "&"; 
+        if (sort !== undefined)
+            sort && sort.forEach((item, index) => { 
+                for (let attr in item)
+        			if (item.hasOwnProperty(attr)) {
+        				url_ += "Sort[" + index + "]." + attr + "=" + encodeURIComponent("" + (<any>item)[attr]) + "&";
+        			}
+            });
+        if (filter_Field !== undefined)
+            url_ += "Filter.Field=" + encodeURIComponent("" + filter_Field) + "&"; 
+        if (filter_Operator !== undefined)
+            url_ += "Filter.Operator=" + encodeURIComponent("" + filter_Operator) + "&"; 
+        if (filter_Value !== undefined)
+            url_ += "Filter.Value=" + encodeURIComponent("" + filter_Value) + "&"; 
+        if (filter_Logic !== undefined)
+            url_ += "Filter.Logic=" + encodeURIComponent("" + filter_Logic) + "&"; 
+        if (filter_Filters !== undefined)
+            filter_Filters && filter_Filters.forEach((item, index) => { 
+                for (let attr in item)
+        			if (item.hasOwnProperty(attr)) {
+        				url_ += "Filter.Filters[" + index + "]." + attr + "=" + encodeURIComponent("" + (<any>item)[attr]) + "&";
+        			}
+            });
+        if (countless !== undefined)
+            url_ += "Countless=" + encodeURIComponent("" + countless) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processApi_SubCategory_GetAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processApi_SubCategory_GetAll(<any>response_);
+                } catch (e) {
+                    return <Observable<DataSourceResultOfSubCategoryDTO>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<DataSourceResultOfSubCategoryDTO>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processApi_SubCategory_GetAll(response: HttpResponseBase): Observable<DataSourceResultOfSubCategoryDTO> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 ? DataSourceResultOfSubCategoryDTO.fromJS(resultData200) : new DataSourceResultOfSubCategoryDTO();
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<DataSourceResultOfSubCategoryDTO>(<any>null);
+    }
+
+    /**
+     * @param take (optional) 
+     * @param skip (optional) 
+     * @param sort (optional) 
+     * @param filter_Field (optional) 
+     * @param filter_Operator (optional) 
+     * @param filter_Value (optional) 
+     * @param filter_Logic (optional) 
+     * @param filter_Filters (optional) 
+     * @param countless (optional) 
+     * @return Success
+     */
+    api_SubCategory_GetAllDetails(take: number | null | undefined, skip: number | null | undefined, sort: any[] | null | undefined, filter_Field: string | null | undefined, filter_Operator: string | null | undefined, filter_Value: string | null | undefined, filter_Logic: string | null | undefined, filter_Filters: any[] | null | undefined, countless: boolean | null | undefined): Observable<DataSourceResultOfSubCategoryDTO> {
+        let url_ = this.baseUrl + "/api/SubCategory/GetAllDetails?";
+        if (take !== undefined)
+            url_ += "Take=" + encodeURIComponent("" + take) + "&"; 
+        if (skip !== undefined)
+            url_ += "Skip=" + encodeURIComponent("" + skip) + "&"; 
+        if (sort !== undefined)
+            sort && sort.forEach((item, index) => { 
+                for (let attr in item)
+        			if (item.hasOwnProperty(attr)) {
+        				url_ += "Sort[" + index + "]." + attr + "=" + encodeURIComponent("" + (<any>item)[attr]) + "&";
+        			}
+            });
+        if (filter_Field !== undefined)
+            url_ += "Filter.Field=" + encodeURIComponent("" + filter_Field) + "&"; 
+        if (filter_Operator !== undefined)
+            url_ += "Filter.Operator=" + encodeURIComponent("" + filter_Operator) + "&"; 
+        if (filter_Value !== undefined)
+            url_ += "Filter.Value=" + encodeURIComponent("" + filter_Value) + "&"; 
+        if (filter_Logic !== undefined)
+            url_ += "Filter.Logic=" + encodeURIComponent("" + filter_Logic) + "&"; 
+        if (filter_Filters !== undefined)
+            filter_Filters && filter_Filters.forEach((item, index) => { 
+                for (let attr in item)
+        			if (item.hasOwnProperty(attr)) {
+        				url_ += "Filter.Filters[" + index + "]." + attr + "=" + encodeURIComponent("" + (<any>item)[attr]) + "&";
+        			}
+            });
+        if (countless !== undefined)
+            url_ += "Countless=" + encodeURIComponent("" + countless) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processApi_SubCategory_GetAllDetails(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processApi_SubCategory_GetAllDetails(<any>response_);
+                } catch (e) {
+                    return <Observable<DataSourceResultOfSubCategoryDTO>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<DataSourceResultOfSubCategoryDTO>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processApi_SubCategory_GetAllDetails(response: HttpResponseBase): Observable<DataSourceResultOfSubCategoryDTO> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 ? DataSourceResultOfSubCategoryDTO.fromJS(resultData200) : new DataSourceResultOfSubCategoryDTO();
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<DataSourceResultOfSubCategoryDTO>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    api_SubCategory_GetById(id: string | null | undefined): Observable<SubCategoryDTO> {
+        let url_ = this.baseUrl + "/api/SubCategory/GetById?";
+        if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processApi_SubCategory_GetById(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processApi_SubCategory_GetById(<any>response_);
+                } catch (e) {
+                    return <Observable<SubCategoryDTO>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<SubCategoryDTO>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processApi_SubCategory_GetById(response: HttpResponseBase): Observable<SubCategoryDTO> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 ? SubCategoryDTO.fromJS(resultData200) : new SubCategoryDTO();
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<SubCategoryDTO>(<any>null);
+    }
+
+    /**
+     * @param entities (optional) 
+     * @return Success
+     */
+    api_SubCategory_Insert(entities: SubCategoryDTO[] | null | undefined): Observable<SubCategoryDTO[]> {
+        let url_ = this.baseUrl + "/api/SubCategory/Insert";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(entities);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json", 
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processApi_SubCategory_Insert(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processApi_SubCategory_Insert(<any>response_);
+                } catch (e) {
+                    return <Observable<SubCategoryDTO[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<SubCategoryDTO[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processApi_SubCategory_Insert(response: HttpResponseBase): Observable<SubCategoryDTO[]> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (resultData200 && resultData200.constructor === Array) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(SubCategoryDTO.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<SubCategoryDTO[]>(<any>null);
+    }
+
+    /**
+     * @param entities (optional) 
+     * @return Success
+     */
+    api_SubCategory_Update(entities: SubCategoryDTO[] | null | undefined): Observable<SubCategoryDTO[]> {
+        let url_ = this.baseUrl + "/api/SubCategory/Update";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(entities);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json", 
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processApi_SubCategory_Update(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processApi_SubCategory_Update(<any>response_);
+                } catch (e) {
+                    return <Observable<SubCategoryDTO[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<SubCategoryDTO[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processApi_SubCategory_Update(response: HttpResponseBase): Observable<SubCategoryDTO[]> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (resultData200 && resultData200.constructor === Array) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(SubCategoryDTO.fromJS(item));
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<SubCategoryDTO[]>(<any>null);
+    }
+
+    /**
+     * @param ids (optional) 
+     * @return Success
+     */
+    api_SubCategory_Delete(ids: any[] | null | undefined): Observable<any[]> {
+        let url_ = this.baseUrl + "/api/SubCategory/Delete";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(ids);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json", 
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processApi_SubCategory_Delete(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processApi_SubCategory_Delete(<any>response_);
+                } catch (e) {
+                    return <Observable<any[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<any[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processApi_SubCategory_Delete(response: HttpResponseBase): Observable<any[]> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (resultData200 && resultData200.constructor === Array) {
+                result200 = [] as any;
+                for (let item of resultData200)
+                    result200!.push(item);
+            }
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<any[]>(<any>null);
+    }
+
+    /**
+     * @param checkUniqueDTO (optional) 
+     * @return Success
+     */
+    api_SubCategory_IsExisted(checkUniqueDTO: CheckUniqueDTO | null | undefined): Observable<boolean> {
+        let url_ = this.baseUrl + "/api/SubCategory/IsExisted";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(checkUniqueDTO);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json", 
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processApi_SubCategory_IsExisted(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processApi_SubCategory_IsExisted(<any>response_);
+                } catch (e) {
+                    return <Observable<boolean>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<boolean>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processApi_SubCategory_IsExisted(response: HttpResponseBase): Observable<boolean> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 !== undefined ? resultData200 : <any>null;
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<boolean>(<any>null);
+    }
+
+    /**
      * @param username (optional) 
      * @return Success
      */
@@ -3021,8 +3487,8 @@ export class UserLoginDTO implements IUserLoginDTO {
 
     init(data?: any) {
         if (data) {
-            this.username = data["username"];
-            this.password = data["password"];
+            this.username = data["Username"];
+            this.password = data["Password"];
         }
     }
 
@@ -3035,8 +3501,8 @@ export class UserLoginDTO implements IUserLoginDTO {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["username"] = this.username;
-        data["password"] = this.password;
+        data["Username"] = this.username;
+        data["Password"] = this.password;
         return data; 
     }
 }
@@ -3111,24 +3577,24 @@ export class AuthTicketDTO implements IAuthTicketDTO {
 
     init(data?: any) {
         if (data) {
-            this.userName = data["userName"];
-            this.email = data["email"];
-            this.fullName = data["fullName"];
-            this.profileImageFileId = data["profileImageFileId"];
-            this.organizationId = data["organizationId"];
-            this.organizationName = data["organizationName"];
-            this.roleId = data["roleId"];
-            this.roleName = data["roleName"];
-            this.defaultCulture = data["defaultCulture"];
-            this.defaultCalendar = data["defaultCalendar"];
-            if (data["permissions"] && data["permissions"].constructor === Array) {
+            this.userName = data["UserName"];
+            this.email = data["Email"];
+            this.fullName = data["FullName"];
+            this.profileImageFileId = data["ProfileImageFileId"];
+            this.organizationId = data["OrganizationId"];
+            this.organizationName = data["OrganizationName"];
+            this.roleId = data["RoleId"];
+            this.roleName = data["RoleName"];
+            this.defaultCulture = data["DefaultCulture"];
+            this.defaultCalendar = data["DefaultCalendar"];
+            if (data["Permissions"] && data["Permissions"].constructor === Array) {
                 this.permissions = [] as any;
-                for (let item of data["permissions"])
+                for (let item of data["Permissions"])
                     this.permissions!.push(item);
             }
-            if (data["userRoles"] && data["userRoles"].constructor === Array) {
+            if (data["UserRoles"] && data["UserRoles"].constructor === Array) {
                 this.userRoles = [] as any;
-                for (let item of data["userRoles"])
+                for (let item of data["UserRoles"])
                     this.userRoles!.push(UserRoleDTO.fromJS(item));
             }
         }
@@ -3143,25 +3609,25 @@ export class AuthTicketDTO implements IAuthTicketDTO {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["userName"] = this.userName;
-        data["email"] = this.email;
-        data["fullName"] = this.fullName;
-        data["profileImageFileId"] = this.profileImageFileId;
-        data["organizationId"] = this.organizationId;
-        data["organizationName"] = this.organizationName;
-        data["roleId"] = this.roleId;
-        data["roleName"] = this.roleName;
-        data["defaultCulture"] = this.defaultCulture;
-        data["defaultCalendar"] = this.defaultCalendar;
+        data["UserName"] = this.userName;
+        data["Email"] = this.email;
+        data["FullName"] = this.fullName;
+        data["ProfileImageFileId"] = this.profileImageFileId;
+        data["OrganizationId"] = this.organizationId;
+        data["OrganizationName"] = this.organizationName;
+        data["RoleId"] = this.roleId;
+        data["RoleName"] = this.roleName;
+        data["DefaultCulture"] = this.defaultCulture;
+        data["DefaultCalendar"] = this.defaultCalendar;
         if (this.permissions && this.permissions.constructor === Array) {
-            data["permissions"] = [];
+            data["Permissions"] = [];
             for (let item of this.permissions)
-                data["permissions"].push(item);
+                data["Permissions"].push(item);
         }
         if (this.userRoles && this.userRoles.constructor === Array) {
-            data["userRoles"] = [];
+            data["UserRoles"] = [];
             for (let item of this.userRoles)
-                data["userRoles"].push(item.toJSON());
+                data["UserRoles"].push(item.toJSON());
         }
         return data; 
     }
@@ -3201,12 +3667,12 @@ export class UserRoleDTO implements IUserRoleDTO {
 
     init(data?: any) {
         if (data) {
-            this.userId = data["userId"];
-            this.roleId = data["roleId"];
-            this.roleName = data["roleName"];
-            this.enabledSince = data["enabledSince"] ? new Date(data["enabledSince"].toString()) : <any>undefined;
-            this.enabledUntil = data["enabledUntil"] ? new Date(data["enabledUntil"].toString()) : <any>undefined;
-            this.notes = data["notes"];
+            this.userId = data["UserId"];
+            this.roleId = data["RoleId"];
+            this.roleName = data["RoleName"];
+            this.enabledSince = data["EnabledSince"] ? new Date(data["EnabledSince"].toString()) : <any>undefined;
+            this.enabledUntil = data["EnabledUntil"] ? new Date(data["EnabledUntil"].toString()) : <any>undefined;
+            this.notes = data["Notes"];
         }
     }
 
@@ -3219,12 +3685,12 @@ export class UserRoleDTO implements IUserRoleDTO {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["userId"] = this.userId;
-        data["roleId"] = this.roleId;
-        data["roleName"] = this.roleName;
-        data["enabledSince"] = this.enabledSince ? this.enabledSince.toISOString() : <any>undefined;
-        data["enabledUntil"] = this.enabledUntil ? this.enabledUntil.toISOString() : <any>undefined;
-        data["notes"] = this.notes;
+        data["UserId"] = this.userId;
+        data["RoleId"] = this.roleId;
+        data["RoleName"] = this.roleName;
+        data["EnabledSince"] = this.enabledSince ? this.enabledSince.toISOString() : <any>undefined;
+        data["EnabledUntil"] = this.enabledUntil ? this.enabledUntil.toISOString() : <any>undefined;
+        data["Notes"] = this.notes;
         return data; 
     }
 }
@@ -3253,8 +3719,8 @@ export class Sort implements ISort {
 
     init(data?: any) {
         if (data) {
-            this.field = data["field"];
-            this.dir = data["dir"];
+            this.field = data["Field"];
+            this.dir = data["Dir"];
         }
     }
 
@@ -3267,8 +3733,8 @@ export class Sort implements ISort {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["field"] = this.field;
-        data["dir"] = this.dir;
+        data["Field"] = this.field;
+        data["Dir"] = this.dir;
         return data; 
     }
 }
@@ -3296,13 +3762,13 @@ export class Filter implements IFilter {
 
     init(data?: any) {
         if (data) {
-            this.field = data["field"];
-            this.operator = data["operator"];
-            this.value = data["value"];
-            this.logic = data["logic"];
-            if (data["filters"] && data["filters"].constructor === Array) {
+            this.field = data["Field"];
+            this.operator = data["Operator"];
+            this.value = data["Value"];
+            this.logic = data["Logic"];
+            if (data["Filters"] && data["Filters"].constructor === Array) {
                 this.filters = [] as any;
-                for (let item of data["filters"])
+                for (let item of data["Filters"])
                     this.filters!.push(Filter.fromJS(item));
             }
         }
@@ -3317,14 +3783,14 @@ export class Filter implements IFilter {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["field"] = this.field;
-        data["operator"] = this.operator;
-        data["value"] = this.value;
-        data["logic"] = this.logic;
+        data["Field"] = this.field;
+        data["Operator"] = this.operator;
+        data["Value"] = this.value;
+        data["Logic"] = this.logic;
         if (this.filters && this.filters.constructor === Array) {
-            data["filters"] = [];
+            data["Filters"] = [];
             for (let item of this.filters)
-                data["filters"].push(item.toJSON());
+                data["Filters"].push(item.toJSON());
         }
         return data; 
     }
@@ -3353,12 +3819,12 @@ export class DataSourceResultOfCategoryDTO implements IDataSourceResultOfCategor
 
     init(data?: any) {
         if (data) {
-            if (data["data"] && data["data"].constructor === Array) {
+            if (data["Data"] && data["Data"].constructor === Array) {
                 this.data = [] as any;
-                for (let item of data["data"])
+                for (let item of data["Data"])
                     this.data!.push(CategoryDTO.fromJS(item));
             }
-            this.count = data["count"];
+            this.count = data["Count"];
         }
     }
 
@@ -3372,11 +3838,11 @@ export class DataSourceResultOfCategoryDTO implements IDataSourceResultOfCategor
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         if (this.data && this.data.constructor === Array) {
-            data["data"] = [];
+            data["Data"] = [];
             for (let item of this.data)
-                data["data"].push(item.toJSON());
+                data["Data"].push(item.toJSON());
         }
-        data["count"] = this.count;
+        data["Count"] = this.count;
         return data; 
     }
 }
@@ -3404,11 +3870,11 @@ export class CategoryDTO implements ICategoryDTO {
 
     init(data?: any) {
         if (data) {
-            this.categoryId = data["categoryId"];
-            this.categoryNameAr = data["categoryNameAr"];
-            this.categoryNameEn = data["categoryNameEn"];
-            this.categoryName = data["categoryName"];
-            this.categoryCode = data["categoryCode"];
+            this.categoryId = data["CategoryId"];
+            this.categoryNameAr = data["CategoryNameAr"];
+            this.categoryNameEn = data["CategoryNameEn"];
+            this.categoryName = data["CategoryName"];
+            this.categoryCode = data["CategoryCode"];
         }
     }
 
@@ -3421,11 +3887,11 @@ export class CategoryDTO implements ICategoryDTO {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["categoryId"] = this.categoryId;
-        data["categoryNameAr"] = this.categoryNameAr;
-        data["categoryNameEn"] = this.categoryNameEn;
-        data["categoryName"] = this.categoryName;
-        data["categoryCode"] = this.categoryCode;
+        data["CategoryId"] = this.categoryId;
+        data["CategoryNameAr"] = this.categoryNameAr;
+        data["CategoryNameEn"] = this.categoryNameEn;
+        data["CategoryName"] = this.categoryName;
+        data["CategoryCode"] = this.categoryCode;
         return data; 
     }
 }
@@ -3454,15 +3920,15 @@ export class CheckUniqueDTO implements ICheckUniqueDTO {
 
     init(data?: any) {
         if (data) {
-            this.tableName = data["tableName"];
-            if (data["fields"] && data["fields"].constructor === Array) {
+            this.tableName = data["TableName"];
+            if (data["Fields"] && data["Fields"].constructor === Array) {
                 this.fields = [] as any;
-                for (let item of data["fields"])
+                for (let item of data["Fields"])
                     this.fields!.push(item);
             }
-            if (data["values"] && data["values"].constructor === Array) {
+            if (data["Values"] && data["Values"].constructor === Array) {
                 this.values = [] as any;
-                for (let item of data["values"])
+                for (let item of data["Values"])
                     this.values!.push(item);
             }
         }
@@ -3477,16 +3943,16 @@ export class CheckUniqueDTO implements ICheckUniqueDTO {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["tableName"] = this.tableName;
+        data["TableName"] = this.tableName;
         if (this.fields && this.fields.constructor === Array) {
-            data["fields"] = [];
+            data["Fields"] = [];
             for (let item of this.fields)
-                data["fields"].push(item);
+                data["Fields"].push(item);
         }
         if (this.values && this.values.constructor === Array) {
-            data["values"] = [];
+            data["Values"] = [];
             for (let item of this.values)
-                data["values"].push(item);
+                data["Values"].push(item);
         }
         return data; 
     }
@@ -3513,12 +3979,12 @@ export class DataSourceResultOfLocalizationDetailsDTO implements IDataSourceResu
 
     init(data?: any) {
         if (data) {
-            if (data["data"] && data["data"].constructor === Array) {
+            if (data["Data"] && data["Data"].constructor === Array) {
                 this.data = [] as any;
-                for (let item of data["data"])
+                for (let item of data["Data"])
                     this.data!.push(LocalizationDetailsDTO.fromJS(item));
             }
-            this.count = data["count"];
+            this.count = data["Count"];
         }
     }
 
@@ -3532,11 +3998,11 @@ export class DataSourceResultOfLocalizationDetailsDTO implements IDataSourceResu
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         if (this.data && this.data.constructor === Array) {
-            data["data"] = [];
+            data["Data"] = [];
             for (let item of this.data)
-                data["data"].push(item.toJSON());
+                data["Data"].push(item.toJSON());
         }
-        data["count"] = this.count;
+        data["Count"] = this.count;
         return data; 
     }
 }
@@ -3563,10 +4029,10 @@ export class LocalizationDetailsDTO implements ILocalizationDetailsDTO {
 
     init(data?: any) {
         if (data) {
-            this.localizationId = data["localizationId"];
-            this.key = data["key"];
-            this.valueAr = data["valueAr"];
-            this.valueEn = data["valueEn"];
+            this.localizationId = data["LocalizationId"];
+            this.key = data["Key"];
+            this.valueAr = data["ValueAr"];
+            this.valueEn = data["ValueEn"];
         }
     }
 
@@ -3579,10 +4045,10 @@ export class LocalizationDetailsDTO implements ILocalizationDetailsDTO {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["localizationId"] = this.localizationId;
-        data["key"] = this.key;
-        data["valueAr"] = this.valueAr;
-        data["valueEn"] = this.valueEn;
+        data["LocalizationId"] = this.localizationId;
+        data["Key"] = this.key;
+        data["ValueAr"] = this.valueAr;
+        data["ValueEn"] = this.valueEn;
         return data; 
     }
 }
@@ -3611,14 +4077,14 @@ export class Lookup implements ILookup {
 
     init(data?: any) {
         if (data) {
-            this.id = data["id"];
-            this.text = data["text"];
-            if (data["children"] && data["children"].constructor === Array) {
+            this.id = data["Id"];
+            this.text = data["Text"];
+            if (data["Children"] && data["Children"].constructor === Array) {
                 this.children = [] as any;
-                for (let item of data["children"])
+                for (let item of data["Children"])
                     this.children!.push(Lookup.fromJS(item));
             }
-            this.additional = data["additional"] ? LookupAdditional.fromJS(data["additional"]) : <any>undefined;
+            this.additional = data["Additional"] ? LookupAdditional.fromJS(data["Additional"]) : <any>undefined;
         }
     }
 
@@ -3631,14 +4097,14 @@ export class Lookup implements ILookup {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        data["text"] = this.text;
+        data["Id"] = this.id;
+        data["Text"] = this.text;
         if (this.children && this.children.constructor === Array) {
-            data["children"] = [];
+            data["Children"] = [];
             for (let item of this.children)
-                data["children"].push(item.toJSON());
+                data["Children"].push(item.toJSON());
         }
-        data["additional"] = this.additional ? this.additional.toJSON() : <any>undefined;
+        data["Additional"] = this.additional ? this.additional.toJSON() : <any>undefined;
         return data; 
     }
 }
@@ -3669,16 +4135,16 @@ export class LookupAdditional implements ILookupAdditional {
 
     init(data?: any) {
         if (data) {
-            this.description = data["description"];
-            this.imageId = data["imageId"];
-            this.imageUrl = data["imageUrl"];
-            this.image = data["image"];
-            if (data["ancestors"] && data["ancestors"].constructor === Array) {
+            this.description = data["Description"];
+            this.imageId = data["ImageId"];
+            this.imageUrl = data["ImageUrl"];
+            this.image = data["Image"];
+            if (data["Ancestors"] && data["Ancestors"].constructor === Array) {
                 this.ancestors = [] as any;
-                for (let item of data["ancestors"])
+                for (let item of data["Ancestors"])
                     this.ancestors!.push(Lookup.fromJS(item));
             }
-            this.data = data["data"];
+            this.data = data["Data"];
         }
     }
 
@@ -3691,16 +4157,16 @@ export class LookupAdditional implements ILookupAdditional {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["description"] = this.description;
-        data["imageId"] = this.imageId;
-        data["imageUrl"] = this.imageUrl;
-        data["image"] = this.image;
+        data["Description"] = this.description;
+        data["ImageId"] = this.imageId;
+        data["ImageUrl"] = this.imageUrl;
+        data["Image"] = this.image;
         if (this.ancestors && this.ancestors.constructor === Array) {
-            data["ancestors"] = [];
+            data["Ancestors"] = [];
             for (let item of this.ancestors)
-                data["ancestors"].push(item.toJSON());
+                data["Ancestors"].push(item.toJSON());
         }
-        data["data"] = this.data;
+        data["Data"] = this.data;
         return data; 
     }
 }
@@ -3729,12 +4195,12 @@ export class DataSourceResultOfRoleDTO implements IDataSourceResultOfRoleDTO {
 
     init(data?: any) {
         if (data) {
-            if (data["data"] && data["data"].constructor === Array) {
+            if (data["Data"] && data["Data"].constructor === Array) {
                 this.data = [] as any;
-                for (let item of data["data"])
+                for (let item of data["Data"])
                     this.data!.push(RoleDTO.fromJS(item));
             }
-            this.count = data["count"];
+            this.count = data["Count"];
         }
     }
 
@@ -3748,11 +4214,11 @@ export class DataSourceResultOfRoleDTO implements IDataSourceResultOfRoleDTO {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         if (this.data && this.data.constructor === Array) {
-            data["data"] = [];
+            data["Data"] = [];
             for (let item of this.data)
-                data["data"].push(item.toJSON());
+                data["Data"].push(item.toJSON());
         }
-        data["count"] = this.count;
+        data["Count"] = this.count;
         return data; 
     }
 }
@@ -3779,10 +4245,10 @@ export class RoleDTO implements IRoleDTO {
 
     init(data?: any) {
         if (data) {
-            this.roleId = data["roleId"];
-            this.roleName = data["roleName"];
-            this.roleNameAr = data["roleNameAr"];
-            this.roleNameEn = data["roleNameEn"];
+            this.roleId = data["RoleId"];
+            this.roleName = data["RoleName"];
+            this.roleNameAr = data["RoleNameAr"];
+            this.roleNameEn = data["RoleNameEn"];
         }
     }
 
@@ -3795,10 +4261,10 @@ export class RoleDTO implements IRoleDTO {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["roleId"] = this.roleId;
-        data["roleName"] = this.roleName;
-        data["roleNameAr"] = this.roleNameAr;
-        data["roleNameEn"] = this.roleNameEn;
+        data["RoleId"] = this.roleId;
+        data["RoleName"] = this.roleName;
+        data["RoleNameAr"] = this.roleNameAr;
+        data["RoleNameEn"] = this.roleNameEn;
         return data; 
     }
 }
@@ -3808,6 +4274,110 @@ export interface IRoleDTO {
     roleName?: string | undefined;
     roleNameAr?: string | undefined;
     roleNameEn?: string | undefined;
+}
+
+export class DataSourceResultOfSubCategoryDTO implements IDataSourceResultOfSubCategoryDTO {
+    data?: SubCategoryDTO[] | undefined;
+    count?: number | undefined;
+
+    constructor(data?: IDataSourceResultOfSubCategoryDTO) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            if (data["Data"] && data["Data"].constructor === Array) {
+                this.data = [] as any;
+                for (let item of data["Data"])
+                    this.data!.push(SubCategoryDTO.fromJS(item));
+            }
+            this.count = data["Count"];
+        }
+    }
+
+    static fromJS(data: any): DataSourceResultOfSubCategoryDTO {
+        data = typeof data === 'object' ? data : {};
+        let result = new DataSourceResultOfSubCategoryDTO();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        if (this.data && this.data.constructor === Array) {
+            data["Data"] = [];
+            for (let item of this.data)
+                data["Data"].push(item.toJSON());
+        }
+        data["Count"] = this.count;
+        return data; 
+    }
+}
+
+export interface IDataSourceResultOfSubCategoryDTO {
+    data?: SubCategoryDTO[] | undefined;
+    count?: number | undefined;
+}
+
+export class SubCategoryDTO implements ISubCategoryDTO {
+    subCategoryId?: number | undefined;
+    subCategoryNameAr?: string | undefined;
+    subCategoryNameEn?: string | undefined;
+    subCategoryName?: string | undefined;
+    subCategoryCode?: string | undefined;
+    category?: CategoryDTO | undefined;
+
+    constructor(data?: ISubCategoryDTO) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.subCategoryId = data["SubCategoryId"];
+            this.subCategoryNameAr = data["SubCategoryNameAr"];
+            this.subCategoryNameEn = data["SubCategoryNameEn"];
+            this.subCategoryName = data["SubCategoryName"];
+            this.subCategoryCode = data["SubCategoryCode"];
+            this.category = data["Category"] ? CategoryDTO.fromJS(data["Category"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): SubCategoryDTO {
+        data = typeof data === 'object' ? data : {};
+        let result = new SubCategoryDTO();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["SubCategoryId"] = this.subCategoryId;
+        data["SubCategoryNameAr"] = this.subCategoryNameAr;
+        data["SubCategoryNameEn"] = this.subCategoryNameEn;
+        data["SubCategoryName"] = this.subCategoryName;
+        data["SubCategoryCode"] = this.subCategoryCode;
+        data["Category"] = this.category ? this.category.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface ISubCategoryDTO {
+    subCategoryId?: number | undefined;
+    subCategoryNameAr?: string | undefined;
+    subCategoryNameEn?: string | undefined;
+    subCategoryName?: string | undefined;
+    subCategoryCode?: string | undefined;
+    category?: CategoryDTO | undefined;
 }
 
 export class UserDetailsDTO implements IUserDetailsDTO {
@@ -3826,7 +4396,7 @@ export class UserDetailsDTO implements IUserDetailsDTO {
     trkeenFileId?: number | undefined;
     stampFileId?: number | undefined;
     employeeNumber?: string | undefined;
-    ssn?: string | undefined;
+    sSN?: string | undefined;
     passportNumber?: string | undefined;
     password?: string | undefined;
     iqamaNumber?: string | undefined;
@@ -3859,42 +4429,42 @@ export class UserDetailsDTO implements IUserDetailsDTO {
 
     init(data?: any) {
         if (data) {
-            this.userId = data["userId"];
-            this.concurrencyStamp = data["concurrencyStamp"];
-            this.email = data["email"];
-            this.phoneNumber = data["phoneNumber"];
-            this.faxNumber = data["faxNumber"];
-            this.userName = data["userName"];
-            this.fullNameEn = data["fullNameEn"];
-            this.fullNameAr = data["fullNameAr"];
-            this.enabled = data["enabled"];
-            this.enabledUntil = data["enabledUntil"] ? new Date(data["enabledUntil"].toString()) : <any>undefined;
-            this.profileImage = data["profileImage"];
-            this.signatureFileId = data["signatureFileId"];
-            this.trkeenFileId = data["trkeenFileId"];
-            this.stampFileId = data["stampFileId"];
-            this.employeeNumber = data["employeeNumber"];
-            this.ssn = data["ssn"];
-            this.passportNumber = data["passportNumber"];
-            this.password = data["password"];
-            this.iqamaNumber = data["iqamaNumber"];
-            this.genderId = data["genderId"];
-            this.genderName = data["genderName"];
-            this.nationalityId = data["nationalityId"];
-            this.nationalityName = data["nationalityName"];
-            this.jobTitleId = data["jobTitleId"];
-            this.jobTitleName = data["jobTitleName"];
-            this.workPlaceId = data["workPlaceId"];
-            this.workPlaceName = data["workPlaceName"];
-            this.address = data["address"];
-            this.defaultCulture = data["defaultCulture"];
-            this.defaultCalendar = data["defaultCalendar"];
-            this.workPhoneNumber = data["workPhoneNumber"];
-            this.notificationByMail = data["notificationByMail"];
-            this.notificationBySMS = data["notificationBySMS"];
-            this.isIndividual = data["isIndividual"];
-            this.isEmployee = data["isEmployee"];
-            this.isCorrespondentForAllOrganizations = data["isCorrespondentForAllOrganizations"];
+            this.userId = data["UserId"];
+            this.concurrencyStamp = data["ConcurrencyStamp"];
+            this.email = data["Email"];
+            this.phoneNumber = data["PhoneNumber"];
+            this.faxNumber = data["FaxNumber"];
+            this.userName = data["UserName"];
+            this.fullNameEn = data["FullNameEn"];
+            this.fullNameAr = data["FullNameAr"];
+            this.enabled = data["Enabled"];
+            this.enabledUntil = data["EnabledUntil"] ? new Date(data["EnabledUntil"].toString()) : <any>undefined;
+            this.profileImage = data["ProfileImage"];
+            this.signatureFileId = data["SignatureFileId"];
+            this.trkeenFileId = data["TrkeenFileId"];
+            this.stampFileId = data["StampFileId"];
+            this.employeeNumber = data["EmployeeNumber"];
+            this.sSN = data["SSN"];
+            this.passportNumber = data["PassportNumber"];
+            this.password = data["Password"];
+            this.iqamaNumber = data["IqamaNumber"];
+            this.genderId = data["GenderId"];
+            this.genderName = data["GenderName"];
+            this.nationalityId = data["NationalityId"];
+            this.nationalityName = data["NationalityName"];
+            this.jobTitleId = data["JobTitleId"];
+            this.jobTitleName = data["JobTitleName"];
+            this.workPlaceId = data["WorkPlaceId"];
+            this.workPlaceName = data["WorkPlaceName"];
+            this.address = data["Address"];
+            this.defaultCulture = data["DefaultCulture"];
+            this.defaultCalendar = data["DefaultCalendar"];
+            this.workPhoneNumber = data["WorkPhoneNumber"];
+            this.notificationByMail = data["NotificationByMail"];
+            this.notificationBySMS = data["NotificationBySMS"];
+            this.isIndividual = data["IsIndividual"];
+            this.isEmployee = data["IsEmployee"];
+            this.isCorrespondentForAllOrganizations = data["IsCorrespondentForAllOrganizations"];
         }
     }
 
@@ -3907,42 +4477,42 @@ export class UserDetailsDTO implements IUserDetailsDTO {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["userId"] = this.userId;
-        data["concurrencyStamp"] = this.concurrencyStamp;
-        data["email"] = this.email;
-        data["phoneNumber"] = this.phoneNumber;
-        data["faxNumber"] = this.faxNumber;
-        data["userName"] = this.userName;
-        data["fullNameEn"] = this.fullNameEn;
-        data["fullNameAr"] = this.fullNameAr;
-        data["enabled"] = this.enabled;
-        data["enabledUntil"] = this.enabledUntil ? this.enabledUntil.toISOString() : <any>undefined;
-        data["profileImage"] = this.profileImage;
-        data["signatureFileId"] = this.signatureFileId;
-        data["trkeenFileId"] = this.trkeenFileId;
-        data["stampFileId"] = this.stampFileId;
-        data["employeeNumber"] = this.employeeNumber;
-        data["ssn"] = this.ssn;
-        data["passportNumber"] = this.passportNumber;
-        data["password"] = this.password;
-        data["iqamaNumber"] = this.iqamaNumber;
-        data["genderId"] = this.genderId;
-        data["genderName"] = this.genderName;
-        data["nationalityId"] = this.nationalityId;
-        data["nationalityName"] = this.nationalityName;
-        data["jobTitleId"] = this.jobTitleId;
-        data["jobTitleName"] = this.jobTitleName;
-        data["workPlaceId"] = this.workPlaceId;
-        data["workPlaceName"] = this.workPlaceName;
-        data["address"] = this.address;
-        data["defaultCulture"] = this.defaultCulture;
-        data["defaultCalendar"] = this.defaultCalendar;
-        data["workPhoneNumber"] = this.workPhoneNumber;
-        data["notificationByMail"] = this.notificationByMail;
-        data["notificationBySMS"] = this.notificationBySMS;
-        data["isIndividual"] = this.isIndividual;
-        data["isEmployee"] = this.isEmployee;
-        data["isCorrespondentForAllOrganizations"] = this.isCorrespondentForAllOrganizations;
+        data["UserId"] = this.userId;
+        data["ConcurrencyStamp"] = this.concurrencyStamp;
+        data["Email"] = this.email;
+        data["PhoneNumber"] = this.phoneNumber;
+        data["FaxNumber"] = this.faxNumber;
+        data["UserName"] = this.userName;
+        data["FullNameEn"] = this.fullNameEn;
+        data["FullNameAr"] = this.fullNameAr;
+        data["Enabled"] = this.enabled;
+        data["EnabledUntil"] = this.enabledUntil ? this.enabledUntil.toISOString() : <any>undefined;
+        data["ProfileImage"] = this.profileImage;
+        data["SignatureFileId"] = this.signatureFileId;
+        data["TrkeenFileId"] = this.trkeenFileId;
+        data["StampFileId"] = this.stampFileId;
+        data["EmployeeNumber"] = this.employeeNumber;
+        data["SSN"] = this.sSN;
+        data["PassportNumber"] = this.passportNumber;
+        data["Password"] = this.password;
+        data["IqamaNumber"] = this.iqamaNumber;
+        data["GenderId"] = this.genderId;
+        data["GenderName"] = this.genderName;
+        data["NationalityId"] = this.nationalityId;
+        data["NationalityName"] = this.nationalityName;
+        data["JobTitleId"] = this.jobTitleId;
+        data["JobTitleName"] = this.jobTitleName;
+        data["WorkPlaceId"] = this.workPlaceId;
+        data["WorkPlaceName"] = this.workPlaceName;
+        data["Address"] = this.address;
+        data["DefaultCulture"] = this.defaultCulture;
+        data["DefaultCalendar"] = this.defaultCalendar;
+        data["WorkPhoneNumber"] = this.workPhoneNumber;
+        data["NotificationByMail"] = this.notificationByMail;
+        data["NotificationBySMS"] = this.notificationBySMS;
+        data["IsIndividual"] = this.isIndividual;
+        data["IsEmployee"] = this.isEmployee;
+        data["IsCorrespondentForAllOrganizations"] = this.isCorrespondentForAllOrganizations;
         return data; 
     }
 }
@@ -3963,7 +4533,7 @@ export interface IUserDetailsDTO {
     trkeenFileId?: number | undefined;
     stampFileId?: number | undefined;
     employeeNumber?: string | undefined;
-    ssn?: string | undefined;
+    sSN?: string | undefined;
     passportNumber?: string | undefined;
     password?: string | undefined;
     iqamaNumber?: string | undefined;
@@ -4002,9 +4572,9 @@ export class ChangePasswordViewModel implements IChangePasswordViewModel {
 
     init(data?: any) {
         if (data) {
-            this.oldPassword = data["oldPassword"];
-            this.newPassword = data["newPassword"];
-            this.confirmPassword = data["confirmPassword"];
+            this.oldPassword = data["OldPassword"];
+            this.newPassword = data["NewPassword"];
+            this.confirmPassword = data["ConfirmPassword"];
         }
     }
 
@@ -4017,9 +4587,9 @@ export class ChangePasswordViewModel implements IChangePasswordViewModel {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["oldPassword"] = this.oldPassword;
-        data["newPassword"] = this.newPassword;
-        data["confirmPassword"] = this.confirmPassword;
+        data["OldPassword"] = this.oldPassword;
+        data["NewPassword"] = this.newPassword;
+        data["ConfirmPassword"] = this.confirmPassword;
         return data; 
     }
 }
@@ -4045,12 +4615,12 @@ export class DataSourceResultOfUserSummaryDTO implements IDataSourceResultOfUser
 
     init(data?: any) {
         if (data) {
-            if (data["data"] && data["data"].constructor === Array) {
+            if (data["Data"] && data["Data"].constructor === Array) {
                 this.data = [] as any;
-                for (let item of data["data"])
+                for (let item of data["Data"])
                     this.data!.push(UserSummaryDTO.fromJS(item));
             }
-            this.count = data["count"];
+            this.count = data["Count"];
         }
     }
 
@@ -4064,11 +4634,11 @@ export class DataSourceResultOfUserSummaryDTO implements IDataSourceResultOfUser
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         if (this.data && this.data.constructor === Array) {
-            data["data"] = [];
+            data["Data"] = [];
             for (let item of this.data)
-                data["data"].push(item.toJSON());
+                data["Data"].push(item.toJSON());
         }
-        data["count"] = this.count;
+        data["Count"] = this.count;
         return data; 
     }
 }
@@ -4098,13 +4668,13 @@ export class UserSummaryDTO implements IUserSummaryDTO {
 
     init(data?: any) {
         if (data) {
-            this.id = data["id"];
-            this.userName = data["userName"];
-            this.fullName = data["fullName"];
-            this.email = data["email"];
-            this.phoneNumber = data["phoneNumber"];
-            this.enabled = data["enabled"];
-            this.profileImage = data["profileImage"];
+            this.id = data["Id"];
+            this.userName = data["UserName"];
+            this.fullName = data["FullName"];
+            this.email = data["Email"];
+            this.phoneNumber = data["PhoneNumber"];
+            this.enabled = data["Enabled"];
+            this.profileImage = data["ProfileImage"];
         }
     }
 
@@ -4117,13 +4687,13 @@ export class UserSummaryDTO implements IUserSummaryDTO {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        data["userName"] = this.userName;
-        data["fullName"] = this.fullName;
-        data["email"] = this.email;
-        data["phoneNumber"] = this.phoneNumber;
-        data["enabled"] = this.enabled;
-        data["profileImage"] = this.profileImage;
+        data["Id"] = this.id;
+        data["UserName"] = this.userName;
+        data["FullName"] = this.fullName;
+        data["Email"] = this.email;
+        data["PhoneNumber"] = this.phoneNumber;
+        data["Enabled"] = this.enabled;
+        data["ProfileImage"] = this.profileImage;
         return data; 
     }
 }
@@ -4153,12 +4723,12 @@ export class DataSourceResultOfUserDetailsDTO implements IDataSourceResultOfUser
 
     init(data?: any) {
         if (data) {
-            if (data["data"] && data["data"].constructor === Array) {
+            if (data["Data"] && data["Data"].constructor === Array) {
                 this.data = [] as any;
-                for (let item of data["data"])
+                for (let item of data["Data"])
                     this.data!.push(UserDetailsDTO.fromJS(item));
             }
-            this.count = data["count"];
+            this.count = data["Count"];
         }
     }
 
@@ -4172,11 +4742,11 @@ export class DataSourceResultOfUserDetailsDTO implements IDataSourceResultOfUser
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         if (this.data && this.data.constructor === Array) {
-            data["data"] = [];
+            data["Data"] = [];
             for (let item of this.data)
-                data["data"].push(item.toJSON());
+                data["Data"].push(item.toJSON());
         }
-        data["count"] = this.count;
+        data["Count"] = this.count;
         return data; 
     }
 }
@@ -4201,12 +4771,12 @@ export class DataSourceResultOfUserRoleDTO implements IDataSourceResultOfUserRol
 
     init(data?: any) {
         if (data) {
-            if (data["data"] && data["data"].constructor === Array) {
+            if (data["Data"] && data["Data"].constructor === Array) {
                 this.data = [] as any;
-                for (let item of data["data"])
+                for (let item of data["Data"])
                     this.data!.push(UserRoleDTO.fromJS(item));
             }
-            this.count = data["count"];
+            this.count = data["Count"];
         }
     }
 
@@ -4220,11 +4790,11 @@ export class DataSourceResultOfUserRoleDTO implements IDataSourceResultOfUserRol
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         if (this.data && this.data.constructor === Array) {
-            data["data"] = [];
+            data["Data"] = [];
             for (let item of this.data)
-                data["data"].push(item.toJSON());
+                data["Data"].push(item.toJSON());
         }
-        data["count"] = this.count;
+        data["Count"] = this.count;
         return data; 
     }
 }
