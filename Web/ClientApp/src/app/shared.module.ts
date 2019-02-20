@@ -10,6 +10,8 @@ import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 import { ToastModule } from 'primeng/toast';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { DropdownModule } from 'primeng/dropdown';
+
 @NgModule({
   exports: [
     CommonModule,
@@ -22,7 +24,8 @@ import { DynamicDialogModule } from 'primeng/dynamicdialog';
     MessagesModule,
     MessageModule,
     ToastModule,
-    DynamicDialogModule
+    DynamicDialogModule,
+    DropdownModule
   ]
 })
 export class SharedModule {}

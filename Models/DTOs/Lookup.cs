@@ -5,7 +5,8 @@ namespace Models.DTOs
     public class Lookup
     {
         public object Id { get; set; }
-        public string Text { get; set; }
+        public string TextAr { get; set; }
+        public string TextEn { get; set; }
         public Lookup[] Children { get; set; }
         public LookupAdditional Additional { get; set; }
     }

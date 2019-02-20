@@ -34,7 +34,7 @@
                 <td>{{cat.subCategoryCode}}</td>
                 <td>{{cat.subCategoryNameAr}}</td>
                 <td>{{cat.subCategoryNameEn}}</td>
-                <td>{{cat.category.categoryName}}</td>
+                <td>{{GetCategoryName(cat.categoryId).textAr}}</td>
                 <td style="display: flex;justify-content: space-evenly;">
                     <button (click)="showAddEditComponent(cat)" class="btn btn-primary">{{'Update' | translate}}
                     <span class="pi pi-clone"></span>

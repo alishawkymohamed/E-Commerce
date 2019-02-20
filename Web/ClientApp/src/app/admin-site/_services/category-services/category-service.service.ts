@@ -34,4 +34,21 @@ export class CategoryService {
   UpdateCategory(category: CategoryDTO) {
     return this.swagger.api_Category_Update([category]);
   }
+
+  GetCategoriesLookUp() {
+    return this.swagger.api_LookupAll(
+      'categories',
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined
+    );
+  }
 }

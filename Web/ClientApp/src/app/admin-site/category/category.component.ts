@@ -103,7 +103,7 @@ export class CategoryComponent implements OnInit {
         });
 
         ref.onClose.subscribe((cat: CategoryDTO) => {
-          if (!cat.categoryId) {
+          if (!cat || !cat.categoryId) {
             this.AddCategory(cat);
           } else {
             this.UpdateCategory(cat);

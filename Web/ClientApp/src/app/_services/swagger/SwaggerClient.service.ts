@@ -4062,7 +4062,8 @@ export interface ILocalizationDetailsDTO {
 
 export class Lookup implements ILookup {
     id?: any | undefined;
-    text?: string | undefined;
+    textAr?: string | undefined;
+    textEn?: string | undefined;
     children?: Lookup[] | undefined;
     additional?: LookupAdditional | undefined;
 
@@ -4078,7 +4079,8 @@ export class Lookup implements ILookup {
     init(data?: any) {
         if (data) {
             this.id = data["Id"];
-            this.text = data["Text"];
+            this.textAr = data["TextAr"];
+            this.textEn = data["TextEn"];
             if (data["Children"] && data["Children"].constructor === Array) {
                 this.children = [] as any;
                 for (let item of data["Children"])
@@ -4098,7 +4100,8 @@ export class Lookup implements ILookup {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["Id"] = this.id;
-        data["Text"] = this.text;
+        data["TextAr"] = this.textAr;
+        data["TextEn"] = this.textEn;
         if (this.children && this.children.constructor === Array) {
             data["Children"] = [];
             for (let item of this.children)
@@ -4111,7 +4114,8 @@ export class Lookup implements ILookup {
 
 export interface ILookup {
     id?: any | undefined;
-    text?: string | undefined;
+    textAr?: string | undefined;
+    textEn?: string | undefined;
     children?: Lookup[] | undefined;
     additional?: LookupAdditional | undefined;
 }
@@ -4330,7 +4334,7 @@ export class SubCategoryDTO implements ISubCategoryDTO {
     subCategoryNameEn?: string | undefined;
     subCategoryName?: string | undefined;
     subCategoryCode?: string | undefined;
-    category?: CategoryDTO | undefined;
+    categoryId?: number | undefined;
 
     constructor(data?: ISubCategoryDTO) {
         if (data) {
@@ -4348,7 +4352,7 @@ export class SubCategoryDTO implements ISubCategoryDTO {
             this.subCategoryNameEn = data["SubCategoryNameEn"];
             this.subCategoryName = data["SubCategoryName"];
             this.subCategoryCode = data["SubCategoryCode"];
-            this.category = data["Category"] ? CategoryDTO.fromJS(data["Category"]) : <any>undefined;
+            this.categoryId = data["CategoryId"];
         }
     }
 
@@ -4366,7 +4370,7 @@ export class SubCategoryDTO implements ISubCategoryDTO {
         data["SubCategoryNameEn"] = this.subCategoryNameEn;
         data["SubCategoryName"] = this.subCategoryName;
         data["SubCategoryCode"] = this.subCategoryCode;
-        data["Category"] = this.category ? this.category.toJSON() : <any>undefined;
+        data["CategoryId"] = this.categoryId;
         return data; 
     }
 }
@@ -4377,7 +4381,7 @@ export interface ISubCategoryDTO {
     subCategoryNameEn?: string | undefined;
     subCategoryName?: string | undefined;
     subCategoryCode?: string | undefined;
-    category?: CategoryDTO | undefined;
+    categoryId?: number | undefined;
 }
 
 export class UserDetailsDTO implements IUserDetailsDTO {

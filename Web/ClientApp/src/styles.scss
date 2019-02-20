@@ -166,3 +166,21 @@ body .ui-dialog .ui-dialog-footer button:first-of-type {
     border-left: 5px solid #a94442;
     /* red */
 }
+
+.ui-dropdown {
+    width: 100% !important;
+    display: inline-block !important;
+    .ui-dropdown-item {
+        text-align: right !important;
+    }
+}
+
+.form-group {
+    label {
+        color: #76323f !important;
+    }
+}
+
+label.ui-dropdown-label {
+    color: black !important;
+}

@@ -7,6 +7,6 @@
         public string SubCategoryNameEn { get; set; }
         public string SubCategoryName { get; set; }
         public string SubCategoryCode { get; set; }
-        public CategoryDTO Category { get; set; }
+        public int CategoryId { get; set; }
     }
 }

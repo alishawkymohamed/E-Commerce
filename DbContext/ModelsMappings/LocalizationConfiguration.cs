@@ -40,7 +40,8 @@ namespace DbContexts.ModelsMappings
                   new Localization { LocalizationId = 28, Key = "WantDelete", ValueAr = "هل أنت متأكد من الحذف ؟", ValueEn = "Do you want to delete this record ?" },
                   new Localization { LocalizationId = 30, Key = "DeletedSuccess", ValueAr = "تم الحذف بنجاح", ValueEn = "Deleted Successfully" },
                   new Localization { LocalizationId = 31, Key = "DeletedFail", ValueAr = "لم يتم الحذف", ValueEn = "Deleted Failed" },
-                  new Localization { LocalizationId = 32, Key = "Category", ValueAr = "تصنيف", ValueEn = "Category" }
+                  new Localization { LocalizationId = 32, Key = "Category", ValueAr = "تصنيف", ValueEn = "Category" },
+                  new Localization { LocalizationId = 33, Key = "SubCategory", ValueAr = "تصنيف فرعي", ValueEn = "Sub Category" }
                 );
         }
     }

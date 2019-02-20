@@ -1,3 +1,20 @@
-<p>
-  add-edit-sub-category works!
-</p>
+<form (ngSubmit)="onSubmit()" class="form-holder" #categoryForm="ngForm">
+    <div class="form-group">
+        <label for="Code">{{'Code' | translate}}</label>
+        <input type="text" class="form-control" id="Code" name="subCategoryCode" required [(ngModel)]="subCategory.subCategoryCode" #categoryCode="ngModel">
+    </div>
+    <div class="form-group">
+        <label for="NameAr">{{'NameAr' | translate}}</label>
+        <input type="text" class="form-control" id="NameAr" name="subCategoryNameAr" required [(ngModel)]="subCategory.subCategoryNameAr" #categoryNameAr="ngModel">
+    </div>
+    <div class="form-group">
+        <label for="NameEn">{{'NameEn' | translate}}</label>
+        <input type="text" class="form-control" id="NameEn" name="subCategoryNameEn" required [(ngModel)]="subCategory.subCategoryNameEn" #categoryNameEn="ngModel">
+    </div>
+    <div class="form-group">
+        <label for="category">{{'Category' | translate}}</label>
+        <!-- <input type="text" class="form-control" id="NameEn" name="subCategoryNameEn" required [(ngModel)]="subCategory.subCategoryNameEn" #categoryNameEn="ngModel"> -->
+        <p-dropdown id="category" name="category" required placeholder="{{'Category' | translate}}" [options]="CategoriesLookup" [(ngModel)]="subCategory.categoryId" filter="true"></p-dropdown>
+    </div>
+    <button [disabled]="!categoryForm.form.valid" placeholder="Select a City" type="submit" class="btn btn-primary form-submit-button">{{'Save' | translate}}</button>
+</form>

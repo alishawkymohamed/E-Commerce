@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { SubCategoryDTO } from 'src/app/_services/swagger/SwaggerClient.service';
+import {
+  SubCategoryDTO,
+  Lookup
+} from 'src/app/_services/swagger/SwaggerClient.service';
 import { TranslateService } from '@ngx-translate/core';
 import {
   MessageService,
@@ -8,6 +11,7 @@ import {
 } from 'primeng/api';
 import { SubCategoryService } from '../_services/sub-category-services/sub-category-service.service';
 import { AddEditSubCategoryComponent } from './add-edit-sub-category/add-edit-sub-category.component';
+import { CategoryService } from '../_services/category-services/category-service.service';
 
 @Component({
   selector: 'app-sub-category',
@@ -16,8 +20,10 @@ import { AddEditSubCategoryComponent } from './add-edit-sub-category/add-edit-su
 })
 export class SubCategoryComponent implements OnInit {
   allSubCategories: SubCategoryDTO[];
+  allCategoriesLookup: Lookup[];
   constructor(
     private subcategoryService: SubCategoryService,
+    private categoryService: CategoryService,
     private translateService: TranslateService,
     private toastService: MessageService,
     public dialogService: DialogService,
@@ -26,6 +32,7 @@ export class SubCategoryComponent implements OnInit {
 
   ngOnInit() {
     this.GetAllSubCategories();
+    this.GetAllCategoriesLookup();
   }
 
   GetAllSubCategories() {
@@ -34,6 +41,17 @@ export class SubCategoryComponent implements OnInit {
         this.allSubCategories = data.data;
       }
     });
+  }
+
+  GetAllCategoriesLookup() {
+    this.categoryService.GetCategoriesLookUp().subscribe(
+      data => {
+        this.allCategoriesLookup = data;
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
   DeleteSubCategory(Id: number) {
@@ -87,22 +105,25 @@ export class SubCategoryComponent implements OnInit {
     });
   }
 
-  showAddEditComponent(category: SubCategoryDTO) {
+  showAddEditComponent(SubCategory: SubCategoryDTO) {
     this.translateService
-      .get(['Create', 'Update', 'Category'])
+      .get(['Create', 'Update', 'SubCategory'])
       .subscribe((res: any) => {
         const ref = this.dialogService.open(AddEditSubCategoryComponent, {
           header:
-            category != null
-              ? `${res['Update']} ${res['Category']}`
-              : `${res['Create']} ${res['Category']}`,
-          data: Object.assign({}, category)
+            SubCategory != null
+              ? `${res['Update']} ${res['SubCategory']}`
+              : `${res['Create']} ${res['SubCategory']}`,
+          data: {
+            SubCategory: Object.assign({}, SubCategory),
+            CategoriesLookup: Object.assign([], this.allCategoriesLookup)
+          }
         });
 
         ref.onClose.subscribe((cat: SubCategoryDTO) => {
-          if (!cat.subCategoryId) {
+          if (cat && !cat.subCategoryId) {
             this.AddSubCategory(cat);
-          } else {
+          } else if (cat && cat.subCategoryId) {
             this.UpdateSubCategory(cat);
           }
         });
@@ -165,5 +186,9 @@ export class SubCategoryComponent implements OnInit {
         });
       }
     );
+  }
+
+  GetCategoryName(categoryId: number) {
+    return this.allCategoriesLookup.filter(cat => cat.id === categoryId)[0];
   }
 }
