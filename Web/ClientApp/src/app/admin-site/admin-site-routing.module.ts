@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AdminHomeComponent } from './admin-home/admin-home.component';
 import { CategoryComponent } from './category/category.component';
 import { SubCategoryComponent } from './sub-category/sub-category.component';
+import { CategoryLookupResolver } from './_services/sub-category-services/categor-lookup.resolver';
 
 const routes: Routes = [
   {
@@ -15,12 +16,16 @@ const routes: Routes = [
   },
   {
     path: 'sub-category',
-    component: SubCategoryComponent
+    component: SubCategoryComponent,
+    resolve: {
+      CategoryLookup: CategoryLookupResolver
+    }
   }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [CategoryLookupResolver]
 })
 export class AdminSiteRoutingModule {}

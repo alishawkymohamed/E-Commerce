@@ -6,9 +6,6 @@ import { ClientHomeComponent } from './client-home/client-home.component';
 
 @NgModule({
   declarations: [ClientHomeComponent],
-  imports: [
-    CommonModule,
-    ClientSiteRoutingModule
-  ]
+  imports: [CommonModule, ClientSiteRoutingModule]
 })
-export class ClientSiteModule { }
+export class ClientSiteModule {}

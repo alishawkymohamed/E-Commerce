@@ -20,9 +20,9 @@ namespace DbContexts.ModelsMappings
                   new Localization { LocalizationId = 6, Key = "Save", ValueAr = "حفظ", ValueEn = "Save" },
                   new Localization { LocalizationId = 7, Key = "SavedSuccess", ValueAr = "تم الحفظ بنجاح", ValueEn = "Saved Successfully" },
                   new Localization { LocalizationId = 8, Key = "ErrorOccured", ValueAr = "حدث خطأ ما", ValueEn = "Error Occured" },
-                  new Localization { LocalizationId = 11, Key = "InvalidCredentials", ValueAr = "خطأ في إسم المستخدم أو كلمة المرور", ValueEn = "Invalid Username Or Password" },
+                  new Localization { LocalizationId = 11, Key = "InvalidCredentials", ValueAr = "خطأ في إسم المستخدم أو كلمة السر", ValueEn = "Invalid Username Or Password" },
                   new Localization { LocalizationId = 12, Key = "UserName", ValueAr = "إسم المستخدم", ValueEn = "Username" },
-                  new Localization { LocalizationId = 13, Key = "Password", ValueAr = "كلمة المرور", ValueEn = "Password" },
+                  new Localization { LocalizationId = 13, Key = "Password", ValueAr = "كلمة السر", ValueEn = "Password" },
                   new Localization { LocalizationId = 14, Key = "Login", ValueAr = "دخول", ValueEn = "Login" },
                   new Localization { LocalizationId = 15, Key = "ChangeLang", ValueAr = "تغيير اللغة", ValueEn = "Change Language" },
                   new Localization { LocalizationId = 16, Key = "AccountIsDisabled", ValueAr = "الحساب متوقف من قبل الإدارة", ValueEn = "Account is disabled by administration" },
@@ -41,8 +41,22 @@ namespace DbContexts.ModelsMappings
                   new Localization { LocalizationId = 30, Key = "DeletedSuccess", ValueAr = "تم الحذف بنجاح", ValueEn = "Deleted Successfully" },
                   new Localization { LocalizationId = 31, Key = "DeletedFail", ValueAr = "لم يتم الحذف", ValueEn = "Deleted Failed" },
                   new Localization { LocalizationId = 32, Key = "Category", ValueAr = "تصنيف", ValueEn = "Category" },
-                  new Localization { LocalizationId = 33, Key = "SubCategory", ValueAr = "تصنيف فرعي", ValueEn = "Sub Category" }
-                );
+                  new Localization { LocalizationId = 33, Key = "SubCategory", ValueAr = "تصنيف فرعي", ValueEn = "Sub Category" },
+               
+                  new Localization { LocalizationId = 34, Key = "SignIn", ValueAr = "تسجيل دخول", ValueEn = "Sign In" },
+                  new Localization { LocalizationId = 35, Key = "SignUp", ValueAr = "إنشاء حساب", ValueEn = "Sign Up" },
+                  new Localization { LocalizationId = 36, Key = "ForgetPassword", ValueAr = "نسيت كلمة السر ؟", ValueEn = "Forget Password ?" },
+                  new Localization { LocalizationId = 37, Key = "SignUpNewAccount", ValueAr = "إنشاء حساب جديد", ValueEn = "Sign up new account" },
+                  new Localization { LocalizationId = 38, Key = "EmailAddress", ValueAr = "البريد الإلكتروني", ValueEn = "Email Address" },
+                  new Localization { LocalizationId = 39, Key = "SignInWithFacebook", ValueAr = "دخول بواسطة فيسبوك", ValueEn = "Sign in with Facebook" },
+                  new Localization { LocalizationId = 40, Key = "SignUpWithFacebook", ValueAr = "إنشاء حساب بواسطة فيسبوك", ValueEn = "Sign up with Facebook" },
+                  new Localization { LocalizationId = 41, Key = "SignInWithGmail", ValueAr = "دخول بواسطة جوجل", ValueEn = "Sign in With Gmail" },
+                  new Localization { LocalizationId = 42, Key = "SignUpWithGmail", ValueAr = "إنشاء حساب بواسطة جوجل", ValueEn = "Sign up with Gmail" },
+                  new Localization { LocalizationId = 43, Key = "FullName", ValueAr = "الإسم بالكامل", ValueEn = "Full Name" },
+                  new Localization { LocalizationId = 44, Key = "ConfirmPassword", ValueAr = "تأكيد كلمة السر", ValueEn = "Confirm Password" },
+                  new Localization { LocalizationId = 45, Key = "Back", ValueAr = "عودة", ValueEn = "Back" }
+
+                  );
         }
     }
 }

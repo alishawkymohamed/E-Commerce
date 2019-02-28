@@ -11,6 +11,10 @@ const routes: Routes = [
     loadChildren: './client-site/client-site.module#ClientSiteModule'
   },
   {
+    path: 'login',
+    loadChildren: './authentication/authentication.module#AuthenticationModule'
+  },
+  {
     path: '',
     redirectTo: '',
     pathMatch: 'full'
@@ -18,7 +22,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [ RouterModule.forRoot(routes) ],
-  exports: [ RouterModule ]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

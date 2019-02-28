@@ -12,6 +12,7 @@ import {
 import { SubCategoryService } from '../_services/sub-category-services/sub-category-service.service';
 import { AddEditSubCategoryComponent } from './add-edit-sub-category/add-edit-sub-category.component';
 import { CategoryService } from '../_services/category-services/category-service.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-sub-category',
@@ -27,7 +28,8 @@ export class SubCategoryComponent implements OnInit {
     private translateService: TranslateService,
     private toastService: MessageService,
     public dialogService: DialogService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
@@ -44,14 +46,7 @@ export class SubCategoryComponent implements OnInit {
   }
 
   GetAllCategoriesLookup() {
-    this.categoryService.GetCategoriesLookUp().subscribe(
-      data => {
-        this.allCategoriesLookup = data;
-      },
-      error => {
-        console.log(error);
-      }
-    );
+    this.allCategoriesLookup = this.route.snapshot.data.CategoryLookup;
   }
 
   DeleteSubCategory(Id: number) {
@@ -189,6 +184,8 @@ export class SubCategoryComponent implements OnInit {
   }
 
   GetCategoryName(categoryId: number) {
-    return this.allCategoriesLookup.filter(cat => cat.id === categoryId)[0];
+    if (this.allCategoriesLookup && this.allCategoriesLookup.length) {
+      return this.allCategoriesLookup.filter(cat => cat.id === categoryId)[0];
+    }
   }
 }
