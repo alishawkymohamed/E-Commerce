@@ -93,6 +93,10 @@
     margin: 0 auto;
 }
 
+#forgot_pswd {
+    width: 35%;
+}
+
 
 /* Mobile */
 
@@ -130,4 +134,9 @@ body:not(.rtl) {
     #forgot_pswd {
         text-align: right;
     }
+}
+
+#loginError {
+    display: block;
+    text-align: center;
 }

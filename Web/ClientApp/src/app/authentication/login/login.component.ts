@@ -1,4 +1,7 @@
+import { UserLoginDTO } from './../../_services/swagger/SwaggerClient.service';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { SwaggerClient } from 'src/app/_services/swagger/SwaggerClient.service';
+import { Encrypt } from 'src/app/Utility/app.Encryption';
 
 @Component({
   selector: 'app-login',
@@ -7,7 +10,10 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
   encapsulation: ViewEncapsulation.None
 })
 export class LoginComponent implements OnInit {
-  constructor() {}
+  email = '';
+  password = '';
+  InvalidCredentials = false;
+  constructor(private swagger: SwaggerClient) {}
 
   ngOnInit() {}
 
@@ -21,5 +27,16 @@ export class LoginComponent implements OnInit {
       SignUpForm.style.display = 'none';
       SignInForm.style.display = 'block';
     }
+  }
+
+  onSubmit() {
+    this.swagger
+      .api_Account_Login({
+        username: Encrypt(this.email),
+        password: Encrypt(this.password)
+      } as UserLoginDTO)
+      .subscribe(data => {
+        console.log(data);
+      });
   }
 }

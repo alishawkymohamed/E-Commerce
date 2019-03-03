@@ -1,15 +1,16 @@
 <div id="logreg-forms">
-    <form id="form-signin" class="form-signin">
+    <form (ngSubmit)="onSubmit()" #loginForm="ngForm" id="form-signin" class="form-signin">
         <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"> {{'SignIn' | translate}}</h1>
         <div class="social-login">
             <button class="btn facebook-btn social-btn" type="button"><span><i class="fa fa-facebook"></i> {{'SignInWithFacebook' | translate}}</span> </button>
             <button class="btn google-btn social-btn" type="button"><span><i class="fa fa-google"></i> {{'SignInWithGmail' | translate}}</span> </button>
         </div>
         <p style="text-align:center"> OR </p>
-        <input type="email" id="inputEmail" class="form-control" placeholder="{{'EmailAddress' | translate}}" required="" autofocus="">
-        <input type="password" id="inputPassword" class="form-control" placeholder="{{'Password' | translate}}" required="">
+        <input type="email" email name="email" required [(ngModel)]="email" id="inputEmail" class="form-control" placeholder="{{'EmailAddress' | translate}}" autofocus>
+        <input type="password" name="password" required [(ngModel)]="password" id="inputPassword" class="form-control" placeholder="{{'Password' | translate}}" required="">
 
-        <button class="btn btn-success btn-block" type="submit"><i class="fa fa-sign-in"></i> {{'Login' | translate}}</button>
+        <button class="btn btn-success btn-block" [disabled]="!loginForm.form.valid" type="submit"><i class="fa fa-sign-in"></i> {{'Login' | translate}}</button>
+        <p *ngIf="!InvalidCredentials" id="loginError" class="invalid-feedback">{{'InvalidCredentials' | translate}}</p>
         <a href="#" id="forgot_pswd">{{'ForgetPassword' | translate}}</a>
         <hr>
         <!-- <p>Don't have an account!</p>  -->

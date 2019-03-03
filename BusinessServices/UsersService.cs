@@ -29,9 +29,9 @@ namespace BusinessServices.AuthenticationServices
         private readonly IUserRoleRepository _userRoles;
         private readonly ISecurityService _securityService;
         private readonly IHttpContextAccessor _contextAccessor;
-        private readonly ISignalRServices _signalRServices;
+        //private readonly ISignalRServices _signalRServices;
 
-        public UsersService(IUnitOfWork unitOfWork, IMapper mapper, IStringLocalizer stringLocalizer, ISecurityService securityService, IHttpContextAccessor contextAccessor, ISessionServices sessionServices, ISignalRServices signalRServices) : base(unitOfWork, mapper, stringLocalizer, sessionServices)
+        public UsersService(IUnitOfWork unitOfWork, IMapper mapper, IStringLocalizer stringLocalizer, ISecurityService securityService, IHttpContextAccessor contextAccessor, ISessionServices sessionServices/*, ISignalRServices signalRServices*/) : base(unitOfWork, mapper, stringLocalizer, sessionServices)
         {
             _uow = base._UnitOfWork;
             _uow.CheckArgumentIsNull(nameof(_uow));
@@ -42,8 +42,8 @@ namespace BusinessServices.AuthenticationServices
             _securityService = securityService;
             _securityService.CheckArgumentIsNull(nameof(_securityService));
 
-            _signalRServices = signalRServices;
-            _signalRServices.CheckArgumentIsNull(nameof(_signalRServices));
+            //_signalRServices = signalRServices;
+            //_signalRServices.CheckArgumentIsNull(nameof(_signalRServices));
 
             _contextAccessor = contextAccessor;
             _contextAccessor.CheckArgumentIsNull(nameof(_contextAccessor));

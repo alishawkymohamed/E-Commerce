@@ -10,20 +10,22 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using WebApi.Filters.Models;
 
-namespace ASPNETCore2JwtAuthentication.WebApp.Controllers
+namespace WebApi
 {
     [Route("api/[controller]")]
     public class AccountController : Controller
     {
         private readonly IUsersService _usersService;
         private readonly ITokenStoreService _tokenStoreService;
-        private readonly ISignalRServices _signalRServices;
+        private readonly ICompatibleFrontendEncryption _compatibleFrontendEncryption;
+        //private readonly ISignalRServices _signalRServices;
         //private readonly IAntiForgeryCookieService _antiforgery;
 
         public AccountController(
             IUsersService usersService,
             ITokenStoreService tokenStoreService,
-            ISignalRServices signalRServices
+            ICompatibleFrontendEncryption CompatibleFrontendEncryption
+            //ISignalRServices signalRServices
             /*,IAntiForgeryCookieService antiforgery*/)
         {
             _usersService = usersService;
@@ -32,8 +34,12 @@ namespace ASPNETCore2JwtAuthentication.WebApp.Controllers
             _tokenStoreService = tokenStoreService;
             _tokenStoreService.CheckArgumentIsNull(nameof(tokenStoreService));
 
-            _signalRServices = signalRServices;
-            _signalRServices.CheckArgumentIsNull(nameof(_signalRServices));
+            _compatibleFrontendEncryption = CompatibleFrontendEncryption;
+            _compatibleFrontendEncryption.CheckArgumentIsNull(nameof(_compatibleFrontendEncryption));
+
+            //_signalRServices = signalRServices;
+            //_signalRServices.CheckArgumentIsNull(nameof(_signalRServices));
+
             //_antiforgery = antiforgery;
             //_antiforgery.CheckArgumentIsNull(nameof(antiforgery));
         }
@@ -49,7 +55,10 @@ namespace ASPNETCore2JwtAuthentication.WebApp.Controllers
                 return BadRequest("User is not set.");
             }
 
-            Models.DbModels.User user = await _usersService.FindUserPasswordAsync(loginUser.Username, loginUser.Password);
+            var userName = _compatibleFrontendEncryption.Decrypt(loginUser.Username);
+            var password = _compatibleFrontendEncryption.Decrypt(loginUser.Password);
+
+            Models.DbModels.User user = await _usersService.FindUserPasswordAsync(userName, password);
             if (user == null || !user.Enabled)
             {
                 return Unauthorized();
@@ -101,7 +110,7 @@ namespace ASPNETCore2JwtAuthentication.WebApp.Controllers
 
 
             // _antiforgery.DeleteAntiForgeryCookies();
-            _signalRServices.SignOut(User.Identity.Name);
+            //_signalRServices.SignOut(User.Identity.Name);
             return true;
         }
 
