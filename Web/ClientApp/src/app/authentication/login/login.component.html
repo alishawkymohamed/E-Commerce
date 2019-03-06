@@ -1,16 +1,16 @@
 <div id="logreg-forms">
-    <form (ngSubmit)="onSubmit()" #loginForm="ngForm" id="form-signin" class="form-signin">
+    <form (ngSubmit)="onLoginSubmit()" #loginForm="ngForm" id="form-signin" class="form-signin">
         <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"> {{'SignIn' | translate}}</h1>
         <div class="social-login">
             <button class="btn facebook-btn social-btn" type="button"><span><i class="fa fa-facebook"></i> {{'SignInWithFacebook' | translate}}</span> </button>
             <button class="btn google-btn social-btn" type="button"><span><i class="fa fa-google"></i> {{'SignInWithGmail' | translate}}</span> </button>
         </div>
         <p style="text-align:center"> OR </p>
-        <input type="email" email name="email" required [(ngModel)]="email" id="inputEmail" class="form-control" placeholder="{{'EmailAddress' | translate}}" autofocus>
-        <input type="password" name="password" required [(ngModel)]="password" id="inputPassword" class="form-control" placeholder="{{'Password' | translate}}" required="">
+        <input type="email" email name="email" required [(ngModel)]="email" id="inputEmail" class="form-control" placeholder="{{'EmailAddress' | translate}}">
+        <input type="password" name="password" required [(ngModel)]="password" id="inputPassword" class="form-control" placeholder="{{'Password' | translate}}">
 
         <button class="btn btn-success btn-block" [disabled]="!loginForm.form.valid" type="submit"><i class="fa fa-sign-in"></i> {{'Login' | translate}}</button>
-        <p *ngIf="!InvalidCredentials" id="loginError" class="invalid-feedback">{{'InvalidCredentials' | translate}}</p>
+        <p *ngIf="InvalidCredentials" id="loginError" class="invalid-feedback">{{'InvalidCredentials' | translate}}</p>
         <a href="#" id="forgot_pswd">{{'ForgetPassword' | translate}}</a>
         <hr>
         <!-- <p>Don't have an account!</p>  -->
@@ -18,27 +18,27 @@
     </form>
 
     <form action="/reset/password/" class="form-reset">
-        <input type="email" id="resetEmail" class="form-control" placeholder="Email address" required="" autofocus="">
+        <input type="email" id="resetEmail" class="form-control" placeholder="Email address" required>
         <button class="btn btn-primary btn-block" type="submit">Reset Password</button>
         <a href="#" id="cancel_reset"><i class="fas fa-angle-left"></i> {{'Back' | translate}}</a>
     </form>
 
-    <form id="form-signup" class="form-signup">
+    <form id="form-signup" #signupForm="ngForm" class="form-signup" (ngSubmit)="onSignupSubmit()">
+        <h1 class="h3 mb-3 font-weight-normal" style="text-align: center"> {{'SignUpNewAccount' | translate}}</h1>
         <div class="social-login">
             <button class="btn facebook-btn social-btn" type="button"><span><i class="fa fa-facebook"></i> {{'SignUpWithFacebook' | translate}}</span> </button>
-        </div>
-        <div class="social-login">
-            <button class="btn google-btn social-btn" type="button"><span><i class="fa fa-google"></i>{{'SignUpWithGmail' | translate}}</span> </button>
+            <button class="btn google-btn social-btn" type="button"><span><i class="fa fa-google"></i> {{'SignUpWithGmail' | translate}}</span> </button>
         </div>
 
         <p style="text-align:center">OR</p>
 
-        <input type="text" id="user-name" class="form-control" placeholder="Full name" required="" autofocus="">
-        <input type="email" id="user-email" class="form-control" placeholder="Email address" required autofocus="">
-        <input type="password" id="user-pass" class="form-control" placeholder="Password" required autofocus="">
-        <input type="password" id="user-repeatpass" class="form-control" placeholder="Repeat Password" required autofocus="">
+        <input type="text" name="fullname" [(ngModel)]="fullname" id="user-full-name" class="form-control" placeholder="{{'FullName' | translate}}" required>
+        <input type="text" name="username" [(ngModel)]="username" id="user-name" class="form-control" placeholder="{{'UserName' | translate}}" required>
+        <input type="email" email name="signUpEmail" [(ngModel)]="signUpEmail" id="user-email" class="form-control" placeholder="{{'EmailAddress' | translate}}" required>
+        <input type="password" name="signUpPassword" [(ngModel)]="signUpPassword" id="user-pass" class="form-control" placeholder="{{'Password' | translate}}" required>
+        <input type="password" name="signUpConfirmPassword" [(ngModel)]="signUpConfirmPassword" id="user-repeatpass" class="form-control" placeholder="{{'ConfirmPassword' | translate}}" required>
 
-        <button class="btn btn-primary btn-block" type="submit"><i class="fa fa-user-plus"></i> {{'SignUp' | translate}}</button>
+        <button class="btn btn-primary btn-block" [disabled]="!signupForm.form.valid" type="submit"><i class="fa fa-user-plus"></i> {{'SignUp' | translate}}</button>
         <a href="javascript:" (click)="ToggleSignUp()" id="cancel_signup"><i class="fa fa-angle-left"></i> {{'Back' | translate}}</a>
     </form>
     <br>

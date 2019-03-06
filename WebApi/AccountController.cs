@@ -1,7 +1,6 @@
 using HelperServices;
 using IBusinessServices;
 using IBusinessServices.IAuthenticationServices;
-using IHelperServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Models.DTOs;
@@ -17,25 +16,19 @@ namespace WebApi
     {
         private readonly IUsersService _usersService;
         private readonly ITokenStoreService _tokenStoreService;
-        private readonly ICompatibleFrontendEncryption _compatibleFrontendEncryption;
         //private readonly ISignalRServices _signalRServices;
         //private readonly IAntiForgeryCookieService _antiforgery;
 
         public AccountController(
             IUsersService usersService,
-            ITokenStoreService tokenStoreService,
-            ICompatibleFrontendEncryption CompatibleFrontendEncryption
-            //ISignalRServices signalRServices
-            /*,IAntiForgeryCookieService antiforgery*/)
+            ITokenStoreService tokenStoreService)
+        //ISignalRServices signalRServices)
         {
             _usersService = usersService;
             _usersService.CheckArgumentIsNull(nameof(usersService));
 
             _tokenStoreService = tokenStoreService;
             _tokenStoreService.CheckArgumentIsNull(nameof(tokenStoreService));
-
-            _compatibleFrontendEncryption = CompatibleFrontendEncryption;
-            _compatibleFrontendEncryption.CheckArgumentIsNull(nameof(_compatibleFrontendEncryption));
 
             //_signalRServices = signalRServices;
             //_signalRServices.CheckArgumentIsNull(nameof(_signalRServices));
@@ -45,34 +38,22 @@ namespace WebApi
         }
 
         [AllowAnonymous]
-        //[IgnoreAntiforgeryToken]
         [HttpPost("[action]")]
         [ProducesResponseType(200, Type = typeof(AccessToken))]
         public async Task<IActionResult> Login([FromBody] UserLoginDTO loginUser)
         {
             if (loginUser == null)
-            {
                 return BadRequest("User is not set.");
-            }
 
-            var userName = _compatibleFrontendEncryption.Decrypt(loginUser.Username);
-            var password = _compatibleFrontendEncryption.Decrypt(loginUser.Password);
-
-            Models.DbModels.User user = await _usersService.FindUserPasswordAsync(userName, password);
+            Models.DbModels.User user = await _usersService.FindUserPasswordAsync(loginUser.Username, loginUser.Password);
             if (user == null || !user.Enabled)
-            {
                 return Unauthorized();
-            }
 
             (string accessToken, string refreshToken, System.Collections.Generic.IEnumerable<Claim> claims) = await _tokenStoreService.CreateJwtTokens(user, refreshTokenSource: null);
-
-            //_antiforgery.RegenerateAntiForgeryCookies(claims);
-
             return Ok(new AccessToken { access_token = accessToken, refresh_token = refreshToken });
         }
 
         [AllowAnonymous]
-        //[ValidateAntiForgeryToken]
         [HttpPost("[action]")]
         [ProducesResponseType(200, Type = typeof(AccessToken))]
         public async Task<IActionResult> RefreshToken([FromBody]JToken jsonBody)
@@ -108,8 +89,6 @@ namespace WebApi
             // Delete the user's tokens from the database (revoke its bearer token)
             _tokenStoreService.RevokeUserBearerTokens(userIdValue, refreshToken);
 
-
-            // _antiforgery.DeleteAntiForgeryCookies();
             //_signalRServices.SignOut(User.Identity.Name);
             return true;
         }
@@ -129,6 +108,17 @@ namespace WebApi
             string Username = claimsIdentity.Name;
             Models.DTOs.AuthTicketDTO AuthTicket = _usersService.GetAuthDTO(Username, organizationId, roleId);
             return Ok(AuthTicket != null ? AuthTicket : null);
+        }
+
+        [HttpPost("[action]")]
+        [ProducesResponseType(200, Type = typeof(bool))]
+        [AllowAnonymous]
+        public IActionResult Register([FromBody]RegisterUserDTO registerUSerDTO)
+        {
+            if (ModelState.IsValid && registerUSerDTO.Password == registerUSerDTO.ConfirmPassword)
+                if (_usersService.RegisterUser(registerUSerDTO))
+                    return Ok(true);
+            return BadRequest(ModelState);
         }
     }
 }

@@ -30,6 +30,8 @@ namespace Models.DbModels
 
         public bool Enabled { get; set; }
 
+        public bool IsApproved { get; set; }
+
         public DateTimeOffset? LastLoggedIn { get; set; }
 
         public byte[] ProfileImage { get; set; }
@@ -52,8 +54,8 @@ namespace Models.DbModels
                     (string.IsNullOrEmpty(FullNameAr) ? FullNameEn : FullNameAr) :
                     (string.IsNullOrEmpty(FullNameEn) ? FullNameAr : FullNameEn);
 
-        public DateTimeOffset? EnabledUntil { get; set; }
-
+        //public DateTimeOffset? EnabledUntil { get; set; }
+        public bool? IsDisabled { get; set; }
         [MaxLength(50), Phone]
         public string PhoneNumber { get; set; }
 

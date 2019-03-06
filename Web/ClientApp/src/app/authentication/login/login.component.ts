@@ -1,4 +1,7 @@
-import { UserLoginDTO } from './../../_services/swagger/SwaggerClient.service';
+import {
+  UserLoginDTO,
+  RegisterUserDTO
+} from './../../_services/swagger/SwaggerClient.service';
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { SwaggerClient } from 'src/app/_services/swagger/SwaggerClient.service';
 import { Encrypt } from 'src/app/Utility/app.Encryption';
@@ -12,6 +15,11 @@ import { Encrypt } from 'src/app/Utility/app.Encryption';
 export class LoginComponent implements OnInit {
   email = '';
   password = '';
+  fullname = '';
+  username = '';
+  signUpEmail = '';
+  signUpPassword = '';
+  signUpConfirmPassword = '';
   InvalidCredentials = false;
   constructor(private swagger: SwaggerClient) {}
 
@@ -29,12 +37,26 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  onSubmit() {
+  onLoginSubmit() {
     this.swagger
       .api_Account_Login({
         username: Encrypt(this.email),
         password: Encrypt(this.password)
       } as UserLoginDTO)
+      .subscribe(data => {
+        console.log(data);
+      });
+  }
+
+  onSignupSubmit() {
+    this.swagger
+      .api_Account_Register({
+        fullName: this.fullname,
+        confirmPassword: Encrypt(this.signUpConfirmPassword),
+        password: Encrypt(this.signUpPassword),
+        email: this.signUpEmail,
+        username: this.username
+      } as RegisterUserDTO)
       .subscribe(data => {
         console.log(data);
       });
