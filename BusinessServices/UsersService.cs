@@ -76,8 +76,8 @@ namespace BusinessServices.AuthenticationServices
             string Username = _compatibleFrontendEncryption.Decrypt(username);
             string Password = _compatibleFrontendEncryption.Decrypt(password);
 
-            string passwordHash = _securityService.GetSha256Hash(Password);
-            Models.DbModels.User result = await _users.FirstOrDefaultAsync(x => (x.Username.ToUpper() == Username.ToUpper() || x.Email.ToUpper() == Username.ToUpper()) && x.Password == passwordHash);
+            string passwordHash = _encryptionServices.EncryptString(Password, _AppSettings.EncryptionSettings.SecretPassword, _AppSettings.EncryptionSettings.Salt);
+            User result = await _users.FirstOrDefaultAsync(x => (x.Username.ToUpper() == Username.ToUpper() || x.Email.ToUpper() == Username.ToUpper()) && x.Password == passwordHash);
             return result;
         }
 
@@ -240,7 +240,6 @@ namespace BusinessServices.AuthenticationServices
             {
                 new User
                 {
-                    IsApproved = false,
                     Username = registerUSerDTO.Username,
                     Email = registerUSerDTO.Email,
                     Password = _encryptionServices.EncryptString(_compatibleFrontendEncryption.Decrypt(registerUSerDTO.Password), _AppSettings.EncryptionSettings.SecretPassword,_AppSettings.EncryptionSettings.Salt),

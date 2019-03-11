@@ -54,8 +54,7 @@ namespace Models.DbModels
                     (string.IsNullOrEmpty(FullNameAr) ? FullNameEn : FullNameAr) :
                     (string.IsNullOrEmpty(FullNameEn) ? FullNameAr : FullNameEn);
 
-        //public DateTimeOffset? EnabledUntil { get; set; }
-        public bool? IsDisabled { get; set; }
+        
         [MaxLength(50), Phone]
         public string PhoneNumber { get; set; }
 

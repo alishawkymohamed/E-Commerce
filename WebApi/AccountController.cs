@@ -47,7 +47,10 @@ namespace WebApi
 
             Models.DbModels.User user = await _usersService.FindUserPasswordAsync(loginUser.Username, loginUser.Password);
             if (user == null || !user.Enabled)
-                return Unauthorized();
+                return Unauthorized("InvalidCredentials");
+
+            if (!user.IsApproved)
+                return Unauthorized("NotApproved");
 
             (string accessToken, string refreshToken, System.Collections.Generic.IEnumerable<Claim> claims) = await _tokenStoreService.CreateJwtTokens(user, refreshTokenSource: null);
             return Ok(new AccessToken { access_token = accessToken, refresh_token = refreshToken });

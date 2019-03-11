@@ -6,7 +6,7 @@
             <button class="btn google-btn social-btn" type="button"><span><i class="fa fa-google"></i> {{'SignInWithGmail' | translate}}</span> </button>
         </div>
         <p style="text-align:center"> OR </p>
-        <input type="email" email name="email" required [(ngModel)]="email" id="inputEmail" class="form-control" placeholder="{{'EmailAddress' | translate}}">
+        <input type="email" name="email" required [(ngModel)]="email" id="inputEmail" class="form-control" placeholder="{{'EmailAddress' | translate}} - {{'UserName' | translate}}">
         <input type="password" name="password" required [(ngModel)]="password" id="inputPassword" class="form-control" placeholder="{{'Password' | translate}}">
 
         <button class="btn btn-success btn-block" [disabled]="!loginForm.form.valid" type="submit"><i class="fa fa-sign-in"></i> {{'Login' | translate}}</button>

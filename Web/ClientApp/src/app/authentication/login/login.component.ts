@@ -43,9 +43,14 @@ export class LoginComponent implements OnInit {
         username: Encrypt(this.email),
         password: Encrypt(this.password)
       } as UserLoginDTO)
-      .subscribe(data => {
-        console.log(data);
-      });
+      .subscribe(
+        data => {
+          console.log(data);
+        },
+        error => {
+          console.log(error);
+        }
+      );
   }
 
   onSignupSubmit() {
@@ -57,8 +62,13 @@ export class LoginComponent implements OnInit {
         email: this.signUpEmail,
         username: this.username
       } as RegisterUserDTO)
-      .subscribe(data => {
-        console.log(data);
-      });
+      .subscribe(
+        data => {
+          console.log(data);
+        },
+        error => {
+          console.log(error);
+        }
+      );
   }
 }
