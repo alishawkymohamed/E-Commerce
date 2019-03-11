@@ -105,11 +105,11 @@ namespace WebApi
         [HttpGet("[action]")]
         [ProducesResponseType(200, Type = typeof(AuthTicketDTO))]
         [Authorize]
-        public IActionResult GetUserAuthTicket(int? organizationId, int? roleId)
+        public IActionResult GetUserAuthTicket()
         {
             ClaimsIdentity claimsIdentity = User.Identity as ClaimsIdentity;
             string Username = claimsIdentity.Name;
-            Models.DTOs.AuthTicketDTO AuthTicket = _usersService.GetAuthDTO(Username, organizationId, roleId);
+            AuthTicketDTO AuthTicket = _usersService.GetAuthDTO(Username);
             return Ok(AuthTicket != null ? AuthTicket : null);
         }
 

@@ -244,16 +244,10 @@ export class SwaggerClient {
     }
 
     /**
-     * @param organizationId (optional) 
-     * @param roleId (optional) 
      * @return Success
      */
-    api_Account_GetUserAuthTicket(organizationId: number | null | undefined, roleId: number | null | undefined): Observable<AuthTicketDTO> {
-        let url_ = this.baseUrl + "/api/Account/GetUserAuthTicket?";
-        if (organizationId !== undefined)
-            url_ += "organizationId=" + encodeURIComponent("" + organizationId) + "&"; 
-        if (roleId !== undefined)
-            url_ += "roleId=" + encodeURIComponent("" + roleId) + "&"; 
+    api_Account_GetUserAuthTicket(): Observable<AuthTicketDTO> {
+        let url_ = this.baseUrl + "/api/Account/GetUserAuthTicket";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -3609,17 +3603,14 @@ export interface IAccessToken {
 }
 
 export class AuthTicketDTO implements IAuthTicketDTO {
+    userId?: number | undefined;
     userName?: string | undefined;
     email?: string | undefined;
     fullName?: string | undefined;
     profileImageFileId?: number | undefined;
-    organizationId?: number | undefined;
-    organizationName?: string | undefined;
     roleId?: number | undefined;
     roleName?: string | undefined;
     defaultCulture?: string | undefined;
-    defaultCalendar?: string | undefined;
-    permissions?: string[] | undefined;
     userRoles?: UserRoleDTO[] | undefined;
 
     constructor(data?: IAuthTicketDTO) {
@@ -3633,21 +3624,14 @@ export class AuthTicketDTO implements IAuthTicketDTO {
 
     init(data?: any) {
         if (data) {
+            this.userId = data["UserId"];
             this.userName = data["UserName"];
             this.email = data["Email"];
             this.fullName = data["FullName"];
             this.profileImageFileId = data["ProfileImageFileId"];
-            this.organizationId = data["OrganizationId"];
-            this.organizationName = data["OrganizationName"];
             this.roleId = data["RoleId"];
             this.roleName = data["RoleName"];
             this.defaultCulture = data["DefaultCulture"];
-            this.defaultCalendar = data["DefaultCalendar"];
-            if (data["Permissions"] && data["Permissions"].constructor === Array) {
-                this.permissions = [] as any;
-                for (let item of data["Permissions"])
-                    this.permissions!.push(item);
-            }
             if (data["UserRoles"] && data["UserRoles"].constructor === Array) {
                 this.userRoles = [] as any;
                 for (let item of data["UserRoles"])
@@ -3665,21 +3649,14 @@ export class AuthTicketDTO implements IAuthTicketDTO {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
+        data["UserId"] = this.userId;
         data["UserName"] = this.userName;
         data["Email"] = this.email;
         data["FullName"] = this.fullName;
         data["ProfileImageFileId"] = this.profileImageFileId;
-        data["OrganizationId"] = this.organizationId;
-        data["OrganizationName"] = this.organizationName;
         data["RoleId"] = this.roleId;
         data["RoleName"] = this.roleName;
         data["DefaultCulture"] = this.defaultCulture;
-        data["DefaultCalendar"] = this.defaultCalendar;
-        if (this.permissions && this.permissions.constructor === Array) {
-            data["Permissions"] = [];
-            for (let item of this.permissions)
-                data["Permissions"].push(item);
-        }
         if (this.userRoles && this.userRoles.constructor === Array) {
             data["UserRoles"] = [];
             for (let item of this.userRoles)
@@ -3690,17 +3667,14 @@ export class AuthTicketDTO implements IAuthTicketDTO {
 }
 
 export interface IAuthTicketDTO {
+    userId?: number | undefined;
     userName?: string | undefined;
     email?: string | undefined;
     fullName?: string | undefined;
     profileImageFileId?: number | undefined;
-    organizationId?: number | undefined;
-    organizationName?: string | undefined;
     roleId?: number | undefined;
     roleName?: string | undefined;
     defaultCulture?: string | undefined;
-    defaultCalendar?: string | undefined;
-    permissions?: string[] | undefined;
     userRoles?: UserRoleDTO[] | undefined;
 }
 
@@ -3708,8 +3682,7 @@ export class UserRoleDTO implements IUserRoleDTO {
     userId?: number | undefined;
     roleId?: number | undefined;
     roleName?: string | undefined;
-    enabledSince?: Date | undefined;
-    enabledUntil?: Date | undefined;
+    userName?: string | undefined;
     notes?: string | undefined;
 
     constructor(data?: IUserRoleDTO) {
@@ -3726,8 +3699,7 @@ export class UserRoleDTO implements IUserRoleDTO {
             this.userId = data["UserId"];
             this.roleId = data["RoleId"];
             this.roleName = data["RoleName"];
-            this.enabledSince = data["EnabledSince"] ? new Date(data["EnabledSince"].toString()) : <any>undefined;
-            this.enabledUntil = data["EnabledUntil"] ? new Date(data["EnabledUntil"].toString()) : <any>undefined;
+            this.userName = data["UserName"];
             this.notes = data["Notes"];
         }
     }
@@ -3744,8 +3716,7 @@ export class UserRoleDTO implements IUserRoleDTO {
         data["UserId"] = this.userId;
         data["RoleId"] = this.roleId;
         data["RoleName"] = this.roleName;
-        data["EnabledSince"] = this.enabledSince ? this.enabledSince.toISOString() : <any>undefined;
-        data["EnabledUntil"] = this.enabledUntil ? this.enabledUntil.toISOString() : <any>undefined;
+        data["UserName"] = this.userName;
         data["Notes"] = this.notes;
         return data; 
     }
@@ -3755,8 +3726,7 @@ export interface IUserRoleDTO {
     userId?: number | undefined;
     roleId?: number | undefined;
     roleName?: string | undefined;
-    enabledSince?: Date | undefined;
-    enabledUntil?: Date | undefined;
+    userName?: string | undefined;
     notes?: string | undefined;
 }
 
@@ -3766,6 +3736,7 @@ export class RegisterUserDTO implements IRegisterUserDTO {
     email?: string | undefined;
     password?: string | undefined;
     confirmPassword?: string | undefined;
+    roleId?: number | undefined;
 
     constructor(data?: IRegisterUserDTO) {
         if (data) {
@@ -3783,6 +3754,7 @@ export class RegisterUserDTO implements IRegisterUserDTO {
             this.email = data["Email"];
             this.password = data["Password"];
             this.confirmPassword = data["ConfirmPassword"];
+            this.roleId = data["RoleId"];
         }
     }
 
@@ -3800,6 +3772,7 @@ export class RegisterUserDTO implements IRegisterUserDTO {
         data["Email"] = this.email;
         data["Password"] = this.password;
         data["ConfirmPassword"] = this.confirmPassword;
+        data["RoleId"] = this.roleId;
         return data; 
     }
 }
@@ -3810,6 +3783,7 @@ export interface IRegisterUserDTO {
     email?: string | undefined;
     password?: string | undefined;
     confirmPassword?: string | undefined;
+    roleId?: number | undefined;
 }
 
 export class Sort implements ISort {

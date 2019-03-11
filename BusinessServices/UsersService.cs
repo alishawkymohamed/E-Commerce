@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BusinessServices.ExtensionMethods;
 using HelperServices;
 using IBusinessServices;
 using IHelperServices;
@@ -13,6 +14,7 @@ using Models.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -132,72 +134,37 @@ namespace BusinessServices.AuthenticationServices
             return (true, string.Empty);
         }
 
-        public AuthTicketDTO GetAuthDTO(string userName, int? organizationId = null, int? roleId = null)
+        public AuthTicketDTO GetAuthDTO(string userName)
         {
-            //bool IsArabic = CultureInfo.CurrentCulture.IsArabic();
-            //var AuthUser = _users.GetUserWithRolesAndPermissions(userName);
-            //if (AuthUser != null)
-            //{
-            //    if (!AuthUser.Enabled)
-            //        throw new BusinessException(_StringLocalizer.GetString("AccountIsDisabled"));
-            //    if (AuthUser.EnabledUntil.HasValue && AuthUser.EnabledUntil.Value < DateTimeOffset.Now)
-            //        throw new BusinessException(_StringLocalizer.GetString("AccountIsDisabledSince", AuthUser.EnabledUntil));
+            AuthTicketDTO AuthTicket = SessionServices.GetAuthTicket(userName);
+            if (AuthTicket != null)
+                return AuthTicket;
 
-            //    var EnabledUserRoles = AuthUser.UserRoles
-            //        .Where(x => !x.EnabledUntil.HasValue || x.EnabledUntil.Value > DateTimeOffset.Now)
-            //        .Where(x => !x.EnabledSince.HasValue || x.EnabledSince.Value < DateTimeOffset.Now);
+            bool IsArabic = CultureInfo.CurrentCulture.IsArabic();
+            User AuthUser = _users.GetAll(x => x.Username.ToUpper() == userName.ToUpper(), false, "UserRoles").FirstOrDefault();
+            if (AuthUser != null)
+            {
+                if (!AuthUser.Enabled)
+                    throw new BusinessException(_StringLocalizer.GetString("AccountIsDisabled"));
 
-            //    var DefaultUserRole = (organizationId.HasValue && roleId.HasValue) ?
-            //        EnabledUserRoles.SingleOrDefault(x => x.OrganizationId == organizationId && x.RoleId == roleId) ?? EnabledUserRoles.FirstOrDefault()
-            //        : EnabledUserRoles.SingleOrDefault(x => x.LastSelected == true) ?? EnabledUserRoles.FirstOrDefault();
+                if (!AuthUser.IsApproved)
+                    throw new BusinessException(_StringLocalizer.GetString("AccountIsNotApproved"));
 
-            //    // To Save Last Selected Role
-            //    if (roleId.HasValue && organizationId.HasValue)
-            //    {
-            //        Models.DbModels.UserRole DefaultToSaved = _userRoles.GetAllAsync
-            //            (x => x.UserId == AuthUser.UserId && x.OrganizationId == (organizationId ?? DefaultUserRole.OrganizationId) && x.RoleId == (roleId ?? DefaultUserRole.RoleId)).Result
-            //            .FirstOrDefault();
-            //        if (DefaultToSaved != null)
-            //        {
-            //            _userRoles.GetAllAsync(x => x.UserId == AuthUser.UserId).Result.AsParallel().ForAll(e => e.LastSelected = false);
-            //            DefaultToSaved.LastSelected = true;
-            //            _uow.Save(true);
-            //        }
-            //    }
+                AuthTicketDTO Result = new AuthTicketDTO()
+                {
+                    Email = AuthUser.Email,
+                    FullName = AuthUser.FullName,
+                    UserName = AuthUser.Username,
+                    UserId = AuthUser.UserId,
+                    DefaultCulture = AuthUser.DefaultCulture,
+                    RoleId = AuthUser.UserRoles.FirstOrDefault()?.RoleId,
+                    RoleName = AuthUser.UserRoles.FirstOrDefault()?.Role.RoleName,
+                };
 
-            //    var DefaultRolePermissions = DefaultUserRole.Role.RolePermissions.Where(x => x.Enabled == true).Select(x => x.Permission).ToList();
-
-            //    var UserPermissions = DefaultUserRole.User.UserPermissions
-            //        .Where(x => x.OrganizationId == DefaultUserRole.OrganizationId)
-            //        .Where(x => x.RoleId == DefaultUserRole.RoleId)
-            //        .ToList();
-
-            //    UserPermissions.AsParallel().ForAll(x => x.Permission.Enabled = x.Enabled);
-
-            //    List<Permission> ClonedDefaultRolePermissions = new List<Permission>(DefaultRolePermissions);
-            //    var Intersection = DefaultRolePermissions.Intersect(UserPermissions.Select(x => x.Permission));
-            //    ClonedDefaultRolePermissions.RemoveAll(x => Intersection.Contains(x));
-
-            //    var Result = new AuthTicketDTO()
-            //    {
-            //        Email = AuthUser.Email,
-            //        FullName = IsArabic ? AuthUser.FullNameAr : AuthUser.FullNameEn,
-            //        UserName = AuthUser.Username,
-            //        DefaultCulture = AuthUser.DefaultCulture,
-            //        DefaultCalendar = AuthUser.DefaultCalendar,
-            //        OrganizationId = DefaultUserRole.OrganizationId,
-            //        OrganizationName = IsArabic ? DefaultUserRole.Organization.OrganizationNameAr : DefaultUserRole.Organization.OrganizationNameEn,
-            //        RoleId = DefaultUserRole.RoleId,
-            //        RoleName = IsArabic ? DefaultUserRole.Role.RoleNameAr : DefaultUserRole.Role.RoleNameEn,
-            //        UserRoles = EnabledUserRoles.AsQueryable().ProjectTo<UserRoleDTO>(_Mapper.ConfigurationProvider).ToList(),
-            //        Permissions = DefaultUserRole.RoleOverridesUserPermissions ? DefaultRolePermissions.Select(x => x.PermissionCode.ToUpper())
-            //        : ClonedDefaultRolePermissions.Concat(UserPermissions.Select(x => x.Permission)).Where(x => x.Enabled == true).Select(x => x.PermissionCode.ToUpper())
-            //    };
-
-            //    //Using Sessions Cache to Save AuthTicket
-            //    SessionServices.SetAuthTicket(Result.UserName, Result);
-            //    return Result;
-            //}
+                //Using Sessions Cache to Save AuthTicket
+                SessionServices.SetAuthTicket(Result.UserName, Result);
+                return Result;
+            }
             return null;
         }
 
@@ -244,9 +211,14 @@ namespace BusinessServices.AuthenticationServices
                     Email = registerUSerDTO.Email,
                     Password = _encryptionServices.EncryptString(_compatibleFrontendEncryption.Decrypt(registerUSerDTO.Password), _AppSettings.EncryptionSettings.SecretPassword,_AppSettings.EncryptionSettings.Salt),
                     FullNameAr = registerUSerDTO.FullName,
-                    FullNameEn = registerUSerDTO.FullName
+                    FullNameEn = registerUSerDTO.FullName,
+                    Enabled = true
                 }
             });
+
+            User InsertedUser = Inserted.FirstOrDefault();
+            if (InsertedUser != null)
+                _userRoles.Insert(new List<UserRole> { new UserRole { UserId = InsertedUser.UserId, RoleId = registerUSerDTO.RoleId } });
 
             return (Inserted != null && Inserted.Count() > 0);
         }

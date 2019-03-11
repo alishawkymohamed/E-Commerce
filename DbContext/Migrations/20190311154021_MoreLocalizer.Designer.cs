@@ -4,14 +4,16 @@ using DbContexts.DatabaseExtensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DbContexts.Migrations
 {
     [DbContext(typeof(MainDbContext))]
-    partial class MainDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190311154021_MoreLocalizer")]
+    partial class MoreLocalizer
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -599,21 +601,21 @@ namespace DbContexts.Migrations
                         new
                         {
                             RoleId = 1,
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 3, 11, 18, 49, 12, 614, DateTimeKind.Unspecified).AddTicks(7023), new TimeSpan(0, 2, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 3, 11, 17, 40, 20, 771, DateTimeKind.Unspecified).AddTicks(7045), new TimeSpan(0, 2, 0, 0, 0)),
                             RoleNameAr = "مدير النظام",
                             RoleNameEn = "Admin"
                         },
                         new
                         {
                             RoleId = 2,
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 3, 11, 18, 49, 12, 616, DateTimeKind.Unspecified).AddTicks(1728), new TimeSpan(0, 2, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 3, 11, 17, 40, 20, 773, DateTimeKind.Unspecified).AddTicks(5087), new TimeSpan(0, 2, 0, 0, 0)),
                             RoleNameAr = "بائع",
                             RoleNameEn = "Seller"
                         },
                         new
                         {
                             RoleId = 3,
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 3, 11, 18, 49, 12, 616, DateTimeKind.Unspecified).AddTicks(1743), new TimeSpan(0, 2, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 3, 11, 17, 40, 20, 773, DateTimeKind.Unspecified).AddTicks(5106), new TimeSpan(0, 2, 0, 0, 0)),
                             RoleNameAr = "مستخدم",
                             RoleNameEn = "User"
                         });
@@ -809,6 +811,10 @@ namespace DbContexts.Migrations
                     b.Property<int?>("CreatedBy");
 
                     b.Property<DateTimeOffset?>("CreatedOn");
+
+                    b.Property<DateTimeOffset?>("EnabledSince");
+
+                    b.Property<DateTimeOffset?>("EnabledUntil");
 
                     b.Property<bool?>("LastSelected");
 

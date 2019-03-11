@@ -139,3 +139,12 @@ body:not(.rtl) {
     display: block;
     text-align: center;
 }
+
+.radio-wrapper {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 10px;
+    label {
+        margin-right: 5px;
+    }
+}

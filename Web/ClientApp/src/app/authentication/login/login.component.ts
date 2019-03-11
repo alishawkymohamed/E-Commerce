@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit {
   signUpPassword = '';
   signUpConfirmPassword = '';
   InvalidCredentials = false;
+  role = '2';
   constructor(private swagger: SwaggerClient) {}
 
   ngOnInit() {}
@@ -53,14 +54,16 @@ export class LoginComponent implements OnInit {
       );
   }
 
-  onSignupSubmit() {
+  onSignupSubmit(signupForm) {
     this.swagger
       .api_Account_Register({
         fullName: this.fullname,
         confirmPassword: Encrypt(this.signUpConfirmPassword),
         password: Encrypt(this.signUpPassword),
         email: this.signUpEmail,
-        username: this.username
+        username: this.username,
+        // tslint:disable-next-line: radix
+        roleId: parseInt(this.role)
       } as RegisterUserDTO)
       .subscribe(
         data => {
