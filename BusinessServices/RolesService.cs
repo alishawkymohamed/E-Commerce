@@ -19,12 +19,12 @@ namespace BusinessServices.AuthenticationServices
     {
         private readonly IUnitOfWork _uow;
         private readonly ISessionServices _sessionServices;
-        private readonly ISignalRServices _signalRServices;
+        //private readonly ISignalRServices _signalRServices;
         private readonly IStringLocalizer _stringLocalizer;
         private readonly IRoleRepository _roles;
         private readonly IUserRepository _users;
 
-        public RolesService(IUnitOfWork uow, IMapper mapper, IStringLocalizer stringLocalizer, ISessionServices sessionServices, ISignalRServices signalRServices) : base(uow, mapper, stringLocalizer, sessionServices)
+        public RolesService(IUnitOfWork uow, IMapper mapper, IStringLocalizer stringLocalizer, ISessionServices sessionServices/*, ISignalRServices signalRServices*/) : base(uow, mapper, stringLocalizer, sessionServices)
         {
             _uow = uow;
             _uow.CheckArgumentIsNull(nameof(_uow));
@@ -32,8 +32,8 @@ namespace BusinessServices.AuthenticationServices
             _sessionServices = sessionServices;
             _sessionServices.CheckArgumentIsNull(nameof(_sessionServices));
 
-            _signalRServices = signalRServices;
-            _signalRServices.CheckArgumentIsNull(nameof(_signalRServices));
+            //_signalRServices = signalRServices;
+            //_signalRServices.CheckArgumentIsNull(nameof(_signalRServices));
 
             _stringLocalizer = stringLocalizer;
             _stringLocalizer.CheckArgumentIsNull(nameof(_stringLocalizer));

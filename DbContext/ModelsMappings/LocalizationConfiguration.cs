@@ -20,6 +20,8 @@ namespace DbContexts.ModelsMappings
                   new Localization { LocalizationId = 6, Key = "Save", ValueAr = "حفظ", ValueEn = "Save" },
                   new Localization { LocalizationId = 7, Key = "SavedSuccess", ValueAr = "تم الحفظ بنجاح", ValueEn = "Saved Successfully" },
                   new Localization { LocalizationId = 8, Key = "ErrorOccured", ValueAr = "حدث خطأ ما", ValueEn = "Error Occured" },
+                  new Localization { LocalizationId = 9, Key = "Seller", ValueAr = "بائع", ValueEn = "Seller" },
+                  new Localization { LocalizationId = 10, Key = "User", ValueAr = "مستخدم", ValueEn = "User" },
                   new Localization { LocalizationId = 11, Key = "InvalidCredentials", ValueAr = "خطأ في إسم المستخدم أو كلمة السر", ValueEn = "Invalid Username Or Password" },
                   new Localization { LocalizationId = 12, Key = "UserName", ValueAr = "إسم المستخدم", ValueEn = "Username" },
                   new Localization { LocalizationId = 13, Key = "Password", ValueAr = "كلمة السر", ValueEn = "Password" },
@@ -54,7 +56,9 @@ namespace DbContexts.ModelsMappings
                   new Localization { LocalizationId = 42, Key = "SignUpWithGmail", ValueAr = "إنشاء حساب بواسطة جوجل", ValueEn = "Sign up with Gmail" },
                   new Localization { LocalizationId = 43, Key = "FullName", ValueAr = "الإسم بالكامل", ValueEn = "Full Name" },
                   new Localization { LocalizationId = 44, Key = "ConfirmPassword", ValueAr = "تأكيد كلمة السر", ValueEn = "Confirm Password" },
-                  new Localization { LocalizationId = 45, Key = "Back", ValueAr = "عودة", ValueEn = "Back" }
+                  new Localization { LocalizationId = 45, Key = "Back", ValueAr = "عودة", ValueEn = "Back" },
+                  new Localization { LocalizationId = 46, Key = "WaitApprove", ValueAr = "تم إرسال طلب إنضمامك للموقع للمدير المسئول و سيتم إخطارك عن الموافقة علي طلبك", ValueEn = "Your request to join our website is sent to admin and you'll be notified after his approval" },
+                  new Localization { LocalizationId = 47, Key = "Admin", ValueAr = "مدير النظام", ValueEn = "Admin" }
 
                   );
         }

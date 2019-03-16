@@ -26,11 +26,13 @@ namespace BusinessServices.AuthenticationServices
         private readonly IUserRepository _users;
         private readonly IOptionsSnapshot<BearerTokensOptions> _configuration;
         private readonly IRolesService _rolesService;
+        private readonly IUsersService _userService;
 
         public TokenStoreService(
             IUnitOfWork uow,
             ISecurityService securityService,
             IRolesService rolesService,
+            IUsersService userService,
             IOptionsSnapshot<BearerTokensOptions> configuration)
         {
             _uow = uow;
@@ -41,6 +43,9 @@ namespace BusinessServices.AuthenticationServices
 
             _rolesService = rolesService;
             _rolesService.CheckArgumentIsNull(nameof(rolesService));
+
+            _userService = userService;
+            _rolesService.CheckArgumentIsNull(nameof(userService));
 
             _tokens = _uow.Repository<UserToken>() as IUserTokenRepository;
             _users = _uow.Repository<User>() as IUserRepository;
@@ -157,39 +162,47 @@ namespace BusinessServices.AuthenticationServices
 
         private async Task<(string AccessToken, IEnumerable<Claim> Claims)> createAccessTokenAsync(User user)
         {
-            List<Claim> claims = new List<Claim>
+            try
             {
+                List<Claim> claims = new List<Claim>();
                 // Unique Id for all Jwt tokes
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString(), ClaimValueTypes.String, _configuration.Value.Issuer),
+                claims.Add(new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString(), ClaimValueTypes.String, _configuration.Value.Issuer));
                 // Issuer
-                new Claim(JwtRegisteredClaimNames.Iss, _configuration.Value.Issuer, ClaimValueTypes.String, _configuration.Value.Issuer),
+                claims.Add(new Claim(JwtRegisteredClaimNames.Iss, _configuration.Value.Issuer, ClaimValueTypes.String, _configuration.Value.Issuer));
                 // Issued at
-                new Claim(JwtRegisteredClaimNames.Iat, DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString(), ClaimValueTypes.Integer64, _configuration.Value.Issuer),
-                new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString(), ClaimValueTypes.String, _configuration.Value.Issuer),
-                new Claim(ClaimTypes.Name, user.Username, ClaimValueTypes.String, _configuration.Value.Issuer),
-                new Claim("DisplayName", user.FullName, ClaimValueTypes.String, _configuration.Value.Issuer),
+                claims.Add(new Claim(JwtRegisteredClaimNames.Iat, DateTimeOffset.UtcNow.ToUnixTimeSeconds().ToString(), ClaimValueTypes.Integer64, _configuration.Value.Issuer));
+                claims.Add(new Claim(ClaimTypes.NameIdentifier, user.UserId.ToString(), ClaimValueTypes.String, _configuration.Value.Issuer));
+                claims.Add(new Claim(ClaimTypes.Name, user.Username, ClaimValueTypes.String, _configuration.Value.Issuer));
+                claims.Add(new Claim("DisplayName", user.FullName, ClaimValueTypes.String, _configuration.Value.Issuer));
                 // to invalidate the cookie
-                new Claim(ClaimTypes.SerialNumber, user.SerialNumber, ClaimValueTypes.String, _configuration.Value.Issuer),
+                claims.Add(new Claim(ClaimTypes.SerialNumber, user.SerialNumber, ClaimValueTypes.String, _configuration.Value.Issuer));
+
                 // custom data
-                new Claim(ClaimTypes.UserData, user.UserId.ToString(), ClaimValueTypes.String, _configuration.Value.Issuer)
-            };
+                AuthTicketDTO authData = _userService.GetAuthDTO(user.Username);
+                claims.Add(new Claim(ClaimTypes.UserData, Newtonsoft.Json.JsonConvert.SerializeObject(authData), ClaimValueTypes.String, _configuration.Value.Issuer));
 
-            // add current LoggedIn OrganizationId
-            // add current LoggedIn RoleId
-            UserRole LastAndCurrentLogedInUserRole = await _users.FindLastSelectedRoleAndOrganization(user.UserId);
-            claims.Add(new Claim("CurrentRoleId", LastAndCurrentLogedInUserRole.RoleId.ToString(), ClaimValueTypes.String, _configuration.Value.Issuer));
 
-            SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.Value.Key));
-            SigningCredentials creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-            DateTime now = DateTime.UtcNow;
-            JwtSecurityToken token = new JwtSecurityToken(
-                issuer: _configuration.Value.Issuer,
-                audience: _configuration.Value.Audience,
-                claims: claims,
-                notBefore: now,
-                expires: now.AddMinutes(_configuration.Value.AccessTokenExpirationMinutes),
-                signingCredentials: creds);
-            return (new JwtSecurityTokenHandler().WriteToken(token), claims);
+                // add current LoggedIn OrganizationId
+                // add current LoggedIn RoleId
+
+                SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.Value.Key));
+                SigningCredentials creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+                DateTime now = DateTime.UtcNow;
+                JwtSecurityToken token = new JwtSecurityToken(
+                    issuer: _configuration.Value.Issuer,
+                    audience: _configuration.Value.Audience,
+                    claims: claims,
+                    notBefore: now,
+                    expires: now.AddMinutes(_configuration.Value.AccessTokenExpirationMinutes),
+                    signingCredentials: creds);
+                return (new JwtSecurityTokenHandler().WriteToken(token), claims);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
         }
     }
 }

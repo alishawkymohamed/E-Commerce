@@ -4,14 +4,16 @@ using DbContexts.DatabaseExtensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DbContexts.Migrations
 {
     [DbContext(typeof(MainDbContext))]
-    partial class MainDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190311133107_EditUserEntityAgain")]
+    partial class EditUserEntityAgain
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -207,20 +209,6 @@ namespace DbContexts.Migrations
                             Key = "ErrorOccured",
                             ValueAr = "حدث خطأ ما",
                             ValueEn = "Error Occured"
-                        },
-                        new
-                        {
-                            LocalizationId = 9,
-                            Key = "Seller",
-                            ValueAr = "بائع",
-                            ValueEn = "Seller"
-                        },
-                        new
-                        {
-                            LocalizationId = 10,
-                            Key = "User",
-                            ValueAr = "مستخدم",
-                            ValueEn = "User"
                         },
                         new
                         {
@@ -466,13 +454,6 @@ namespace DbContexts.Migrations
                             Key = "WaitApprove",
                             ValueAr = "تم إرسال طلب إنضمامك للموقع للمدير المسئول و سيتم إخطارك عن الموافقة علي طلبك",
                             ValueEn = "Your request to join our website is sent to admin and you'll be notified after his approval"
-                        },
-                        new
-                        {
-                            LocalizationId = 47,
-                            Key = "Admin",
-                            ValueAr = "مدير النظام",
-                            ValueEn = "Admin"
                         });
                 });
 
@@ -599,21 +580,21 @@ namespace DbContexts.Migrations
                         new
                         {
                             RoleId = 1,
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 3, 11, 18, 49, 12, 614, DateTimeKind.Unspecified).AddTicks(7023), new TimeSpan(0, 2, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 3, 11, 15, 31, 6, 733, DateTimeKind.Unspecified).AddTicks(5693), new TimeSpan(0, 2, 0, 0, 0)),
                             RoleNameAr = "مدير النظام",
                             RoleNameEn = "Admin"
                         },
                         new
                         {
                             RoleId = 2,
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 3, 11, 18, 49, 12, 616, DateTimeKind.Unspecified).AddTicks(1728), new TimeSpan(0, 2, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 3, 11, 15, 31, 6, 735, DateTimeKind.Unspecified).AddTicks(358), new TimeSpan(0, 2, 0, 0, 0)),
                             RoleNameAr = "بائع",
                             RoleNameEn = "Seller"
                         },
                         new
                         {
                             RoleId = 3,
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 3, 11, 18, 49, 12, 616, DateTimeKind.Unspecified).AddTicks(1743), new TimeSpan(0, 2, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 3, 11, 15, 31, 6, 735, DateTimeKind.Unspecified).AddTicks(373), new TimeSpan(0, 2, 0, 0, 0)),
                             RoleNameAr = "مستخدم",
                             RoleNameEn = "User"
                         });
@@ -809,6 +790,10 @@ namespace DbContexts.Migrations
                     b.Property<int?>("CreatedBy");
 
                     b.Property<DateTimeOffset?>("CreatedOn");
+
+                    b.Property<DateTimeOffset?>("EnabledSince");
+
+                    b.Property<DateTimeOffset?>("EnabledUntil");
 
                     b.Property<bool?>("LastSelected");
 

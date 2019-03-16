@@ -11,7 +11,7 @@ import { MessageModule } from 'primeng/message';
 import { ToastModule } from 'primeng/toast';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { DropdownModule } from 'primeng/dropdown';
-
+import { RadioButtonModule } from 'primeng/radiobutton';
 @NgModule({
   exports: [
     CommonModule,
@@ -23,6 +23,7 @@ import { DropdownModule } from 'primeng/dropdown';
     ConfirmDialogModule,
     MessagesModule,
     MessageModule,
+    RadioButtonModule,
     ToastModule,
     DynamicDialogModule,
     DropdownModule

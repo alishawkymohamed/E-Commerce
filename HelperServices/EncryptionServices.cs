@@ -16,24 +16,24 @@ namespace HelperServices
             //
             string encrypted;
 
-            using (var aes = Aes.Create())
+            using (Aes aes = Aes.Create())
             {
-                var keys = GetAesKeyAndIV(password, salt, aes);
+                Tuple<byte[], byte[]> keys = GetAesKeyAndIV(password, salt, aes);
                 aes.Key = keys.Item1;
                 aes.IV = keys.Item2;
 
-                var encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
+                ICryptoTransform encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
 
-                using (var memory_stream = new MemoryStream())
+                using (MemoryStream memory_stream = new MemoryStream())
                 {
-                    using (var crypto_stream = new CryptoStream(memory_stream, encryptor, CryptoStreamMode.Write))
+                    using (CryptoStream crypto_stream = new CryptoStream(memory_stream, encryptor, CryptoStreamMode.Write))
                     {
-                        using (var writer = new StreamWriter(crypto_stream))
+                        using (StreamWriter writer = new StreamWriter(crypto_stream))
                         {
                             writer.Write(plain_text);
                         }
 
-                        var encrypted_bytes = memory_stream.ToArray();
+                        byte[] encrypted_bytes = memory_stream.ToArray();
                         encrypted = ToString(encrypted_bytes);
                     }
                 }
@@ -50,22 +50,22 @@ namespace HelperServices
             //
             string decrypted;
 
-            using (var aes = Aes.Create())
+            using (Aes aes = Aes.Create())
             {
-                var keys = GetAesKeyAndIV(password, salt, aes);
+                Tuple<byte[], byte[]> keys = GetAesKeyAndIV(password, salt, aes);
                 aes.Key = keys.Item1;
                 aes.IV = keys.Item2;
 
                 // create a decryptor to perform the stream transform.
-                var decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
+                ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
 
                 // create the streams used for encryption.
-                var encrypted_bytes = ToByteArray(encrypted_value);
-                using (var memory_stream = new MemoryStream(encrypted_bytes))
+                byte[] encrypted_bytes = ToByteArray(encrypted_value);
+                using (MemoryStream memory_stream = new MemoryStream(encrypted_bytes))
                 {
-                    using (var crypto_stream = new CryptoStream(memory_stream, decryptor, CryptoStreamMode.Read))
+                    using (CryptoStream crypto_stream = new CryptoStream(memory_stream, decryptor, CryptoStreamMode.Read))
                     {
-                        using (var reader = new StreamReader(crypto_stream))
+                        using (StreamReader reader = new StreamReader(crypto_stream))
                         {
                             decrypted = reader.ReadToEnd();
                         }
@@ -89,10 +89,10 @@ namespace HelperServices
         private static Tuple<byte[], byte[]> GetAesKeyAndIV(string password, string salt, SymmetricAlgorithm symmetricAlgorithm)
         {
             const int bits = 8;
-            var key = new byte[16];
-            var iv = new byte[16];
+            byte[] key = new byte[16];
+            byte[] iv = new byte[16];
 
-            var derive_bytes = new Rfc2898DeriveBytes(password, Encoding.UTF8.GetBytes(salt));
+            Rfc2898DeriveBytes derive_bytes = new Rfc2898DeriveBytes(password, Encoding.UTF8.GetBytes(salt));
             key = derive_bytes.GetBytes(symmetricAlgorithm.KeySize / bits);
             iv = derive_bytes.GetBytes(symmetricAlgorithm.BlockSize / bits);
 

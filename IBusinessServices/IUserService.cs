@@ -15,8 +15,9 @@ namespace IBusinessServices
         Task<User> GetCurrentUserAsync();
         new IEnumerable<object> Delete(IEnumerable<object> Ids);
         int GetCurrentUserId();
+        bool RegisterUser(RegisterUserDTO registerUSerDTO);
         Task<(bool Succeeded, string Error)> ChangePasswordAsync(User user, string currentPassword, string newPassword);
-        AuthTicketDTO GetAuthDTO(string userName, int? organizationId = null, int? roleId = null);
+        AuthTicketDTO GetAuthDTO(string userName);
         string GetUserName(int? userId);
         string GetDefaultCulture(int? userId);
         UserDetailsDTO GetByUserName(string Username);

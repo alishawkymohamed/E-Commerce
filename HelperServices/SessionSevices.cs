@@ -171,12 +171,12 @@ namespace HelperServices
         {
             get
             {
-                string result = SharedEncryptionKey ?? GetCookie<string>("_k", null, false);
+                string result = SharedEncryptionKey /*?? GetCookie<string>("_k", null, false)*/;
                 if (result == null)
                 {
                     result = Guid.NewGuid().ToString();
                     SharedEncryptionKey = result;
-                    SetCookie("_k", result, false);
+                    //SetCookie("_k", result, false);
                 }
                 return result;
             }

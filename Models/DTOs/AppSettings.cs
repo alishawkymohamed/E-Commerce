@@ -50,6 +50,15 @@
         public string LaserFichePassword { get; set; }
     }
 
+    public class EncryptionSettings
+    {
+        public int Iterations { get; set; }
+        public int BlockSize { get; set; }
+        public int KeySize { get; set; }
+        public string Salt { get; set; }
+        public string SecretPassword { get; set; }
+        public string IV { get; set; }
+    }
     public class AppSettings
     {
         public ConnectionStrings ConnectionStrings { get; set; }
@@ -59,5 +68,6 @@
         public SwaggerToTypeScriptSettings SwaggerToTypeScriptSettings { get; set; }
         public FileSettings FileSettings { get; set; }
         public DocumentSettings DocumentSettings { get; set; }
+        public EncryptionSettings EncryptionSettings { get; set; }
     }
 }
