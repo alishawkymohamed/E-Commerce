@@ -1,4 +1,3 @@
-import { SelectItem } from 'primeng/api';
 import { Encrypt, Decrypt } from './app.Encryption';
 
 // tslint:disable-next-line:eofline
@@ -27,5 +26,5 @@ const getKeys = function(): string[] {
   }
   return Keys;
 };
-
-export { SelectItem, getItem, removeItem, clear, getKeys };
+const AppLocalStorage = { setItem, getItem, removeItem, clear, getKeys };
+export { AppLocalStorage };

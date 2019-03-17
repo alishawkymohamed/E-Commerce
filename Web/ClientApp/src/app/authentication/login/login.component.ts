@@ -5,6 +5,7 @@ import {
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { SwaggerClient } from 'src/app/_services/swagger/SwaggerClient.service';
 import { Encrypt } from 'src/app/Utility/app.Encryption';
+import { AppLocalStorage } from 'src/app/Utility/app.LocalStorage';
 
 @Component({
   selector: 'app-login',
@@ -46,7 +47,8 @@ export class LoginComponent implements OnInit {
       } as UserLoginDTO)
       .subscribe(
         data => {
-          console.log(data);
+          AppLocalStorage.setItem('Access_Token', data.access_token);
+          AppLocalStorage.setItem('Refesh_Token', data.refresh_token);
         },
         error => {
           console.log(error);

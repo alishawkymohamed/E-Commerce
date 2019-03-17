@@ -1,11 +1,11 @@
-<div class="a-category-table-container" *ngIf="allCategories && allCategories.length">
+<div class="a-category-table-container">
     <div style="display: flex;justify-content: space-between;margin-bottom: 20px;">
         <h2>{{'Categories' | translate}}</h2>
         <button (click)="showAddEditComponent(null)" class="btn btn-info">{{'Create' | translate}}
           <span class="pi pi-plus"></span>
         </button>
     </div>
-    <p-table #dt [value]="allCategories" [paginator]="true" [rows]="10" [globalFilterFields]="['categoryCode','categoryNameAr','categoryNameEn']">
+    <p-table *ngIf="allCategories && allCategories.length" #dt [value]="allCategories" [paginator]="true" [rows]="10" [globalFilterFields]="['categoryCode','categoryNameAr','categoryNameEn']">
         <ng-template pTemplate="caption">
             <div class="input-group" style="text-align: right">
                 <i class="fa fa-search a-global-search-icon"></i>
