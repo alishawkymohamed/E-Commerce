@@ -9,7 +9,8 @@ import { FooterComponent } from './footer/footer.component';
 import {
   HttpClient,
   HttpClientModule,
-  HTTP_INTERCEPTORS
+  HTTP_INTERCEPTORS,
+  HttpBackend
 } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SharedModule } from './shared.module';
@@ -28,7 +29,8 @@ import {
 import { environment } from 'src/environments/environment';
 import { InterceptorService } from './_services/swagger/interceptor.service';
 
-export function createTranslateLoader(http: HttpClient) {
+export function createTranslateLoader(handler: HttpBackend) {
+  const http = new HttpClient(handler);
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
@@ -46,7 +48,7 @@ export function createTranslateLoader(http: HttpClient) {
       loader: {
         provide: TranslateLoader,
         useFactory: createTranslateLoader,
-        deps: [HttpClient]
+        deps: [HttpBackend]
       }
     })
   ],

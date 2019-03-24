@@ -8,15 +8,18 @@ import { CategoryLookupResolver } from './_services/sub-category-services/catego
 const routes: Routes = [
   {
     path: '',
-    component: AdminHomeComponent
+    component: AdminHomeComponent,
+    data: { RoleCode: 'Admin' }
   },
   {
     path: 'category',
-    component: CategoryComponent
+    component: CategoryComponent,
+    data: { RoleCode: 'Admin' }
   },
   {
     path: 'sub-category',
     component: SubCategoryComponent,
+    data: { RoleCode: 'Admin' },
     resolve: {
       CategoryLookup: CategoryLookupResolver
     }

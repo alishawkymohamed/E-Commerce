@@ -11,17 +11,15 @@ export class AuthGuard implements CanActivate, CanActivateChild {
   allowedRoleCode: string;
   firstURL = true;
 
-  constructor(
-    private authService: AuthService,
-    private router: Router,
-    private auth: AuthService
-  ) {
+  constructor(private router: Router, private auth: AuthService) {
     this.auth.currentUser.subscribe(user => {
       this.user = user;
       if (
         this.allowedRoleCode &&
         user &&
-        user.userRoles.map(v => v.roleName).indexOf(this.allowedRoleCode) === -1
+        user.userRoles
+          .map(v => v.roleName.toUpperCase())
+          .indexOf(this.allowedRoleCode.toUpperCase()) === -1
       ) {
         console.log('Permission Taken', this.allowedRoleCode);
         alert(`Permission Taken - ${this.allowedRoleCode}`);
@@ -31,14 +29,14 @@ export class AuthGuard implements CanActivate, CanActivateChild {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    if (this.user && this.authService.isAuthUserLoggedIn()) {
+    if (this.user && this.auth.isAuthUserLoggedIn()) {
       console.log('LoggedIn');
       return true;
     } else {
       console.log('OnlyLoggedInUsers');
       // not logged in so redirect to login page with the return url and return false
       this.router.navigate(['/login'], {
-        queryParams: { returnUrl: state.url }
+        queryParams: { returnUrl: state.url !== '/' ? state.url : null }
       });
       return false;
     }
@@ -46,28 +44,26 @@ export class AuthGuard implements CanActivate, CanActivateChild {
 
   canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const returnUrl = state.url;
-    if (!this.authService.isAuthUserLoggedIn()) {
+    if (!this.auth.isAuthUserLoggedIn()) {
       this.router.navigate(['/login'], {
-        queryParams: { returnUrl: returnUrl }
+        queryParams: { returnUrl: returnUrl !== '/' ? returnUrl : null }
       });
       return false;
     }
-    if (route.data.permissionCode) {
-      const permissionCode = route.data.permissionCode
-        .toString()
-        .toLocaleUpperCase();
+    if (route.data.RoleCode) {
+      const RoleCode = route.data.RoleCode.toString().toLocaleUpperCase();
       let allow = false;
       if (
         this.user &&
-        this.user.userRoles.map(v => v.roleName).indexOf(permissionCode) > -1
+        this.user.userRoles.map(v => v.roleName).indexOf(RoleCode) > -1
       ) {
-        console.log('Action Allowed', permissionCode);
-        this.allowedRoleCode = permissionCode;
+        console.log('Action Allowed', RoleCode);
+        this.allowedRoleCode = RoleCode;
         this.firstURL = false;
         allow = true;
       } else {
-        console.log('Action Not Allowed', permissionCode);
-        alert(`Action Not Allowed - ${permissionCode}`);
+        console.log('Action Not Allowed', RoleCode);
+        alert(`Action Not Allowed - ${RoleCode}`);
         // TODO: navigation history
         if (this.firstURL) {
           this.router.navigate(['/']);

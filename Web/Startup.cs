@@ -240,7 +240,7 @@ namespace EnterpriseApplication
 
             app.UseResponseCompression();
             app.UseSession();
-            app.UseCors(builder => builder.AllowCredentials().AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin().Build());
+            app.UseCors(builder => builder.AllowCredentials().AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:5000").Build());
 
             app.UseSwagger(action => { });
             app.UseSwaggerUI(action => { action.SwaggerEndpoint("/swagger/v1/swagger.json", "eCommerce WebApi"); });

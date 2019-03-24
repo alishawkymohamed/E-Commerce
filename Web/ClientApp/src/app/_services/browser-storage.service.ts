@@ -34,7 +34,7 @@ export class BrowserStorageService {
   getLocal(key: string): any {
     const data = window.localStorage.getItem(Encrypt(key));
     if (data) {
-      return JSON.parse(data);
+      return JSON.parse(Decrypt(data));
     } else {
       return null;
     }
