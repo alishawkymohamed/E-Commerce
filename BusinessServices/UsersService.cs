@@ -212,7 +212,8 @@ namespace BusinessServices.AuthenticationServices
                     Password = _encryptionServices.EncryptString(_compatibleFrontendEncryption.Decrypt(registerUSerDTO.Password), _AppSettings.EncryptionSettings.SecretPassword,_AppSettings.EncryptionSettings.Salt),
                     FullNameAr = registerUSerDTO.FullName,
                     FullNameEn = registerUSerDTO.FullName,
-                    Enabled = true
+                    Enabled = true,
+                    SerialNumber = Guid.NewGuid().ToString()
                 }
             });
 

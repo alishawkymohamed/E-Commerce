@@ -178,8 +178,8 @@ namespace BusinessServices.AuthenticationServices
                 claims.Add(new Claim(ClaimTypes.SerialNumber, user.SerialNumber, ClaimValueTypes.String, _configuration.Value.Issuer));
 
                 // custom data
-                AuthTicketDTO authData = _userService.GetAuthDTO(user.Username);
-                claims.Add(new Claim(ClaimTypes.UserData, Newtonsoft.Json.JsonConvert.SerializeObject(authData), ClaimValueTypes.String, _configuration.Value.Issuer));
+                //AuthTicketDTO authData = _userService.GetAuthDTO(user.Username);
+                //claims.Add(new Claim(ClaimTypes.UserData, Newtonsoft.Json.JsonConvert.SerializeObject(authData), ClaimValueTypes.String, _configuration.Value.Issuer));
 
 
                 // add current LoggedIn OrganizationId

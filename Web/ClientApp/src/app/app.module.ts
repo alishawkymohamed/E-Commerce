@@ -1,15 +1,16 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, Title } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {
-  BrowserAnimationsModule,
-  NoopAnimationsModule
-} from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpClientModule,
+  HTTP_INTERCEPTORS
+} from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SharedModule } from './shared.module';
 import {
@@ -17,8 +18,15 @@ import {
   DialogService,
   ConfirmationService
 } from 'primeng/api';
-
+import { CookieService } from 'ngx-cookie-service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AuthGuard } from './_guards/auth.guard';
+import {
+  SwaggerClient,
+  API_BASE_URL
+} from './_services/swagger/SwaggerClient.service';
+import { environment } from 'src/environments/environment';
+import { InterceptorService } from './_services/swagger/interceptor.service';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -42,7 +50,24 @@ export function createTranslateLoader(http: HttpClient) {
       }
     })
   ],
-  providers: [ConfirmationService, MessageService, DialogService],
+  providers: [
+    ConfirmationService,
+    MessageService,
+    DialogService,
+    SwaggerClient,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: InterceptorService,
+      multi: true
+    },
+    {
+      provide: API_BASE_URL,
+      useValue: environment.apiUrl
+    },
+    Title,
+    AuthGuard,
+    CookieService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
