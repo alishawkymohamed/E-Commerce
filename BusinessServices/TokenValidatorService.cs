@@ -41,7 +41,7 @@ namespace BusinessServices.AuthenticationServices
                 return;
             }
 
-            string userIdString = claimsIdentity.FindFirst(ClaimTypes.UserData).Value;
+            string userIdString = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
             if (!int.TryParse(userIdString, out int userId))
             {
                 context.Fail("This is not our issued token. It has no user-id.");

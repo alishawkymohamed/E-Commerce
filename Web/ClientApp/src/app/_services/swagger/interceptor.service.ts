@@ -46,7 +46,7 @@ export class InterceptorService implements HttpInterceptor {
     );
     this.renderer.addClass(document.body, 'isLoading');
     request = request.clone({ withCredentials: true });
-    if (accessToken) {
+    if (accessToken && !request.url.toUpperCase().endsWith('login'.toUpperCase())) {
       request = request.clone({
         headers: request.headers.set(
           this.authorizationHeader,
@@ -61,7 +61,7 @@ export class InterceptorService implements HttpInterceptor {
               if (retryAttempt === this.numberOfRetries - 1) {
                 console.log(
                   `HTTP call '${request.method} ${request.url}' failed after ${
-                    this.numberOfRetries
+                  this.numberOfRetries
                   } retries.`
                 );
                 return throwError(error); // no retry
