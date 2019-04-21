@@ -185,8 +185,6 @@ namespace BusinessServices.AuthenticationServices
             foreach (object Id in Ids)
             {
                 _uow.RunSqlCommand("DELETE FROM UserRoles WHERE UserId = @UserId", new SqlParameter("UserId", Id));
-                _uow.RunSqlCommand("DELETE FROM UserEntities WHERE UserId = @UserId", new SqlParameter("UserId", Id));
-                _uow.RunSqlCommand("DELETE FROM UserPermissions WHERE UserId = @UserId", new SqlParameter("UserId", Id));
             }
             return base.Delete(Ids);
         }

@@ -14,16 +14,9 @@ export class AuthGuard implements CanActivate, CanActivateChild {
   constructor(private router: Router, private auth: AuthService) {
     this.auth.currentUser.subscribe(user => {
       this.user = user;
-      if (
-        this.allowedRoleCode &&
-        user &&
-        user.userRoles
-          .map(v => v.roleName.toUpperCase())
-          .indexOf(this.allowedRoleCode.toUpperCase()) === -1
-      ) {
-        console.log('Permission Taken', this.allowedRoleCode);
-        alert(`Permission Taken - ${this.allowedRoleCode}`);
-        this.router.navigate(['/']);
+      if (!user) {
+        console.log('Only Logged In Users');
+        this.router.navigate(['/login']);
       }
     });
   }
@@ -51,19 +44,15 @@ export class AuthGuard implements CanActivate, CanActivateChild {
       return false;
     }
     if (route.data.RoleCode) {
-      const RoleCode = route.data.RoleCode.toString().toLocaleUpperCase();
+      const RoleCode = route.data.RoleCode.toString().toUpperCase();
       let allow = false;
-      if (
-        this.user &&
-        this.user.userRoles.map(v => v.roleName).indexOf(RoleCode) > -1
-      ) {
+      if (this.user && this.user.roleName.toUpperCase() === RoleCode) {
         console.log('Action Allowed', RoleCode);
         this.allowedRoleCode = RoleCode;
         this.firstURL = false;
         allow = true;
       } else {
         console.log('Action Not Allowed', RoleCode);
-        alert(`Action Not Allowed - ${RoleCode}`);
         // TODO: navigation history
         if (this.firstURL) {
           this.router.navigate(['/']);
