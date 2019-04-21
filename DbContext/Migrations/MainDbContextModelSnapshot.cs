@@ -526,6 +526,10 @@ namespace DbContexts.Migrations
 
                     b.Property<DateTimeOffset?>("DeletedOn");
 
+                    b.Property<bool>("IsApproved")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(false);
+
                     b.Property<decimal>("Price");
 
                     b.Property<string>("ProductNameAr");
@@ -599,21 +603,21 @@ namespace DbContexts.Migrations
                         new
                         {
                             RoleId = 1,
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 3, 11, 18, 49, 12, 614, DateTimeKind.Unspecified).AddTicks(7023), new TimeSpan(0, 2, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 4, 22, 1, 30, 52, 515, DateTimeKind.Unspecified).AddTicks(5848), new TimeSpan(0, 2, 0, 0, 0)),
                             RoleNameAr = "مدير النظام",
                             RoleNameEn = "Admin"
                         },
                         new
                         {
                             RoleId = 2,
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 3, 11, 18, 49, 12, 616, DateTimeKind.Unspecified).AddTicks(1728), new TimeSpan(0, 2, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 4, 22, 1, 30, 52, 518, DateTimeKind.Unspecified).AddTicks(5130), new TimeSpan(0, 2, 0, 0, 0)),
                             RoleNameAr = "بائع",
                             RoleNameEn = "Seller"
                         },
                         new
                         {
                             RoleId = 3,
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 3, 11, 18, 49, 12, 616, DateTimeKind.Unspecified).AddTicks(1743), new TimeSpan(0, 2, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 4, 22, 1, 30, 52, 518, DateTimeKind.Unspecified).AddTicks(5142), new TimeSpan(0, 2, 0, 0, 0)),
                             RoleNameAr = "مستخدم",
                             RoleNameEn = "User"
                         });

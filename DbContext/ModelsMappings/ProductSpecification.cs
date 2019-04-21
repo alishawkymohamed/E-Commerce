@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Models.DbModels;
 
 namespace DbContexts.ModelsMappings
@@ -10,6 +11,7 @@ namespace DbContexts.ModelsMappings
             entity.HasKey(x => x.ProductId);
             entity.HasIndex(x => x.Code).IsUnique();
             entity.Property(x => x.Code).HasMaxLength(50);
+            entity.Property(x => x.IsApproved).HasDefaultValue(false);
         }
     }
 }

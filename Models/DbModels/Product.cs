@@ -25,11 +25,10 @@ namespace Models.DbModels
                     (string.IsNullOrEmpty(ProductNameEn) ? ProductNameAr : ProductNameEn);
             private set { }
         }
-
         public string Code { get; set; }
-
         public decimal Price { get; set; }
         public decimal Deduction { get; set; }
+        public bool IsApproved { get; set; }
 
         [NotMapped]
         public decimal PriceAfterDeduction
@@ -44,7 +43,6 @@ namespace Models.DbModels
         [ForeignKey("User")]
         public int? UserId { get; set; }
         public virtual User User { get; set; }
-
 
         [ForeignKey("SubCategory")]
         public int SubCategoryId { get; set; }

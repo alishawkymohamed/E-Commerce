@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DbContexts.Migrations
 {
-    public partial class Initial : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -50,13 +50,13 @@ namespace DbContexts.Migrations
                     Password = table.Column<string>(maxLength: 450, nullable: false),
                     Email = table.Column<string>(maxLength: 100, nullable: false),
                     Enabled = table.Column<bool>(nullable: false),
+                    IsApproved = table.Column<bool>(nullable: false, defaultValue: false),
                     LastLoggedIn = table.Column<DateTimeOffset>(nullable: true),
                     ProfileImage = table.Column<byte[]>(nullable: true),
                     ConcurrencyStamp = table.Column<string>(nullable: true),
                     SerialNumber = table.Column<string>(nullable: true),
                     FullNameEn = table.Column<string>(maxLength: 100, nullable: true),
                     FullNameAr = table.Column<string>(maxLength: 100, nullable: true),
-                    EnabledUntil = table.Column<DateTimeOffset>(nullable: true),
                     PhoneNumber = table.Column<string>(maxLength: 50, nullable: true),
                     NotificationByMail = table.Column<bool>(nullable: true),
                     NotificationBySMS = table.Column<bool>(nullable: true),
@@ -111,8 +111,9 @@ namespace DbContexts.Migrations
                 {
                     CategoryId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CategoryNameAr = table.Column<string>(nullable: true),
+                    CategoryNameAr = table.Column<string>(nullable: false),
                     CategoryNameEn = table.Column<string>(nullable: true),
+                    CategoryCode = table.Column<string>(nullable: false),
                     CreatedBy = table.Column<int>(nullable: true),
                     CreatedOn = table.Column<DateTimeOffset>(nullable: true),
                     DeletedBy = table.Column<int>(nullable: true),
@@ -228,15 +229,15 @@ namespace DbContexts.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Products",
+                name: "SubCategories",
                 columns: table => new
                 {
-                    ProductId = table.Column<long>(nullable: false)
+                    SubCategoryId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ProductNameAr = table.Column<string>(nullable: true),
-                    ProductNameEn = table.Column<string>(nullable: true),
-                    UserId = table.Column<int>(nullable: true),
-                    CategoryId = table.Column<int>(nullable: true),
+                    SubCategoryNameAr = table.Column<string>(nullable: false),
+                    SubCategoryNameEn = table.Column<string>(nullable: true),
+                    SubCategoryCode = table.Column<string>(nullable: false),
+                    CategoryId = table.Column<int>(nullable: false),
                     CreatedBy = table.Column<int>(nullable: true),
                     CreatedOn = table.Column<DateTimeOffset>(nullable: true),
                     DeletedBy = table.Column<int>(nullable: true),
@@ -246,34 +247,28 @@ namespace DbContexts.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Products", x => x.ProductId);
+                    table.PrimaryKey("PK_SubCategories", x => x.SubCategoryId);
                     table.ForeignKey(
-                        name: "FK_Products_Categories_CategoryId",
+                        name: "FK_SubCategories_Categories_CategoryId",
                         column: x => x.CategoryId,
                         principalTable: "Categories",
                         principalColumn: "CategoryId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Products_Users_CreatedBy",
+                        name: "FK_SubCategories_Users_CreatedBy",
                         column: x => x.CreatedBy,
                         principalTable: "Users",
                         principalColumn: "UserId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Products_Users_DeletedBy",
+                        name: "FK_SubCategories_Users_DeletedBy",
                         column: x => x.DeletedBy,
                         principalTable: "Users",
                         principalColumn: "UserId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Products_Users_UpdatedBy",
+                        name: "FK_SubCategories_Users_UpdatedBy",
                         column: x => x.UpdatedBy,
-                        principalTable: "Users",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Products_Users_UserId",
-                        column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "UserId",
                         onDelete: ReferentialAction.Restrict);
@@ -285,8 +280,6 @@ namespace DbContexts.Migrations
                 {
                     UserId = table.Column<int>(nullable: false),
                     RoleId = table.Column<int>(nullable: false),
-                    EnabledSince = table.Column<DateTimeOffset>(nullable: true),
-                    EnabledUntil = table.Column<DateTimeOffset>(nullable: true),
                     Notes = table.Column<string>(nullable: true),
                     LastSelected = table.Column<bool>(nullable: true),
                     CreatedBy = table.Column<int>(nullable: true),
@@ -317,6 +310,62 @@ namespace DbContexts.Migrations
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_UserRoles_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Products",
+                columns: table => new
+                {
+                    ProductId = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ProductNameAr = table.Column<string>(nullable: true),
+                    ProductNameEn = table.Column<string>(nullable: true),
+                    Code = table.Column<string>(maxLength: 50, nullable: true),
+                    Price = table.Column<decimal>(nullable: false),
+                    Deduction = table.Column<decimal>(nullable: false),
+                    IsApproved = table.Column<bool>(nullable: false, defaultValue: false),
+                    UserId = table.Column<int>(nullable: true),
+                    SubCategoryId = table.Column<int>(nullable: false),
+                    CreatedBy = table.Column<int>(nullable: true),
+                    CreatedOn = table.Column<DateTimeOffset>(nullable: true),
+                    DeletedBy = table.Column<int>(nullable: true),
+                    DeletedOn = table.Column<DateTimeOffset>(nullable: true),
+                    UpdatedBy = table.Column<int>(nullable: true),
+                    UpdatedOn = table.Column<DateTimeOffset>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Products", x => x.ProductId);
+                    table.ForeignKey(
+                        name: "FK_Products_Users_CreatedBy",
+                        column: x => x.CreatedBy,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Products_Users_DeletedBy",
+                        column: x => x.DeletedBy,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Products_SubCategories_SubCategoryId",
+                        column: x => x.SubCategoryId,
+                        principalTable: "SubCategories",
+                        principalColumn: "SubCategoryId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Products_Users_UpdatedBy",
+                        column: x => x.UpdatedBy,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Products_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "UserId",
@@ -407,13 +456,52 @@ namespace DbContexts.Migrations
                 columns: new[] { "LocalizationId", "CreatedBy", "CreatedOn", "Key", "UpdatedBy", "UpdatedOn", "ValueAr", "ValueEn" },
                 values: new object[,]
                 {
-                    { 1, null, null, "InvalidCredentials", null, null, "خطأ في إسم المستخدم أو كلمة المرور", "Invalid Username Or Password" },
-                    { 2, null, null, "UserName", null, null, "إسم المستخدم", "Username" },
-                    { 3, null, null, "Password", null, null, "كلمة المرور", "Password" },
-                    { 4, null, null, "Login", null, null, "دخول", "Login" },
-                    { 5, null, null, "ChangeLang", null, null, "تغيير اللغة", "Change Language" },
-                    { 6, null, null, "AccountIsDisabled", null, null, "الحساب متوقف من قبل الإدارة", "Account is disabled by administration" },
-                    { 7, null, null, "AccountIsDisabledSince", null, null, "الحساب متوقف منذ  {0:yyyy-MM-dd}", "Account is disabled since {0:dd-MM-yyyy}" }
+                    { 1, null, null, "Agree", null, null, "موافق", "Ok" },
+                    { 27, null, null, "DeleteConfirmation", null, null, "تأكيد الحذف", "Delete Confirmation" },
+                    { 28, null, null, "WantDelete", null, null, "هل أنت متأكد من الحذف ؟", "Do you want to delete this record ?" },
+                    { 30, null, null, "DeletedSuccess", null, null, "تم الحذف بنجاح", "Deleted Successfully" },
+                    { 31, null, null, "DeletedFail", null, null, "لم يتم الحذف", "Deleted Failed" },
+                    { 32, null, null, "Category", null, null, "تصنيف", "Category" },
+                    { 33, null, null, "SubCategory", null, null, "تصنيف فرعي", "Sub Category" },
+                    { 34, null, null, "SignIn", null, null, "تسجيل دخول", "Sign In" },
+                    { 35, null, null, "SignUp", null, null, "إنشاء حساب", "Sign Up" },
+                    { 36, null, null, "ForgetPassword", null, null, "نسيت كلمة السر ؟", "Forget Password ?" },
+                    { 26, null, null, "Update", null, null, "تعديل", "Update" },
+                    { 37, null, null, "SignUpNewAccount", null, null, "إنشاء حساب جديد", "Sign up new account" },
+                    { 39, null, null, "SignInWithFacebook", null, null, "دخول بواسطة فيسبوك", "Sign in with Facebook" },
+                    { 40, null, null, "SignUpWithFacebook", null, null, "إنشاء حساب بواسطة فيسبوك", "Sign up with Facebook" },
+                    { 41, null, null, "SignInWithGmail", null, null, "دخول بواسطة جوجل", "Sign in With Gmail" },
+                    { 42, null, null, "SignUpWithGmail", null, null, "إنشاء حساب بواسطة جوجل", "Sign up with Gmail" },
+                    { 43, null, null, "FullName", null, null, "الإسم بالكامل", "Full Name" },
+                    { 44, null, null, "ConfirmPassword", null, null, "تأكيد كلمة السر", "Confirm Password" },
+                    { 45, null, null, "Back", null, null, "عودة", "Back" },
+                    { 46, null, null, "WaitApprove", null, null, "تم إرسال طلب إنضمامك للموقع للمدير المسئول و سيتم إخطارك عن الموافقة علي طلبك", "Your request to join our website is sent to admin and you'll be notified after his approval" },
+                    { 47, null, null, "Admin", null, null, "مدير النظام", "Admin" },
+                    { 38, null, null, "EmailAddress", null, null, "البريد الإلكتروني", "Email Address" },
+                    { 24, null, null, "Create", null, null, "إضافة", "Create" },
+                    { 25, null, null, "Delete", null, null, "حذف", "Delete" },
+                    { 11, null, null, "InvalidCredentials", null, null, "خطأ في إسم المستخدم أو كلمة السر", "Invalid Username Or Password" },
+                    { 4, null, null, "Yes", null, null, "نعم", "Yes" },
+                    { 5, null, null, "No", null, null, "لا", "No" },
+                    { 6, null, null, "Save", null, null, "حفظ", "Save" },
+                    { 7, null, null, "SavedSuccess", null, null, "تم الحفظ بنجاح", "Saved Successfully" },
+                    { 8, null, null, "ErrorOccured", null, null, "حدث خطأ ما", "Error Occured" },
+                    { 9, null, null, "Seller", null, null, "بائع", "Seller" },
+                    { 10, null, null, "User", null, null, "مستخدم", "User" },
+                    { 23, null, null, "GlobalFilter", null, null, "بحث", "Search" },
+                    { 12, null, null, "UserName", null, null, "إسم المستخدم", "Username" },
+                    { 13, null, null, "Password", null, null, "كلمة السر", "Password" },
+                    { 14, null, null, "Login", null, null, "دخول", "Login" },
+                    { 15, null, null, "ChangeLang", null, null, "تغيير اللغة", "Change Language" },
+                    { 16, null, null, "AccountIsDisabled", null, null, "الحساب متوقف من قبل الإدارة", "Account is disabled by administration" },
+                    { 17, null, null, "NameAr", null, null, "الإسم بالعربي", "Arabic Name" },
+                    { 18, null, null, "NameEn", null, null, "الإسم بالإنجليزي", "English Name" },
+                    { 19, null, null, "Code", null, null, "الكود", "Code" },
+                    { 20, null, null, "Categories", null, null, "التصنيفات", "Categories" },
+                    { 21, null, null, "SystemComponents", null, null, "أجزاء الموقع", "System Components" },
+                    { 22, null, null, "SubCategories", null, null, "التصنيفات الفرعية", "Sub Categories" },
+                    { 3, null, null, "Close", null, null, "إغلاق", "Close" },
+                    { 2, null, null, "Reject", null, null, "إلغاء", "Cancel" }
                 });
 
             migrationBuilder.InsertData(
@@ -421,10 +509,29 @@ namespace DbContexts.Migrations
                 columns: new[] { "RoleId", "CreatedBy", "CreatedOn", "RoleNameAr", "RoleNameEn", "UpdatedBy", "UpdatedOn" },
                 values: new object[,]
                 {
-                    { 1, null, new DateTimeOffset(new DateTime(2019, 1, 20, 0, 58, 57, 934, DateTimeKind.Unspecified).AddTicks(2973), new TimeSpan(0, 2, 0, 0, 0)), "مدير النظام", "Admin", null, null },
-                    { 2, null, new DateTimeOffset(new DateTime(2019, 1, 20, 0, 58, 57, 936, DateTimeKind.Unspecified).AddTicks(600), new TimeSpan(0, 2, 0, 0, 0)), "بائع", "Seller", null, null },
-                    { 3, null, new DateTimeOffset(new DateTime(2019, 1, 20, 0, 58, 57, 936, DateTimeKind.Unspecified).AddTicks(612), new TimeSpan(0, 2, 0, 0, 0)), "مستخدم", "User", null, null }
+                    { 2, null, new DateTimeOffset(new DateTime(2019, 4, 22, 1, 30, 52, 518, DateTimeKind.Unspecified).AddTicks(5130), new TimeSpan(0, 2, 0, 0, 0)), "بائع", "Seller", null, null },
+                    { 1, null, new DateTimeOffset(new DateTime(2019, 4, 22, 1, 30, 52, 515, DateTimeKind.Unspecified).AddTicks(5848), new TimeSpan(0, 2, 0, 0, 0)), "مدير النظام", "Admin", null, null },
+                    { 3, null, new DateTimeOffset(new DateTime(2019, 4, 22, 1, 30, 52, 518, DateTimeKind.Unspecified).AddTicks(5142), new TimeSpan(0, 2, 0, 0, 0)), "مستخدم", "User", null, null }
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Categories_CategoryCode",
+                table: "Categories",
+                column: "CategoryCode",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Categories_CategoryNameAr",
+                table: "Categories",
+                column: "CategoryNameAr",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Categories_CategoryNameEn",
+                table: "Categories",
+                column: "CategoryNameEn",
+                unique: true,
+                filter: "[CategoryNameEn] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Categories_CreatedBy",
@@ -494,9 +601,11 @@ namespace DbContexts.Migrations
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Products_CategoryId",
+                name: "IX_Products_Code",
                 table: "Products",
-                column: "CategoryId");
+                column: "Code",
+                unique: true,
+                filter: "[Code] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_CreatedBy",
@@ -507,6 +616,11 @@ namespace DbContexts.Migrations
                 name: "IX_Products_DeletedBy",
                 table: "Products",
                 column: "DeletedBy");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_SubCategoryId",
+                table: "Products",
+                column: "SubCategoryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_UpdatedBy",
@@ -560,6 +674,45 @@ namespace DbContexts.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Specifications_UpdatedBy",
                 table: "Specifications",
+                column: "UpdatedBy");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SubCategories_CategoryId",
+                table: "SubCategories",
+                column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SubCategories_CreatedBy",
+                table: "SubCategories",
+                column: "CreatedBy");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SubCategories_DeletedBy",
+                table: "SubCategories",
+                column: "DeletedBy");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SubCategories_SubCategoryCode",
+                table: "SubCategories",
+                column: "SubCategoryCode",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SubCategories_SubCategoryNameAr",
+                table: "SubCategories",
+                column: "SubCategoryNameAr",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SubCategories_SubCategoryNameEn",
+                table: "SubCategories",
+                column: "SubCategoryNameEn",
+                unique: true,
+                filter: "[SubCategoryNameEn] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SubCategories_UpdatedBy",
+                table: "SubCategories",
                 column: "UpdatedBy");
 
             migrationBuilder.CreateIndex(
@@ -649,6 +802,9 @@ namespace DbContexts.Migrations
 
             migrationBuilder.DropTable(
                 name: "Roles");
+
+            migrationBuilder.DropTable(
+                name: "SubCategories");
 
             migrationBuilder.DropTable(
                 name: "Categories");
