@@ -4,14 +4,16 @@ using DbContexts.DatabaseExtensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DbContexts.Migrations
 {
     [DbContext(typeof(MainDbContext))]
-    partial class MainDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190509194831_addLocalization1")]
+    partial class addLocalization1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -529,34 +531,6 @@ namespace DbContexts.Migrations
                             Key = "CommercialPhotos",
                             ValueAr = "الصور التسويقية",
                             ValueEn = "Commercial Photo"
-                        },
-                        new
-                        {
-                            LocalizationId = 56,
-                            Key = "Specifications",
-                            ValueAr = "المواصفات",
-                            ValueEn = "Specifications"
-                        },
-                        new
-                        {
-                            LocalizationId = 57,
-                            Key = "Value",
-                            ValueAr = "القيمة",
-                            ValueEn = "Value"
-                        },
-                        new
-                        {
-                            LocalizationId = 58,
-                            Key = "ValueAr",
-                            ValueAr = "القيمة بالعربي",
-                            ValueEn = "Arabic Value"
-                        },
-                        new
-                        {
-                            LocalizationId = 59,
-                            Key = "ValueEn",
-                            ValueAr = "القيمة بالإنجليزي",
-                            ValueEn = "English Value"
                         });
                 });
 
@@ -701,21 +675,21 @@ namespace DbContexts.Migrations
                         new
                         {
                             RoleId = 1,
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 5, 11, 9, 48, 4, 419, DateTimeKind.Unspecified).AddTicks(8071), new TimeSpan(0, 2, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 5, 9, 21, 48, 30, 516, DateTimeKind.Unspecified).AddTicks(5210), new TimeSpan(0, 2, 0, 0, 0)),
                             RoleNameAr = "مدير النظام",
                             RoleNameEn = "Admin"
                         },
                         new
                         {
                             RoleId = 2,
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 5, 11, 9, 48, 4, 421, DateTimeKind.Unspecified).AddTicks(4644), new TimeSpan(0, 2, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 5, 9, 21, 48, 30, 518, DateTimeKind.Unspecified).AddTicks(3125), new TimeSpan(0, 2, 0, 0, 0)),
                             RoleNameAr = "بائع",
                             RoleNameEn = "Seller"
                         },
                         new
                         {
                             RoleId = 3,
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 5, 11, 9, 48, 4, 421, DateTimeKind.Unspecified).AddTicks(4656), new TimeSpan(0, 2, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 5, 9, 21, 48, 30, 518, DateTimeKind.Unspecified).AddTicks(3137), new TimeSpan(0, 2, 0, 0, 0)),
                             RoleNameAr = "مستخدم",
                             RoleNameEn = "User"
                         });

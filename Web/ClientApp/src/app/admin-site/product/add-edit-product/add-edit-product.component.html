@@ -1,0 +1,104 @@
+<form (ngSubmit)="onSubmit()" class="form-holder" #productForm="ngForm">
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label for="NameAr">{{'NameAr' | translate}}</label>
+        <input type="text" class="form-control" id="NameAr" name="productNameAr" required [(ngModel)]="product.productNameAr" #productNameAr="ngModel">
+      </div>
+
+      <div class="form-group">
+        <label for="NameEn">{{'Code' | translate}}</label>
+        <input type="text" class="form-control" id="NameEn" name="productNameEn" required [(ngModel)]="product.productNameEn" #productNameEn="ngModel">
+      </div>
+
+    </div>
+
+    <div class="col">
+      <div class="form-group">
+        <label for="Code">{{'NameEn' | translate}}</label>
+        <input type="text" class="form-control" id="Code" name="productCode" required [(ngModel)]="product.code" #productCode="ngModel">
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label for="category">{{'Category' | translate}}</label>
+        <p-dropdown id="category" name="category" required (onChange)="categoryDropdownChanged($event)" placeholder="{{'Category' | translate}}" [options]="CategoriesLookup" filter="true"></p-dropdown>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="form-group">
+        <label for="subCategory">{{'SubCategories' | translate}}</label>
+        <p-dropdown id="subCategory" name="subCategory" required [disabled]="categoryId === 0" placeholder="{{'SubCategory' | translate}}" [options]="SubCategoriesLookup" [(ngModel)]="product.subCategoryId" filter="true"></p-dropdown>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label for="Price">{{'Price' | translate}}</label>
+        <input type="text" class="form-control" id="Price" name="productPrice" required [(ngModel)]="product.price" #productPrice="ngModel">
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-group">
+        <label for="Deduction">{{'Deduction' | translate}}</label>
+        <input type="number" min="0" max="100" class="form-control" id="Deduction" name="productDeduction" [(ngModel)]="product.deduction" #productDeduction="ngModel">
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="row">
+        <div>
+          <h4>{{'Specifications' | translate}}</h4>
+        </div>
+        <div style="display: flex;justify-content: center;align-items: center;">
+          <a style="cursor: pointer;" (click)="addSpec()"><i class="pi pi-plus-circle"></i></a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <div class="row" *ngFor="let spec of product.specifications;let i = index;">
+            <div class="col col-lg-11">
+              <div class="row">
+                <div class="col">
+                  <div class="form-group">
+                    <label for="NameAr{{i}}">{{'NameAr' | translate}}</label>
+                    <input type="text" class="form-control" required id="NameAr{{i}}" name="specNameAr{{i}}" [(ngModel)]="spec.specificationNameAr">
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-group">
+                    <label for="NameEn{{i}}">{{'NameEn' | translate}}</label>
+                    <input type="text" class="form-control" required id="NameEn{{i}}" name="specNameEn{{i}}" [(ngModel)]="spec.specificationNameEn">
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-group">
+                    <label for="ValueAr{{i}}">{{'ValueAr' | translate}}</label>
+                    <input type="text" class="form-control" required id="ValueAr{{i}}" name="specValueAr{{i}}" [(ngModel)]="spec.specificationValueAr">
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-group">
+                    <label for="ValueEn{{i}}">{{'ValueEn' | translate}}</label>
+                    <input type="text" class="form-control" required id="ValueEn{{i}}" name="specValueEn{{i}}" [(ngModel)]="spec.specificationValueEn">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col col-lg-1" style="display: flex;justify-content: center;align-items: center;">
+              <a style="color: darkred;cursor: pointer;" (click)="removeSpec(i)"><i class="pi pi-trash"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</form>

@@ -1,186 +1,197 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import url(https://fonts.googleapis.com/earlyaccess/droidarabickufi.css);
+
 html,
 body {
-    height: 100%;
+  height: 100%;
 }
 
 .rtl * {
-    font-family: 'Droid Arabic Kufi';
+  font-family: 'Droid Arabic Kufi';
+}
+
+button {
+  cursor: pointer !important;
 }
 
 .wrapper {
-    min-height: 90.75%;
-    margin-bottom: -50px;
-    margin-top: 10px;
+  min-height: 90.75%;
+  margin-bottom: -50px;
+  margin-top: 10px;
 }
 
 .navbar-collapse {
-    flex-grow: 0 !important;
+  flex-grow: 0 !important;
 }
 
 .footer,
 .push {
-    height: 50px;
+  height: 50px;
 }
 
 @media (min-width: 992px) {
-    body {
-        padding-top: 56px;
-        height: 100%;
-    }
+  body {
+    padding-top: 56px;
+    height: 100%;
+  }
 }
 
 .a-action:first-of-type {
-    margin-top: 30px;
+  margin-top: 30px;
 }
 
 .a-action {
-    background: #e8e7e7;
-    display: flex;
-    align-items: center;
-    width: 100%;
-    height: 50px;
-    color: #76323f;
-    font-weight: bold;
-    margin-bottom: 5px;
-    justify-content: center;
-    font-family: 'Droid Arabic Kufi', serif;
-    font-size: 1em;
+  background: #e8e7e7;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 50px;
+  color: #76323f;
+  font-weight: bold;
+  margin-bottom: 5px;
+  justify-content: center;
+  font-family: 'Droid Arabic Kufi', serif;
+  font-size: 1em;
 }
 
 .a-action:hover {
-    background-color: lightblue;
-    transition: background-color 1s;
-    cursor: pointer;
+  background-color: lightblue;
+  transition: background-color 1s;
+  cursor: pointer;
 }
 
 .a-card-holder {
-    display: flex;
-    flex-flow: wrap;
-    justify-content: center;
-    margin: 50px 0px;
-    .a-card-counter {
-        font-size: 5rem;
-        text-align: center;
-        font-family: serif;
-        font-weight: bold;
-    }
-    .card-footer {
-        background-color: #e8e7e7;
-        text-align: center;
-        color: #76323f;
-        padding: 1.5rem 1.25rem;
-        font-family: 'Droid Arabic Kufi', serif;
-        font-size: 1.5em;
-        font-weight: bolder;
-    }
-    .card {
-        min-width: 15rem;
-        min-height: 15rem;
-        margin: 20px 30px;
-    }
+  display: flex;
+  flex-flow: wrap;
+  justify-content: center;
+  margin: 50px 0px;
+
+  .a-card-counter {
+    font-size: 5rem;
+    text-align: center;
+    font-family: serif;
+    font-weight: bold;
+  }
+
+  .card-footer {
+    background-color: #e8e7e7;
+    text-align: center;
+    color: #76323f;
+    padding: 1.5rem 1.25rem;
+    font-family: 'Droid Arabic Kufi', serif;
+    font-size: 1.5em;
+    font-weight: bolder;
+  }
+
+  .card {
+    min-width: 15rem;
+    min-height: 15rem;
+    margin: 20px 30px;
+  }
 }
 
 .card:hover {
-    .card-body {
-        background-color: lightblue;
-        transition: background-color 1s;
-    }
-    .card-footer {
-        background-color: white;
-        transition: background-color 1s;
-    }
-    .a-card-counter {
-        transition: font-size 1s;
-        transition: transform 2s;
-        font-size: 5.5rem;
-        transform: rotateZ(360deg);
-    }
+  .card-body {
+    background-color: lightblue;
+    transition: background-color 1s;
+  }
+
+  .card-footer {
+    background-color: white;
+    transition: background-color 1s;
+  }
+
+  .a-card-counter {
+    transition: font-size 1s;
+    transition: transform 2s;
+    font-size: 5.5rem;
+    transform: rotateZ(360deg);
+  }
 }
 
 body .ui-dialog .ui-dialog-titlebar .ui-dialog-title {
-    float: right !important;
-    font-weight: bold;
+  float: right !important;
+  font-weight: bold;
 }
 
 .ui-confirmdialog.ui-dialog .ui-dialog-content {
-    display: flex !important;
+  display: flex !important;
 }
 
 body .ui-dialog .ui-dialog-titlebar .ui-dialog-titlebar-icon {
-    float: left !important;
+  float: left !important;
 }
 
 body .ui-dialog .ui-dialog-footer {
-    display: flex !important;
-    flex-direction: row-reverse !important;
+  display: flex !important;
+  flex-direction: row-reverse !important;
 }
 
 body .ui-dialog .ui-dialog-footer button:first-of-type {
-    order: 1 !important;
-    background-color: #dc3545 !important;
-    border: 1px solid #dc3545 !important;
+  order: 1 !important;
+  background-color: #dc3545 !important;
+  border: 1px solid #dc3545 !important;
 }
 
 .ui-toast .ui-toast-message-text-content {
-    display: flex !important;
+  display: flex !important;
 }
 
 .ui-toast .ui-toast-close-icon {
-    left: 0.25em !important;
+  left: 0.25em !important;
 }
 
 .ui-toast .ui-toast-message-text-content {
-    margin-right: 2.5em !important;
+  margin-right: 2.5em !important;
 }
 
 .ui-toast .ui-toast-icon {
-    right: 0.5em !important;
-    left: auto !important;
+  right: 0.5em !important;
+  left: auto !important;
 }
 
 .ui-toast .ui-toast-message-content {
-    padding: 1em 1em !important;
+  padding: 1em 1em !important;
 }
 
 .form-holder {
-    display: flex;
-    text-align: right;
-    flex-direction: column;
+  display: flex;
+  text-align: right;
+  flex-direction: column;
 }
 
 .form-submit-button {
-    max-width: 90px;
-    align-self: flex-end;
+  max-width: 90px;
+  align-self: flex-end;
 }
 
 .ng-valid[required],
 .ng-valid.required {
-    border-left: 5px solid #42A948;
-    /* green */
+  border-left: 5px solid #42A948;
+  /* green */
 }
 
 .ng-invalid:not(form) {
-    border-left: 5px solid #a94442;
-    /* red */
+  border-left: 5px solid #a94442;
+  /* red */
 }
 
 .ui-dropdown {
-    width: 100% !important;
-    display: inline-block !important;
-    .ui-dropdown-item {
-        text-align: right !important;
-    }
+  width: 100% !important;
+  display: inline-block !important;
+
+  .ui-dropdown-item {
+    text-align: right !important;
+  }
 }
 
 .form-group {
-    label {
-        color: #76323f !important;
-    }
+  label {
+    color: #76323f !important;
+  }
 }
 
 label.ui-dropdown-label {
-    color: black !important;
+  color: black !important;
 }

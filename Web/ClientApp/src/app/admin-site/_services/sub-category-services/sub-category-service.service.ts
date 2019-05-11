@@ -8,7 +8,7 @@ import {
   providedIn: 'root'
 })
 export class SubCategoryService {
-  constructor(private swagger: SwaggerClient) {}
+  constructor(private swagger: SwaggerClient) { }
 
   GetAllSubCategories() {
     // tslint:disable-next-line:max-line-length
@@ -35,5 +35,22 @@ export class SubCategoryService {
 
   UpdateSubCategory(category: SubCategoryDTO) {
     return this.swagger.api_SubCategory_Update([category]);
+  }
+
+  GetSubCategoriesLookUp() {
+    return this.swagger.api_LookupAll(
+      'subcategories',
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      undefined
+    );
   }
 }

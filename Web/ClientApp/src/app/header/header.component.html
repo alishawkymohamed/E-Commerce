@@ -1,28 +1,72 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-    <div class="container-fluid">
-        <a style="font-family: 'Droid Arabic Kufi', serif;font-size: 1.5em;" class="navbar-brand" href="#">Tutorial</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item active"><a class="nav-link" routerLink="">Home <span class="sr-only">(current)</span></a></li>
-                <li class="nav-item"><a class="nav-link" routerLink="/admin">Admin</a></li>
-                <li class="nav-item"><a class="nav-link" routerLink="/client">Client</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      {{'SystemComponents' | translate}}
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" routerLink="/admin/category">{{'Categories' | translate}}</a>
-                        <a class="dropdown-item" routerLink="/admin/sub-category">{{'SubCategories' | translate}}</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                </li>
-            </ul>
-        </div>
-        <a (click)="UpdateLanguage()" style="cursor: pointer;margin-left: 50px;" pTooltip="{{'ChangeLang' | translate}}" tooltipZIndex="1050" tooltipPosition="bottom">
-            <i style="font-size: 1.5em;color: whitesmoke;" class="pi pi-globe"></i></a>
+  <div class="container-fluid">
+    <a
+      style="font-family: 'Droid Arabic Kufi', serif;font-size: 1.5em;"
+      class="navbar-brand"
+      href="#"
+      >Tutorial</a
+    >
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarResponsive"
+      aria-controls="navbarResponsive"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+          <a class="nav-link" routerLink=""
+            >Home <span class="sr-only">(current)</span></a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/admin">Admin</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/client">Client</a>
+        </li>
+        <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            id="navbarDropdown"
+            role="button"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            {{ 'SystemComponents' | translate }}
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" routerLink="/admin/category">{{
+              'Categories' | translate
+            }}</a>
+            <a class="dropdown-item" routerLink="/admin/sub-category">{{
+              'SubCategories' | translate
+            }}</a>
+            <a class="dropdown-item" routerLink="/admin/product">{{
+              'Products' | translate
+            }}</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </div>
+        </li>
+      </ul>
     </div>
+    <a
+      (click)="UpdateLanguage()"
+      style="cursor: pointer;margin-left: 50px;"
+      pTooltip="{{ 'ChangeLang' | translate }}"
+      tooltipZIndex="1050"
+      tooltipPosition="bottom"
+    >
+      <i style="font-size: 1.5em;color: whitesmoke;" class="pi pi-globe"></i
+    ></a>
+  </div>
 </nav>

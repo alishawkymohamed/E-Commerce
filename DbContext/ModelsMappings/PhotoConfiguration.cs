@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Models.DbModels;
 
 namespace DbContexts.ModelsMappings
@@ -8,6 +9,10 @@ namespace DbContexts.ModelsMappings
         public void Configure(EntityTypeBuilder<Photo> entity)
         {
             entity.HasKey(x => x.PhotoId);
+            entity.HasIndex(x => x.Path).IsUnique();
+            entity.Property(x => x.IsMainPhoto).HasDefaultValue(false);
+            entity.Property(x => x.IsRealPhoto).HasDefaultValue(false);
+            entity.Property(x => x.IsCommercialPhoto).HasDefaultValue(false);
         }
     }
 }

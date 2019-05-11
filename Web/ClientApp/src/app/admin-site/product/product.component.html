@@ -1,0 +1,11 @@
+<div class="a-category-table-container">
+  <div style="display: flex;justify-content: space-between;margin-bottom: 20px;">
+    <h2>{{ 'Products' | translate }}</h2>
+    <button (click)="gotoAddEditComponent()" class="btn btn-info">
+      {{ 'Create' | translate }}
+      <span class="pi pi-plus"></span>
+    </button>
+  </div>
+</div>
+
+<p-confirmDialog header="{{ 'DeleteConfirmation' | translate }}" message="{{ 'WantDelete' | translate }}" acceptLabel="{{ 'Yes' | translate }}" rejectLabel="{{ 'No' | translate }}" [style]="{ width: '50vw' }"></p-confirmDialog>

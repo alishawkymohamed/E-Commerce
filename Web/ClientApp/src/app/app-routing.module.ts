@@ -5,15 +5,15 @@ import { AuthGuard } from './_guards/auth.guard';
 const routes: Routes = [
   {
     path: 'admin',
-    loadChildren: './admin-site/admin-site.module#AdminSiteModule',
-    canActivate: [AuthGuard],
-    canActivateChild: [AuthGuard]
+    loadChildren: './admin-site/admin-site.module#AdminSiteModule'
+    // canActivate: [AuthGuard],
+    // canActivateChild: [AuthGuard]
   },
   {
     path: 'client',
-    loadChildren: './client-site/client-site.module#ClientSiteModule',
-    canActivate: [AuthGuard],
-    canActivateChild: [AuthGuard]
+    loadChildren: './client-site/client-site.module#ClientSiteModule'
+    // canActivate: [AuthGuard],
+    // canActivateChild: [AuthGuard]
   },
   {
     path: 'login',

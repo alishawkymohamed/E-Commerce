@@ -24,13 +24,12 @@ export class SubCategoryComponent implements OnInit {
   allCategoriesLookup: Lookup[];
   constructor(
     private subcategoryService: SubCategoryService,
-    private categoryService: CategoryService,
     private translateService: TranslateService,
     private toastService: MessageService,
     public dialogService: DialogService,
     private confirmationService: ConfirmationService,
     private route: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.GetAllSubCategories();

@@ -45,6 +45,19 @@ namespace BusinessServices
                             TextEn = x.CategoryNameEn
                         }).OrderBy(x => x.Id);
                     break;
+                case "subcategories":
+                    result = _unitOfWork.Repository<SubCategory>().GetAll()
+                        //.Where(x => string.IsNullOrEmpty(SearchText) || x.CategoryNameAr.Contains(SearchText) || x.CategoryNameEn.Contains(SearchText) || x.CategoryCode.Contains(SearchText))
+                        //.Where(x => ids == null || ids.Select(id => Convert.ToInt32(id)).Contains(x.PermissionId))
+                        .ToDataSourceResult(dataSourceRequest, true).Data
+                        .Select(x => new Lookup
+                        {
+                            Id = x.SubCategoryId,
+                            TextAr = x.SubCategoryNameAr,
+                            TextEn = x.SubCategoryNameEn,
+                            Additional = new LookupAdditional { Data = x.CategoryId }
+                        }).OrderBy(x => x.Id);
+                    break;
                 //    case "permissions":
                 //        result = _unitOfWork.Repository<Permission>().GetAllAsync().Result
                 //            .Where(x => string.IsNullOrEmpty(SearchText) || x.PermissionNameAr.Contains(SearchText) || x.PermissionNameEn.Contains(SearchText) || x.PermissionCode.Contains(SearchText))

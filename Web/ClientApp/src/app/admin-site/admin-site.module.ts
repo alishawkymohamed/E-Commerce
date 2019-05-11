@@ -10,6 +10,8 @@ import { DialogService } from 'primeng/api';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SubCategoryComponent } from './sub-category/sub-category.component';
 import { AddEditSubCategoryComponent } from './sub-category/add-edit-sub-category/add-edit-sub-category.component';
+import { ProductComponent } from './product/product.component';
+import { AddEditProductComponent } from './product/add-edit-product/add-edit-product.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,9 @@ import { AddEditSubCategoryComponent } from './sub-category/add-edit-sub-categor
     CategoryComponent,
     AddEditCategoryComponent,
     SubCategoryComponent,
-    AddEditSubCategoryComponent
+    AddEditSubCategoryComponent,
+    ProductComponent,
+    AddEditProductComponent
   ],
   imports: [
     SharedModule,

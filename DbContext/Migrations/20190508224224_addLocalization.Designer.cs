@@ -4,14 +4,16 @@ using DbContexts.DatabaseExtensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DbContexts.Migrations
 {
     [DbContext(typeof(MainDbContext))]
-    partial class MainDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190508224224_addLocalization")]
+    partial class addLocalization
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -487,76 +489,6 @@ namespace DbContexts.Migrations
                             Key = "Product",
                             ValueAr = "منتج",
                             ValueEn = "Product"
-                        },
-                        new
-                        {
-                            LocalizationId = 50,
-                            Key = "Price",
-                            ValueAr = "السعر",
-                            ValueEn = "Price"
-                        },
-                        new
-                        {
-                            LocalizationId = 51,
-                            Key = "Deduction",
-                            ValueAr = "التخفيض",
-                            ValueEn = "Deduction"
-                        },
-                        new
-                        {
-                            LocalizationId = 52,
-                            Key = "Photo",
-                            ValueAr = "الصورة",
-                            ValueEn = "Photo"
-                        },
-                        new
-                        {
-                            LocalizationId = 53,
-                            Key = "RealPhotos",
-                            ValueAr = "الصور الحقيقية",
-                            ValueEn = "Real Photos"
-                        },
-                        new
-                        {
-                            LocalizationId = 54,
-                            Key = "MainPhoto",
-                            ValueAr = "الصورة الرئيسية",
-                            ValueEn = "Main Photo"
-                        },
-                        new
-                        {
-                            LocalizationId = 55,
-                            Key = "CommercialPhotos",
-                            ValueAr = "الصور التسويقية",
-                            ValueEn = "Commercial Photo"
-                        },
-                        new
-                        {
-                            LocalizationId = 56,
-                            Key = "Specifications",
-                            ValueAr = "المواصفات",
-                            ValueEn = "Specifications"
-                        },
-                        new
-                        {
-                            LocalizationId = 57,
-                            Key = "Value",
-                            ValueAr = "القيمة",
-                            ValueEn = "Value"
-                        },
-                        new
-                        {
-                            LocalizationId = 58,
-                            Key = "ValueAr",
-                            ValueAr = "القيمة بالعربي",
-                            ValueEn = "Arabic Value"
-                        },
-                        new
-                        {
-                            LocalizationId = 59,
-                            Key = "ValueEn",
-                            ValueAr = "القيمة بالإنجليزي",
-                            ValueEn = "English Value"
                         });
                 });
 
@@ -570,19 +502,9 @@ namespace DbContexts.Migrations
 
                     b.Property<DateTimeOffset?>("DeletedOn");
 
-                    b.Property<bool?>("IsCommercialPhoto")
-                        .ValueGeneratedOnAdd()
-                        .HasDefaultValue(false);
+                    b.Property<bool?>("IsMainPhoto");
 
-                    b.Property<bool?>("IsMainPhoto")
-                        .ValueGeneratedOnAdd()
-                        .HasDefaultValue(false);
-
-                    b.Property<bool?>("IsRealPhoto")
-                        .ValueGeneratedOnAdd()
-                        .HasDefaultValue(false);
-
-                    b.Property<string>("Path");
+                    b.Property<bool?>("IsRealPhoto");
 
                     b.Property<string>("PhotoName");
 
@@ -595,10 +517,6 @@ namespace DbContexts.Migrations
                     b.HasKey("PhotoId");
 
                     b.HasIndex("DeletedBy");
-
-                    b.HasIndex("Path")
-                        .IsUnique()
-                        .HasFilter("[Path] IS NOT NULL");
 
                     b.HasIndex("ProductId");
 
@@ -701,21 +619,21 @@ namespace DbContexts.Migrations
                         new
                         {
                             RoleId = 1,
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 5, 11, 9, 48, 4, 419, DateTimeKind.Unspecified).AddTicks(8071), new TimeSpan(0, 2, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 5, 9, 0, 42, 23, 643, DateTimeKind.Unspecified).AddTicks(1379), new TimeSpan(0, 2, 0, 0, 0)),
                             RoleNameAr = "مدير النظام",
                             RoleNameEn = "Admin"
                         },
                         new
                         {
                             RoleId = 2,
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 5, 11, 9, 48, 4, 421, DateTimeKind.Unspecified).AddTicks(4644), new TimeSpan(0, 2, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 5, 9, 0, 42, 23, 644, DateTimeKind.Unspecified).AddTicks(9235), new TimeSpan(0, 2, 0, 0, 0)),
                             RoleNameAr = "بائع",
                             RoleNameEn = "Seller"
                         },
                         new
                         {
                             RoleId = 3,
-                            CreatedOn = new DateTimeOffset(new DateTime(2019, 5, 11, 9, 48, 4, 421, DateTimeKind.Unspecified).AddTicks(4656), new TimeSpan(0, 2, 0, 0, 0)),
+                            CreatedOn = new DateTimeOffset(new DateTime(2019, 5, 9, 0, 42, 23, 644, DateTimeKind.Unspecified).AddTicks(9247), new TimeSpan(0, 2, 0, 0, 0)),
                             RoleNameAr = "مستخدم",
                             RoleNameEn = "User"
                         });

@@ -25,7 +25,7 @@ export class CategoryComponent implements OnInit {
     private toastService: MessageService,
     public dialogService: DialogService,
     private confirmationService: ConfirmationService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.GetAllCategories();
@@ -103,9 +103,9 @@ export class CategoryComponent implements OnInit {
         });
 
         ref.onClose.subscribe((cat: CategoryDTO) => {
-          if (!cat || !cat.categoryId) {
+          if (cat && !cat.categoryId) {
             this.AddCategory(cat);
-          } else {
+          } else if (cat && cat.categoryId) {
             this.UpdateCategory(cat);
           }
         });

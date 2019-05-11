@@ -44,7 +44,7 @@ namespace DbContexts.ModelsMappings
                   new Localization { LocalizationId = 31, Key = "DeletedFail", ValueAr = "لم يتم الحذف", ValueEn = "Deleted Failed" },
                   new Localization { LocalizationId = 32, Key = "Category", ValueAr = "تصنيف", ValueEn = "Category" },
                   new Localization { LocalizationId = 33, Key = "SubCategory", ValueAr = "تصنيف فرعي", ValueEn = "Sub Category" },
-               
+
                   new Localization { LocalizationId = 34, Key = "SignIn", ValueAr = "تسجيل دخول", ValueEn = "Sign In" },
                   new Localization { LocalizationId = 35, Key = "SignUp", ValueAr = "إنشاء حساب", ValueEn = "Sign Up" },
                   new Localization { LocalizationId = 36, Key = "ForgetPassword", ValueAr = "نسيت كلمة السر ؟", ValueEn = "Forget Password ?" },
@@ -58,8 +58,19 @@ namespace DbContexts.ModelsMappings
                   new Localization { LocalizationId = 44, Key = "ConfirmPassword", ValueAr = "تأكيد كلمة السر", ValueEn = "Confirm Password" },
                   new Localization { LocalizationId = 45, Key = "Back", ValueAr = "عودة", ValueEn = "Back" },
                   new Localization { LocalizationId = 46, Key = "WaitApprove", ValueAr = "تم إرسال طلب إنضمامك للموقع للمدير المسئول و سيتم إخطارك عن الموافقة علي طلبك", ValueEn = "Your request to join our website is sent to admin and you'll be notified after his approval" },
-                  new Localization { LocalizationId = 47, Key = "Admin", ValueAr = "مدير النظام", ValueEn = "Admin" }
-
+                  new Localization { LocalizationId = 47, Key = "Admin", ValueAr = "مدير النظام", ValueEn = "Admin" },
+                  new Localization { LocalizationId = 48, Key = "Products", ValueAr = "المنتجات", ValueEn = "Products" },
+                  new Localization { LocalizationId = 49, Key = "Product", ValueAr = "منتج", ValueEn = "Product" },
+                  new Localization { LocalizationId = 50, Key = "Price", ValueAr = "السعر", ValueEn = "Price" },
+                  new Localization { LocalizationId = 51, Key = "Deduction", ValueAr = "التخفيض", ValueEn = "Deduction" },
+                  new Localization { LocalizationId = 52, Key = "Photo", ValueAr = "الصورة", ValueEn = "Photo" },
+                  new Localization { LocalizationId = 53, Key = "RealPhotos", ValueAr = "الصور الحقيقية", ValueEn = "Real Photos" },
+                  new Localization { LocalizationId = 54, Key = "MainPhoto", ValueAr = "الصورة الرئيسية", ValueEn = "Main Photo" },
+                  new Localization { LocalizationId = 55, Key = "CommercialPhotos", ValueAr = "الصور التسويقية", ValueEn = "Commercial Photo" },
+                  new Localization { LocalizationId = 56, Key = "Specifications", ValueAr = "المواصفات", ValueEn = "Specifications" },
+                  new Localization { LocalizationId = 57, Key = "Value", ValueAr = "القيمة", ValueEn = "Value" },
+                  new Localization { LocalizationId = 58, Key = "ValueAr", ValueAr = "القيمة بالعربي", ValueEn = "Arabic Value" },
+                  new Localization { LocalizationId = 59, Key = "ValueEn", ValueAr = "القيمة بالإنجليزي", ValueEn = "English Value" }
                   );
         }
     }
