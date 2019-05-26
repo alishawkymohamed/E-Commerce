@@ -28,6 +28,7 @@ import {
 } from './_services/swagger/SwaggerClient.service';
 import { environment } from 'src/environments/environment';
 import { InterceptorService } from './_services/swagger/interceptor.service';
+import { FileService } from './Utility/app.file.helper';
 
 export function createTranslateLoader(handler: HttpBackend) {
   const http = new HttpClient(handler);
@@ -56,6 +57,7 @@ export function createTranslateLoader(handler: HttpBackend) {
     ConfirmationService,
     MessageService,
     DialogService,
+    FileService,
     SwaggerClient,
     {
       provide: HTTP_INTERCEPTORS,
@@ -72,4 +74,4 @@ export function createTranslateLoader(handler: HttpBackend) {
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

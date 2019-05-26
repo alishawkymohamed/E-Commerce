@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { ProductDTO, Lookup, SpecificationDTO } from 'src/app/_services/swagger/SwaggerClient.service';
+import { ProductDTO, Lookup, SpecificationDTO, PhotoDTO } from 'src/app/_services/swagger/SwaggerClient.service';
 import { ActivatedRoute } from '@angular/router';
 import { SelectItem } from 'primeng/api';
+import { FileService } from 'src/app/Utility/app.file.helper';
+import { ProductService } from '../../_services/product-services/product-service.service';
 
 @Component({
   selector: 'app-add-edit-product',
@@ -17,12 +19,16 @@ export class AddEditProductComponent implements OnInit {
   allSubCategoriesLookup: Lookup[];
   SubCategoriesLookup: SelectItem[] = [];
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(
+    private route: ActivatedRoute,
+    private fileService: FileService,
+    private productService: ProductService) { }
 
   ngOnInit() {
+    this.product.photos = [];
     this.product.specifications = this.product.specifications && this.product.specifications.length > 0
       ? this.product.specifications
-      : [{} as SpecificationDTO];
+      : [new SpecificationDTO()];
 
     this.allCategoriesLookup = this.route.snapshot.data.CategoryLookup;
     this.allSubCategoriesLookup = this.route.snapshot.data.SubCategoryLookup;
@@ -69,7 +75,22 @@ export class AddEditProductComponent implements OnInit {
     }
   }
 
-  onSubmit() {
+  handleMainPhoto(files: FileList) {
+    if (files.length) {
+      // TODO : Open Loader
+      this.fileService.getBase64StringFromFile(files[0]).subscribe(base64String => {
+        this.product.photos.push(new PhotoDTO({
+          base64String: base64String,
+          isMainPhoto: true,
+        }));
+      }, error => { console.log(error); }, () => {
+        // TODO : Close Loader
+      });
+    }
 
+  }
+
+  onSubmit() {
+    this.productService.AddProduct([this.product]).subscribe(data => { console.log(data); });
   }
 }

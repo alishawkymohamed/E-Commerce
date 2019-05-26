@@ -74,6 +74,7 @@ namespace EnterpriseApplication
 
             services.AddSwaggerGen(action =>
             {
+                action.EnableAnnotations();
                 action.SwaggerGeneratorOptions = new Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorOptions()
                 {
                     OperationIdSelector = x => x.ActionDescriptor.AttributeRouteInfo.Template.Replace('{', '_').Replace('}', '_')

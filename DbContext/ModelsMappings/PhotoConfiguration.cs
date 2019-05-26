@@ -10,6 +10,7 @@ namespace DbContexts.ModelsMappings
         {
             entity.HasKey(x => x.PhotoId);
             entity.HasIndex(x => x.Path).IsUnique();
+            entity.HasIndex(x => x.UniqueName).IsUnique();
             entity.Property(x => x.IsMainPhoto).HasDefaultValue(false);
             entity.Property(x => x.IsRealPhoto).HasDefaultValue(false);
             entity.Property(x => x.IsCommercialPhoto).HasDefaultValue(false);
