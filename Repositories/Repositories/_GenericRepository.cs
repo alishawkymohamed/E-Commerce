@@ -71,7 +71,7 @@ namespace Repositories.Repositories
 
         public virtual IEnumerable<TDbEntity> Insert(IEnumerable<TDbEntity> Entities)
         {
-            int RecordsInserted;
+            int InsertedRecords;
             foreach (TDbEntity Entity in Entities)
             {
                 if (typeof(IAuditableInsert).IsAssignableFrom(Entity.GetType()))
@@ -83,13 +83,14 @@ namespace Repositories.Repositories
             }
             try
             {
-                RecordsInserted = _Context.SaveChanges();
+                InsertedRecords = _Context.SaveChanges();
+                return Entities;
             }
             catch (Exception ex)
             {
+                return null;
                 throw ex;
             }
-            return RecordsInserted == Entities.Count() ? Entities : null;
         }
 
         public virtual IEnumerable<object> Delete(IEnumerable<object> Ids)

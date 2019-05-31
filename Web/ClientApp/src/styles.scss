@@ -25,6 +25,18 @@ button {
   flex-grow: 0 !important;
 }
 
+button:disabled,
+input:disabled {
+  cursor: default !important;
+}
+
+.invalid-input-error-message {
+  width: 100%;
+  margin-top: .25rem;
+  font-size: 80%;
+  color: #dc3545;
+}
+
 .footer,
 .push {
   height: 50px;

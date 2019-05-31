@@ -12,7 +12,9 @@ import { ToastModule } from 'primeng/toast';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { NumericDirective } from './_directives/only-number.directive';
 @NgModule({
+  declarations: [NumericDirective],
   exports: [
     CommonModule,
     TranslateModule,
@@ -26,7 +28,8 @@ import { RadioButtonModule } from 'primeng/radiobutton';
     RadioButtonModule,
     ToastModule,
     DynamicDialogModule,
-    DropdownModule
+    DropdownModule,
+    NumericDirective
   ]
 })
-export class SharedModule {}
+export class SharedModule { }

@@ -41,13 +41,13 @@
     <div class="col">
       <div class="form-group">
         <label for="Price">{{'Price' | translate}}</label>
-        <input type="text" class="form-control" id="Price" name="productPrice" required [(ngModel)]="product.price" #productPrice="ngModel">
+        <input numeric numericType="decimal" type="text" class="form-control" id="Price" name="productPrice" required [(ngModel)]="product.price" #productPrice="ngModel">
       </div>
     </div>
     <div class="col">
       <div class="form-group">
         <label for="Deduction">{{'Deduction' | translate}}</label>
-        <input type="number" min="0" max="100" class="form-control" id="Deduction" name="productDeduction" [(ngModel)]="product.deduction" #productDeduction="ngModel">
+        <input numeric numericType="decimal" type="text" class="form-control" id="Deduction" name="productDeduction" [(ngModel)]="product.deduction" #productDeduction="ngModel">
       </div>
     </div>
   </div>
@@ -94,7 +94,7 @@
               </div>
             </div>
             <div class="col col-lg-1" style="display: flex;justify-content: center;align-items: center;">
-              <a style="color: darkred;cursor: pointer;" (click)="removeSpec(i)"><i class="pi pi-trash"></i></a>
+              <a style="color: darkred;cursor: pointer;margin-top: 20px;" (click)="removeSpec(i)"><i class="pi pi-trash"></i></a>
             </div>
           </div>
         </div>
@@ -103,8 +103,31 @@
   </div>
 
   <div class="row">
-    <input type="file" id="productMainPhoto" multiple="false" (change)="handleMainPhoto($event.target.files)" />
+    <div class="form-group">
+      <label for="productMainPhoto">{{'MainPhoto' | translate}}</label>
+      <input required type="file" id="productMainPhoto" multiple="false" (change)="handleMainPhoto($event.target.files)" />
+    </div>
   </div>
 
-  <button type="submit">Submit</button>
+  <div class="row">
+    <div class="form-group">
+      <label for="productCommercialPhotos">{{'CommercialPhotos' | translate}}</label>
+      <input type="file" id="productCommercialPhotos" #productCommercialPhotos multiple="true" (change)="handleCommercialPhotos($event.target.files)" />
+      <div class="invalid-input-error-message" *ngIf="productCommercialPhotos.files.length > 5">
+        {{'Max5Photos' | translate}}
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="form-group">
+      <label for="productRealPhotos">{{'RealPhotos' | translate}}</label>
+      <input type="file" id="productRealPhotos" #productRealPhotos multiple="true" (change)="handleRealPhotos($event.target.files)" />
+      <div class="invalid-input-error-message" *ngIf="productRealPhotos.files.length > 5">
+        {{'Max5Photos' | translate}}
+      </div>
+    </div>
+  </div>
+
+  <button [disabled]="!productForm.form.valid" class="btn btn-primary form-submit-button" type="submit">{{'Save' | translate}}</button>
 </form>

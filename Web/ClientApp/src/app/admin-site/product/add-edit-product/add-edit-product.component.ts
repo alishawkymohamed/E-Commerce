@@ -81,16 +81,56 @@ export class AddEditProductComponent implements OnInit {
       this.fileService.getBase64StringFromFile(files[0]).subscribe(base64String => {
         this.product.photos.push(new PhotoDTO({
           base64String: base64String,
-          isMainPhoto: true,
+          isCommercialPhoto: false,
+          extension: this.getFileExtension(files[0])
         }));
       }, error => { console.log(error); }, () => {
         // TODO : Close Loader
       });
     }
+  }
 
+  handleCommercialPhotos(files: FileList) {
+    if (files.length) {
+      // TODO : Open Loader
+      Array.from(files).forEach(file => {
+        this.fileService.getBase64StringFromFile(file).subscribe(base64String => {
+          this.product.photos.push(new PhotoDTO({
+            base64String: base64String,
+            isCommercialPhoto: true,
+            extension: this.getFileExtension(file)
+          }));
+        }, error => { console.log(error); }, () => {
+          // TODO : Close Loader
+        });
+      });
+    }
+  }
+
+  handleRealPhotos(files: FileList) {
+    if (files.length) {
+      // TODO : Open Loader
+      Array.from(files).forEach(file => {
+        this.fileService.getBase64StringFromFile(file).subscribe(base64String => {
+          this.product.photos.push(new PhotoDTO({
+            base64String: base64String,
+            isRealPhoto: true,
+            extension: this.getFileExtension(file)
+          }));
+        }, error => { console.log(error); }, () => {
+          // TODO : Close Loader
+        });
+      });
+    }
   }
 
   onSubmit() {
     this.productService.AddProduct([this.product]).subscribe(data => { console.log(data); });
+  }
+
+  private getFileExtension(file: File): string {
+    const name = file.name;
+    const lastDot = name.lastIndexOf('.');
+    return name.substring(lastDot + 1);
   }
 }

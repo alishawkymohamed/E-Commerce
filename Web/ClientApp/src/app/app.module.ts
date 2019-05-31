@@ -29,6 +29,7 @@ import {
 import { environment } from 'src/environments/environment';
 import { InterceptorService } from './_services/swagger/interceptor.service';
 import { FileService } from './Utility/app.file.helper';
+import { NumericDirective } from './_directives/only-number.directive';
 
 export function createTranslateLoader(handler: HttpBackend) {
   const http = new HttpClient(handler);

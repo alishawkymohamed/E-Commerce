@@ -5716,7 +5716,9 @@ export interface IDataSourceResultOfPhotoDTO {
 export class PhotoDTO implements IPhotoDTO {
     photoId?: number | undefined;
     base64String?: string | undefined;
+    extension?: string | undefined;
     path?: string | undefined;
+    uniqueName?: string | undefined;
     isMainPhoto?: boolean | undefined;
     isRealPhoto?: boolean | undefined;
     isCommercialPhoto?: boolean | undefined;
@@ -5735,7 +5737,9 @@ export class PhotoDTO implements IPhotoDTO {
         if (data) {
             this.photoId = data["PhotoId"];
             this.base64String = data["Base64String"];
+            this.extension = data["Extension"];
             this.path = data["Path"];
+            this.uniqueName = data["UniqueName"];
             this.isMainPhoto = data["IsMainPhoto"];
             this.isRealPhoto = data["IsRealPhoto"];
             this.isCommercialPhoto = data["IsCommercialPhoto"];
@@ -5754,7 +5758,9 @@ export class PhotoDTO implements IPhotoDTO {
         data = typeof data === 'object' ? data : {};
         data["PhotoId"] = this.photoId;
         data["Base64String"] = this.base64String;
+        data["Extension"] = this.extension;
         data["Path"] = this.path;
+        data["UniqueName"] = this.uniqueName;
         data["IsMainPhoto"] = this.isMainPhoto;
         data["IsRealPhoto"] = this.isRealPhoto;
         data["IsCommercialPhoto"] = this.isCommercialPhoto;
@@ -5766,7 +5772,9 @@ export class PhotoDTO implements IPhotoDTO {
 export interface IPhotoDTO {
     photoId?: number | undefined;
     base64String?: string | undefined;
+    extension?: string | undefined;
     path?: string | undefined;
+    uniqueName?: string | undefined;
     isMainPhoto?: boolean | undefined;
     isRealPhoto?: boolean | undefined;
     isCommercialPhoto?: boolean | undefined;

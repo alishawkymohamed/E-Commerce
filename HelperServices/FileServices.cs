@@ -49,11 +49,18 @@ namespace HelperServices
             }
         }
 
-        public void SaveFile(string fileName, byte[] content)
+        public string SaveFile(string fileName, string extension, byte[] content)
         {
             //var subDirectory = fileName.Substring(0, 2);
             DirectoryInfo directory = Directory.CreateDirectory(_RootPath); // Directory.CreateDirectory(Path.Combine(_RootPath, subDirectory));
-            File.WriteAllBytes(Path.Combine(directory.FullName, fileName), content);
+            string fullPath = Path.Combine(directory.FullName, fileName + "." + extension);
+            File.WriteAllBytes(fullPath, content);
+            return fullPath;
+        }
+
+        public string SaveFile(string fileName, string extension, string base46)
+        {
+            return SaveFile(fileName, extension, Convert.FromBase64String(base46));
         }
 
         public byte[] GetFileContent(string fileName)

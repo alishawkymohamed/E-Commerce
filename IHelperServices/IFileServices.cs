@@ -4,7 +4,9 @@
     {
         string GetFileMimeType(byte[] content);
 
-        void SaveFile(string fileName, byte[] content);
+        string SaveFile(string fileName, string extension, byte[] content);
+
+        string SaveFile(string fileName, string extension, string base64);
 
         byte[] GetFileContent(string fileName);
 
