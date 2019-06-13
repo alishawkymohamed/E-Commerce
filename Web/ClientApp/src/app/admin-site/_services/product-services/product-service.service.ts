@@ -35,4 +35,8 @@ export class ProductService {
             );
         }
     }
+
+    DeleteProduct(productId: number) {
+        return this.swagger.api_Product_Delete([productId]);
+    }
 }

@@ -1,4 +1,4 @@
-<div class="a-category-table-container">
+<div class="a-common-table-container">
   <div style="display: flex;justify-content: space-between;margin-bottom: 20px;">
     <h2>{{ 'SubCategories' | translate }}</h2>
     <button (click)="showAddEditComponent(null)" class="btn btn-info">
@@ -50,7 +50,6 @@
             {{ 'Update' | translate }}
             <span class="pi pi-clone"></span>
           </button>
-          <!-- <button class="btn btn-danger" (click)="DeleteCategory(cat.categoryId)">{{'Delete' | translate}} -->
           <button class="btn btn-danger" (click)="confirmDelete(cat.subCategoryId)">
             {{ 'Delete' | translate }}
             <span class="pi pi-trash"></span>

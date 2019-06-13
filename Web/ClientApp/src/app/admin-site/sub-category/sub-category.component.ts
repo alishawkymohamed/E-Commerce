@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import {
   SubCategoryDTO,
   Lookup
@@ -17,7 +17,8 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-sub-category',
   templateUrl: './sub-category.component.html',
-  styleUrls: ['./sub-category.component.scss']
+  styleUrls: ['./sub-category.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class SubCategoryComponent implements OnInit {
   allSubCategories: SubCategoryDTO[];
