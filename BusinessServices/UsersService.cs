@@ -141,7 +141,7 @@ namespace BusinessServices.AuthenticationServices
                 return AuthTicket;
 
             bool IsArabic = CultureInfo.CurrentCulture.IsArabic();
-            User AuthUser = _users.GetAll(x => x.Username.ToUpper() == userName.ToUpper(), false, "UserRoles").FirstOrDefault();
+            User AuthUser = _users.GetAll(false, "UserRoles").Where(x => x.Username.ToUpper() == userName.ToUpper()).FirstOrDefault();
             if (AuthUser != null)
             {
                 if (!AuthUser.Enabled)
@@ -238,7 +238,7 @@ namespace BusinessServices.AuthenticationServices
 
         public UserDetailsDTO GetByUserName(string Username)
         {
-            int? UserId = _users.GetAll(x => x.Username.ToUpper() == Username.ToUpper(), false)?.SingleOrDefault().UserId;
+            int? UserId = _users.GetAll()?.SingleOrDefault(x => x.Username.ToUpper() == Username.ToUpper())?.UserId;
             if (UserId > 0)
                 return GetDetails(UserId);
             return null;

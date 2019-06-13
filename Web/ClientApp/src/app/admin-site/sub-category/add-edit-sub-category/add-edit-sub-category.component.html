@@ -13,7 +13,6 @@
   </div>
   <div class="form-group">
     <label for="category">{{'Category' | translate}}</label>
-    <!-- <input type="text" class="form-control" id="NameEn" name="subCategoryNameEn" required [(ngModel)]="subCategory.subCategoryNameEn" #categoryNameEn="ngModel"> -->
     <p-dropdown id="category" name="category" required placeholder="{{'Category' | translate}}" [options]="CategoriesLookup" [(ngModel)]="subCategory.categoryId" filter="true"></p-dropdown>
   </div>
   <button [disabled]="!categoryForm.form.valid" type="submit" class="btn btn-primary form-submit-button">{{'Save' | translate}}</button>

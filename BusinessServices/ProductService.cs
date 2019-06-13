@@ -1,13 +1,17 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using HelperServices;
+using HelperServices.LinqHelpers;
 using IBusinessServices;
 using IHelperServices;
 using IRepositories;
+using LinqHelper;
 using Microsoft.Extensions.Localization;
 using Models.DbModels;
 using Models.DTOs;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BusinessServices
@@ -44,6 +48,13 @@ namespace BusinessServices
                 return null;
                 throw ex;
             }
+        }
+
+        public DataSourceResult<ProductDTO> GetAllOfSubCategory(int subCategoryId, DataSourceRequest dataSourceRequest, bool WithTracking = true)
+        {
+            return base._UnitOfWork.Repository<Product>().GetAll().Where(x => x.SubCategoryId == subCategoryId)
+                .ProjectTo<ProductDTO>(_Mapper.ConfigurationProvider, _SessionServices)
+                .ToDataSourceResult(dataSourceRequest);
         }
     }
 }

@@ -30,7 +30,11 @@ const routes: Routes = [
   {
     path: 'product',
     component: ProductComponent,
-    data: { RoleCode: 'Admin' }
+    data: { RoleCode: 'Admin' },
+    resolve: {
+      CategoryLookup: CategoryLookupResolver,
+      SubCategoryLookup: SubCategoryLookupResolver
+    }
   },
   {
     path: 'product/add',

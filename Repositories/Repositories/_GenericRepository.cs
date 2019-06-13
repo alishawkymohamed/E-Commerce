@@ -18,7 +18,7 @@ namespace Repositories.Repositories
     public class _GenericRepository<TDbEntity> : _IGenericRepository<TDbEntity> where TDbEntity : _BaseEntity
     {
         protected readonly MainDbContext _Context;
-        public readonly DbSet<TDbEntity> _DbSet;
+        protected readonly DbSet<TDbEntity> _DbSet;
         protected readonly ISessionServices _SessionServices;
 
         public _GenericRepository(MainDbContext mainDbContext, ISessionServices sessionServices)
@@ -28,33 +28,10 @@ namespace Repositories.Repositories
             _DbSet = _Context.Set<TDbEntity>();
         }
 
-        public virtual IQueryable<TDbEntity> GetAll(Expression<Func<TDbEntity, bool>> expression, bool WithTracking = true, params string[] Includes)
+        public virtual IQueryable<TDbEntity> GetAll(bool WithTracking = true, params string[] Includes)
         {
             DbSet<TDbEntity> Query = _DbSet;
-            if (WithTracking)
-            {
-                if (expression != null)
-                    Query.Where(expression).AsQueryable();
-                else
-                    Query.AsQueryable();
-            }
-            else
-            {
-                if (expression != null)
-                    Query.AsNoTracking().Where(expression).AsQueryable();
-                else
-                    Query.AsNoTracking().AsQueryable();
-            }
-
-            if (Includes != null && Includes.Count() > 0)
-            {
-                foreach (string include in Includes)
-                {
-                    Query.Include(include);
-                }
-            }
-
-            return Query.AsQueryable();
+            return WithTracking ? Query.AsQueryable() : Query.AsNoTracking().AsQueryable();
         }
 
         public virtual TDbEntity GetById(object Id, bool WithTracking = true)

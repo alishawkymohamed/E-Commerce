@@ -2019,6 +2019,97 @@ export class SwaggerClient {
     }
 
     /**
+     * @param subCategoryId (optional) 
+     * @param take (optional) 
+     * @param skip (optional) 
+     * @param sort (optional) 
+     * @param filter_Field (optional) 
+     * @param filter_Operator (optional) 
+     * @param filter_Value (optional) 
+     * @param filter_Logic (optional) 
+     * @param filter_Filters (optional) 
+     * @param countless (optional) 
+     * @return Success
+     */
+    api_Product_GetAllOfSubCategory(subCategoryId: number | null | undefined, take: number | null | undefined, skip: number | null | undefined, sort: any[] | null | undefined, filter_Field: string | null | undefined, filter_Operator: string | null | undefined, filter_Value: string | null | undefined, filter_Logic: string | null | undefined, filter_Filters: any[] | null | undefined, countless: boolean | null | undefined): Observable<DataSourceResultOfProductDTO> {
+        let url_ = this.baseUrl + "/api/Product/GetAllOfSubCategory?";
+        if (subCategoryId !== undefined)
+            url_ += "subCategoryId=" + encodeURIComponent("" + subCategoryId) + "&"; 
+        if (take !== undefined)
+            url_ += "Take=" + encodeURIComponent("" + take) + "&"; 
+        if (skip !== undefined)
+            url_ += "Skip=" + encodeURIComponent("" + skip) + "&"; 
+        if (sort !== undefined)
+            sort && sort.forEach((item, index) => { 
+                for (let attr in item)
+        			if (item.hasOwnProperty(attr)) {
+        				url_ += "Sort[" + index + "]." + attr + "=" + encodeURIComponent("" + (<any>item)[attr]) + "&";
+        			}
+            });
+        if (filter_Field !== undefined)
+            url_ += "Filter.Field=" + encodeURIComponent("" + filter_Field) + "&"; 
+        if (filter_Operator !== undefined)
+            url_ += "Filter.Operator=" + encodeURIComponent("" + filter_Operator) + "&"; 
+        if (filter_Value !== undefined)
+            url_ += "Filter.Value=" + encodeURIComponent("" + filter_Value) + "&"; 
+        if (filter_Logic !== undefined)
+            url_ += "Filter.Logic=" + encodeURIComponent("" + filter_Logic) + "&"; 
+        if (filter_Filters !== undefined)
+            filter_Filters && filter_Filters.forEach((item, index) => { 
+                for (let attr in item)
+        			if (item.hasOwnProperty(attr)) {
+        				url_ += "Filter.Filters[" + index + "]." + attr + "=" + encodeURIComponent("" + (<any>item)[attr]) + "&";
+        			}
+            });
+        if (countless !== undefined)
+            url_ += "Countless=" + encodeURIComponent("" + countless) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processApi_Product_GetAllOfSubCategory(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processApi_Product_GetAllOfSubCategory(<any>response_);
+                } catch (e) {
+                    return <Observable<DataSourceResultOfProductDTO>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<DataSourceResultOfProductDTO>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processApi_Product_GetAllOfSubCategory(response: HttpResponseBase): Observable<DataSourceResultOfProductDTO> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 ? DataSourceResultOfProductDTO.fromJS(resultData200) : new DataSourceResultOfProductDTO();
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<DataSourceResultOfProductDTO>(<any>null);
+    }
+
+    /**
      * @param take (optional) 
      * @param skip (optional) 
      * @param sort (optional) 

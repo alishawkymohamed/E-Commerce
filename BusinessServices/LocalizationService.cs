@@ -21,7 +21,7 @@ namespace BusinessServices
         {
             //var list = _mainDbContext.Localizations.Include(x => x.LocalizationCategory).AsNoTracking().ToList();
             //var result = "{" + string.Join(", ", list.GroupBy(x => x.LocalizationCategory).Select(x => "\"" + x.Key.Code + "\":{" + string.Join(", ", x.Select(s => "\"" + s.Key + "\":\"" + s.Value + "\"")) + "}")) + "}";
-            var list = _UnitOfWork.Repository<Localization>().GetAll(null, false).Select(x => new { x.Key, x.Value }).ToList();
+            var list = _UnitOfWork.Repository<Localization>().GetAll(false).Select(x => new { x.Key, x.Value }).ToList();
             StringBuilder resultx = new StringBuilder("{");
             foreach (var x in list)
             {
@@ -34,8 +34,8 @@ namespace BusinessServices
 
         public DateTime GetLastLocalizationUpdateTime()
         {
-            return DateTime.Parse(_UnitOfWork.Repository<Localization>().GetAll(null, false).Select(x => x.CreatedOn)
-                .Union(_UnitOfWork.Repository<Localization>().GetAll(null, false).Select(x => x.UpdatedOn)).Max().GetValueOrDefault().ToString());
+            return DateTime.Parse(_UnitOfWork.Repository<Localization>().GetAll(false).Select(x => x.CreatedOn)
+                .Union(_UnitOfWork.Repository<Localization>().GetAll(false).Select(x => x.UpdatedOn)).Max().GetValueOrDefault().ToString());
         }
     }
 }

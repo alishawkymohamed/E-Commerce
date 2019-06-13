@@ -6,6 +6,15 @@
       <span class="pi pi-plus"></span>
     </button>
   </div>
+
+  <div class="row">
+    <div class="col-md-3">
+      <p-dropdown id="category" name="category" placeholder="{{'Category' | translate}}" [options]="categoriesSelectItems" [(ngModel)]="selectedCategory" filter="true" (onChange)="CategoryChanged()"></p-dropdown>
+    </div>
+    <div class="col-md-3">
+      <p-dropdown [disabled]="!selectedCategory" id="subCategory" name="subCategory" placeholder="{{'SubCategory' | translate}}" (onChange)="SubCategoryChanged()" [options]="subCategoriesSelectItems" [(ngModel)]="selectedSubCategory" filter="true"></p-dropdown>
+    </div>
+  </div>
 </div>
 
 <p-confirmDialog header="{{ 'DeleteConfirmation' | translate }}" message="{{ 'WantDelete' | translate }}" acceptLabel="{{ 'Yes' | translate }}" rejectLabel="{{ 'No' | translate }}" [style]="{ width: '50vw' }"></p-confirmDialog>

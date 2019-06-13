@@ -71,7 +71,8 @@ namespace DbContexts.ModelsMappings
                   new Localization { LocalizationId = 57, Key = "Value", ValueAr = "القيمة", ValueEn = "Value" },
                   new Localization { LocalizationId = 58, Key = "ValueAr", ValueAr = "القيمة بالعربي", ValueEn = "Arabic Value" },
                   new Localization { LocalizationId = 59, Key = "ValueEn", ValueAr = "القيمة بالإنجليزي", ValueEn = "English Value" },
-                  new Localization { LocalizationId = 60, Key = "Max5Photos", ValueAr = "يمكن رفع 5 صور بحد أقصي", ValueEn = "Max 5 Photos" }
+                  new Localization { LocalizationId = 60, Key = "Max5Photos", ValueAr = "يمكن رفع 5 صور بحد أقصي", ValueEn = "Max 5 Photos" },
+                  new Localization { LocalizationId = 61, Key = "All", ValueAr = "الكل", ValueEn = "All" }
                   );
         }
     }

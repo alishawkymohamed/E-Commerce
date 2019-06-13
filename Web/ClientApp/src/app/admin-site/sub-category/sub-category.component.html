@@ -1,36 +1,21 @@
 <div class="a-category-table-container">
-  <div
-    style="display: flex;justify-content: space-between;margin-bottom: 20px;"
-  >
+  <div style="display: flex;justify-content: space-between;margin-bottom: 20px;">
     <h2>{{ 'SubCategories' | translate }}</h2>
     <button (click)="showAddEditComponent(null)" class="btn btn-info">
       {{ 'Create' | translate }}
       <span class="pi pi-plus"></span>
     </button>
   </div>
-  <p-table
-    *ngIf="allSubCategories && allSubCategories.length"
-    #dt
-    [value]="allSubCategories"
-    [paginator]="true"
-    [rows]="10"
-    [globalFilterFields]="[
+  <p-table *ngIf="allSubCategories && allSubCategories.length" #dt [value]="allSubCategories" [paginator]="true" [rows]="10" [globalFilterFields]="[
       'subCategoryCode',
       'subCategoryNameAr',
       'subCategoryNameEn',
       'category.categoryName'
-    ]"
-  >
+    ]">
     <ng-template pTemplate="caption">
       <div class="input-group" style="text-align: right">
         <i class="fa fa-search a-global-search-icon"></i>
-        <input
-          type="text"
-          size="50"
-          placeholder="{{ 'GlobalFilter' | translate }}"
-          (input)="dt.filterGlobal($event.target.value, 'contains')"
-          class="a-global-search"
-        />
+        <input type="text" size="50" placeholder="{{ 'GlobalFilter' | translate }}" (input)="dt.filterGlobal($event.target.value, 'contains')" class="a-global-search" />
       </div>
     </ng-template>
     <ng-template pTemplate="header">
@@ -66,10 +51,7 @@
             <span class="pi pi-clone"></span>
           </button>
           <!-- <button class="btn btn-danger" (click)="DeleteCategory(cat.categoryId)">{{'Delete' | translate}} -->
-          <button
-            class="btn btn-danger"
-            (click)="confirmDelete(cat.subCategoryId)"
-          >
+          <button class="btn btn-danger" (click)="confirmDelete(cat.subCategoryId)">
             {{ 'Delete' | translate }}
             <span class="pi pi-trash"></span>
           </button>
@@ -79,10 +61,4 @@
   </p-table>
 </div>
 
-<p-confirmDialog
-  header="{{ 'DeleteConfirmation' | translate }}"
-  message="{{ 'WantDelete' | translate }}"
-  acceptLabel="{{ 'Yes' | translate }}"
-  rejectLabel="{{ 'No' | translate }}"
-  [style]="{ width: '50vw' }"
-></p-confirmDialog>
+<p-confirmDialog header="{{ 'DeleteConfirmation' | translate }}" message="{{ 'WantDelete' | translate }}" acceptLabel="{{ 'Yes' | translate }}" rejectLabel="{{ 'No' | translate }}" [style]="{ width: '50vw' }"></p-confirmDialog>

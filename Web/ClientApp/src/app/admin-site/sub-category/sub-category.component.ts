@@ -26,7 +26,7 @@ export class SubCategoryComponent implements OnInit {
     private subcategoryService: SubCategoryService,
     private translateService: TranslateService,
     private toastService: MessageService,
-    public dialogService: DialogService,
+    private dialogService: DialogService,
     private confirmationService: ConfirmationService,
     private route: ActivatedRoute
   ) { }

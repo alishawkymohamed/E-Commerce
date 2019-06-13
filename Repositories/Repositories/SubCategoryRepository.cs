@@ -1,10 +1,8 @@
-﻿using System;
-using System.Linq;
-using System.Linq.Expressions;
-using DbContexts.DatabaseExtensions;
+﻿using DbContexts.DatabaseExtensions;
 using IHelperServices;
 using IRepositories.IRepositories;
 using Models.DbModels;
+using System.Linq;
 
 namespace Repositories.Repositories
 {
@@ -14,9 +12,9 @@ namespace Repositories.Repositories
         {
         }
 
-        public override IQueryable<SubCategory> GetAll(Expression<Func<SubCategory, bool>> expression, bool WithTracking = true, params string[] Includes)
+        public override IQueryable<SubCategory> GetAll(bool WithTracking = true, params string[] Includes)
         {
-            return base.GetAll(expression, WithTracking, "Category");
+            return base.GetAll(WithTracking, "Category");
         }
     }
 }

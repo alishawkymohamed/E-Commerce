@@ -72,7 +72,7 @@ namespace BusinessServices.AuthenticationServices
                                                where role.RoleName == roleName
                                                from user in role.UserRoles
                                                select user.UserId;
-            return _users.GetAll(user => roleUserIdsQuery.Contains(user.UserId))
+            return _users.GetAll().Where(user => roleUserIdsQuery.Contains(user.UserId))
                          .ToListAsync();
         }
     }

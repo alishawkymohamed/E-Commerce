@@ -1,9 +1,9 @@
 ﻿using IBusinessServices;
 using IHelperServices;
+using LinqHelper;
 using Microsoft.AspNetCore.Mvc;
 using Models.DbModels;
 using Models.DTOs;
-using System.Collections.Generic;
 
 namespace WebApi
 {
@@ -14,6 +14,13 @@ namespace WebApi
         public ProductController(IProductService businessService, ISessionServices sessionSevices) : base(businessService, sessionSevices)
         {
             _productService = businessService;
+        }
+
+        [HttpGet, Route("GetAllOfSubCategory")]
+        public DataSourceResult<ProductDTO> GetAllOfSubCategory([FromQuery]int subCategoryId, [FromQuery]DataSourceRequest dataSourceRequest)
+        {
+            var sub = HttpContext.Request;
+            return _productService.GetAllOfSubCategory(subCategoryId, dataSourceRequest, false);
         }
     }
 }

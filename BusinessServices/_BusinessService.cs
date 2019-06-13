@@ -43,12 +43,7 @@ namespace BusinessServices
 
         public virtual DataSourceResult<T> GetAll<T>(DataSourceRequest dataSourceRequest, bool WithTracking = true)
         {
-            IQueryable query = _UnitOfWork.Repository<TDbEntity>().GetAll(null, WithTracking);
-            // Global Query Filter Added
-            //if (typeof(IAuditableDelete).IsAssignableFrom(typeof(TDbEntity)))
-            //{
-            //    query = query.Where(x => !((IAuditableDelete)x).DeletedOn.HasValue);
-            //}
+            IQueryable query = _UnitOfWork.Repository<TDbEntity>().GetAll( WithTracking);
             if (typeof(TDbEntity) == typeof(T))
                 return query.Cast<T>().ToDataSourceResult(dataSourceRequest);
             else

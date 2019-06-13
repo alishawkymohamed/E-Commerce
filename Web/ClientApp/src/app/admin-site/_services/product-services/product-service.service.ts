@@ -9,4 +9,30 @@ export class ProductService {
     AddProduct(products: ProductDTO[]) {
         return this.swagger.api_Product_Insert(products);
     }
+
+    GetAllProducts(subCategoryId: number) {
+        if (subCategoryId) {
+            return this.swagger.api_Product_GetAllOfSubCategory(subCategoryId, undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined);
+        } else {
+            return this.swagger.api_Product_GetAll(
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined,
+                undefined
+            );
+        }
+    }
 }

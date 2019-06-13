@@ -84,7 +84,7 @@ namespace BusinessServices.AuthenticationServices
         public void DeleteExpiredTokensAsync()
         {
             DateTimeOffset now = DateTimeOffset.UtcNow;
-            IQueryable<Models.DbModels.UserToken> ExpiredTokens = _tokens.GetAll(x => x.RefreshTokenExpiresDateTime < now);
+            IQueryable<Models.DbModels.UserToken> ExpiredTokens = _tokens.GetAll().Where(x => x.RefreshTokenExpiresDateTime < now);
             if (ExpiredTokens != null && ExpiredTokens.Count() > 0)
                 _tokens.Delete(ExpiredTokens);
         }
@@ -103,7 +103,7 @@ namespace BusinessServices.AuthenticationServices
             if (string.IsNullOrWhiteSpace(refreshTokenIdHashSource))
                 return;
 
-            IQueryable<Models.DbModels.UserToken> ToBeDeletedTokens = _tokens.GetAll(t => t.RefreshTokenIdHashSource == refreshTokenIdHashSource);
+            IQueryable<Models.DbModels.UserToken> ToBeDeletedTokens = _tokens.GetAll().Where(t => t.RefreshTokenIdHashSource == refreshTokenIdHashSource);
             if (ToBeDeletedTokens != null && ToBeDeletedTokens.Count() > 0)
                 _tokens.Delete(ToBeDeletedTokens);
         }
@@ -133,13 +133,13 @@ namespace BusinessServices.AuthenticationServices
                 return null;
             }
             string refreshTokenIdHash = _securityService.GetSha256Hash(refreshToken);
-            IQueryable<UserToken> All = _tokens.GetAll(x => x.RefreshTokenIdHash == refreshTokenIdHash);
+            IQueryable<UserToken> All = _tokens.GetAll().Where(x => x.RefreshTokenIdHash == refreshTokenIdHash);
             return await All.Include(x => x.User).FirstOrDefaultAsync();
         }
 
         public void InvalidateUserTokens(int userId)
         {
-            IQueryable<Models.DbModels.UserToken> UserTokens = _tokens.GetAll(x => x.UserId == userId);
+            IQueryable<Models.DbModels.UserToken> UserTokens = _tokens.GetAll().Where(x => x.UserId == userId);
             if (UserTokens != null && UserTokens.Count() > 0)
                 _tokens.Delete(UserTokens);
         }
@@ -147,7 +147,7 @@ namespace BusinessServices.AuthenticationServices
         public async Task<bool> IsValidTokenAsync(string accessToken, int userId)
         {
             string accessTokenHash = _securityService.GetSha256Hash(accessToken);
-            UserToken userToken = await _tokens.GetAll(x => x.AccessTokenHash == accessTokenHash && x.UserId == userId).FirstOrDefaultAsync();
+            UserToken userToken = await _tokens.GetAll().Where(x => x.AccessTokenHash == accessTokenHash && x.UserId == userId).FirstOrDefaultAsync();
             return userToken == null ? false : userToken.AccessTokenExpiresDateTime >= DateTimeOffset.UtcNow;
         }
 
